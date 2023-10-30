@@ -18,7 +18,7 @@ const getData = async (path) => {
 export default async function Title({ params }) {
   const data = await getData(params.title);
   return (
-    <div>
+    <div className="w-full">
       <PreviewBody
         imgSrc={data.imgSrc}
         title={data.title}

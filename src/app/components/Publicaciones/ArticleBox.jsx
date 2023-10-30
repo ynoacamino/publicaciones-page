@@ -6,12 +6,12 @@ import {
 import Link from 'next/link';
 
 export default function ArticleBox({
-  imgSrc, date, title, author, id, seccion, path,
+  imgSrc, date, title, author, seccion, path,
 }) {
   return (
     <article>
       <Card className="max-w-[400px] min-w-[150px]">
-        <Link href={`/publicaciones/${seccion.toLowerCase()}/${id}`}>
+        <Link href={`/publicaciones/${seccion.toLowerCase()}/${path}`}>
           <CardHeader className="flex">
             <img
               alt="logo"

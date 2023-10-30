@@ -52,7 +52,7 @@ export default function PublicationsTabs({ articleArticulo, articleJuris }) {
               ))}
             </div>
             <div className="w-full flex justify-center items-center my-10">
-              <ButtonLink path="/publicaciones/articulos/page/1">
+              <ButtonLink path="/publicaciones/articulo/page/1">
                 Ver mas
               </ButtonLink>
             </div>

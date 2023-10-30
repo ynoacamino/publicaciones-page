@@ -121,7 +121,7 @@ export default function AddArticle() {
           variant="bordered"
           onChange={(e) => {
             if (e.target.value == '$.0') return setSeccion('jurisprudencia');
-            if (e.target.value == '$.1') return setSeccion('articulos');
+            if (e.target.value == '$.1') return setSeccion('articulo');
             return setSeccion('');
           }}
           isRequired
