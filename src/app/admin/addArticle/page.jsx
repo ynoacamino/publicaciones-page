@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import {
   Textarea, Divider, Select, SelectItem, Button,
 } from '@nextui-org/react';
-import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function AddArticle() {
   const { status } = useSession();
@@ -14,7 +14,7 @@ export default function AddArticle() {
 
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [imgSrc, setImgSrc] = useState('');
+  const [img, setImg] = useState(null); // <----------------
   const [seccion, setSeccion] = useState('');
   const [preview, setPreview] = useState('');
   const [titleBody, setTitleBody] = useState('');
@@ -30,8 +30,18 @@ export default function AddArticle() {
 
     const body = bodyTxt.split('<enter>');
 
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('author', author);
+    formData.append('seccion', seccion);
+    formData.append('preview', preview);
+    formData.append('titleBody', titleBody);
+    formData.append('body', body);
+    formData.append('date', date);
+    formData.append('img', img);
+
     try {
-      await axios.post('/api/auth/article', {
+      /* await axios.post('/api/auth/article', {
         title,
         author,
         imgSrc,
@@ -40,10 +50,14 @@ export default function AddArticle() {
         titleBody,
         body,
         date,
+      }); */
+      await fetch('/api/auth/article', {
+        method: 'POST',
+        body: formData,
       });
       router.push('/admin');
     } catch (err) {
-      console.error(err);
+      toast.error('Error al subir los datos');
     }
   };
   return (
@@ -62,18 +76,17 @@ export default function AddArticle() {
           className="max-w-3xl"
           value={title}
           onValueChange={setTitle}
+          isRequired
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
-          Imagen Url
+          Imagen
         </h2>
-        <Textarea
-          variant="bordered"
-          labelPlacement="outside"
-          placeholder="Imagen Url"
-          className="max-w-3xl"
-          value={imgSrc}
-          onValueChange={setImgSrc}
+        <input
+          type="file"
+          onChange={(e) => {
+            setImg(e.target.files[0]);
+          }}
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
@@ -86,6 +99,7 @@ export default function AddArticle() {
           className="max-w-3xl"
           value={author}
           onValueChange={setAuthor}
+          isRequired
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
@@ -100,6 +114,7 @@ export default function AddArticle() {
             if (e.target.value == '$.1') return setSeccion('articulos');
             return setSeccion('');
           }}
+          isRequired
         >
           <SelectItem value="jurisprudencia">
             Jurisprudencia
@@ -119,6 +134,7 @@ export default function AddArticle() {
           className="max-w-3xl"
           value={preview}
           onValueChange={setPreview}
+          isRequired
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
@@ -131,6 +147,7 @@ export default function AddArticle() {
           className="max-w-3xl"
           value={titleBody}
           onValueChange={setTitleBody}
+          isRequired
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
@@ -144,6 +161,7 @@ export default function AddArticle() {
           maxRows={80}
           value={bodyTxt}
           onValueChange={setBodyTxt}
+          isRequired
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
@@ -156,6 +174,7 @@ export default function AddArticle() {
           className="max-w-3xl"
           value={date}
           onValueChange={setDate}
+          isRequired
         />
         <Divider className="my-12" />
 
@@ -165,6 +184,7 @@ export default function AddArticle() {
           </Button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 }

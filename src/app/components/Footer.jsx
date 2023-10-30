@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Divider } from '@nextui-org/react';
 import error from '@/app/assets/error.svg';
 
 export default function Footer() {
@@ -15,12 +16,14 @@ export default function Footer() {
             alt="logo"
             width={70}
             height={70}
+            className="m-4"
           />
           <p className="text-medium">
             El Estudio Pariona Abogados es una firma de abogados especializada
             en Derecho Penal que brinda servicios legales de excelencia.
           </p>
         </div>
+        <Divider className="md:hidden" />
         <div className="flex justify-center items-center">
           <div className="flex flex-col items-start">
             <h2 className="text-lg font-semibold my-4">
@@ -45,6 +48,7 @@ export default function Footer() {
             </ol>
           </div>
         </div>
+        <Divider className="md:hidden" />
         <div className="">
           <h2>CONTACTO</h2>
           <div className="text-medium">

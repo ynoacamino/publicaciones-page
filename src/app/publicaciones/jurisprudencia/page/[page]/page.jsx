@@ -7,6 +7,7 @@ const getData = async (pageNumber) => {
   try {
     dbConnect();
     const articles = await Article.find({ seccion: new RegExp('jurisprudencia', 'i') })
+      .sort({ createdAt: -1 })
       .skip((Number(pageNumber) - 1) * 6)
       .limit(6);
     return articles;

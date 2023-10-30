@@ -3,7 +3,6 @@ import ButtonLink from './ButtonLink';
 export default async function PreviewBody({
   imgSrc, title, seccion, preview,
 }) {
-  // const { data } = await getArticle();
   return (
     <div className="w-full flex relative overflow-hidden justify-center">
       <img

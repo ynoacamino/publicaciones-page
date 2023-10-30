@@ -71,12 +71,12 @@ export default function NavBar() {
       </NavbarContent>
       <NavbarMenu className="text-2xl">
         <NavbarMenuItem>
-          <Link href="/" className="underlineEffect">
+          <Link href="/" className="underlineEffect text-xl font-semibold m-6">
             Sobre nosotros
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
-          <Link href="/publicaciones" className="underlineEffect">
+          <Link href="/publicaciones" className="underlineEffect text-xl  font-semibold m-6">
             Publicaciones
           </Link>
         </NavbarMenuItem>

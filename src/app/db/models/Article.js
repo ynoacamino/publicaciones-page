@@ -39,6 +39,10 @@ const schema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export default mongoose.models.Article || mongoose.model('Article', schema);

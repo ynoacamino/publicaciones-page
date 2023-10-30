@@ -1,4 +1,5 @@
 import './globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 import NextAuth from './providers/NextAuth';
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';

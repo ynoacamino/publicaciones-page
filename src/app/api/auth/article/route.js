@@ -1,9 +1,18 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
+import { v2 as cloudinary } from 'cloudinary';
+import { writeFile } from 'node:fs/promises';
+import path from 'node:path';
 import Article from '@/app/db/models/Article';
 import dbConnect from '@/app/db/dbConnect';
 import { configAuth } from '../[...nextauth]/route';
 import format from '@/app/utils/format';
+
+cloudinary.config({
+  cloud_name: 'dux0sb99g',
+  api_key: process.env.API_KEY_CLOUD,
+  api_secret: process.env.API_SECRET_CLOUD,
+});
 
 export async function POST(req) {
   const session = await getServerSession(configAuth);
@@ -11,28 +20,35 @@ export async function POST(req) {
   if (!session) return NextResponse.json({ error: 'Wrong Credentials' }, { status: 401 });
 
   await dbConnect();
-  const {
-    title,
-    author,
-    imgSrc,
-    seccion,
-    preview,
-    titleBody,
-    body,
-    date,
-  } = await req.json();
+
+  const form = await req.formData();
+
+  const image = form.get('img');
+
+  if (!image) NextResponse.json({ error: 'Nesesita subir una imagen' }, { status: 400 });
 
   const article = new Article({
-    imgSrc,
-    title,
-    author,
-    seccion: seccion.toLowerCase(),
-    preview,
-    body,
-    date,
-    titleBody,
-    path: format(title),
+    imgSrc: ' ',
+    title: form.get('title'),
+    author: form.get('author'),
+    seccion: form.get('seccion'),
+    preview: form.get('preview'),
+    body: form.get('body'),
+    date: form.get('date'),
+    titleBody: form.get('titleBody'),
+    path: format(form.get('title')),
   });
+
+  const bytes = await image.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  const filePath = path.join(process.cwd(), 'public', `${article.id}${path.extname(image.name)}`);
+
+  await writeFile(filePath, buffer);
+
+  const imgData = await cloudinary.uploader.upload(filePath);
+
+  article.imgSrc = imgData.secure_url;
 
   try {
     article.save();
@@ -40,7 +56,7 @@ export async function POST(req) {
     console.error(err);
   }
 
-  return NextResponse.json({ article });
+  return NextResponse.json({ data: 'data' });
 }
 
 export async function PUT(req) {
@@ -88,6 +104,6 @@ export async function PUT(req) {
 
 export async function GET() {
   await dbConnect();
-  const articles = await Article.find({});
+  const articles = await Article.find({}).sort({ createdAt: -1 });
   return NextResponse.json({ articles });
 }

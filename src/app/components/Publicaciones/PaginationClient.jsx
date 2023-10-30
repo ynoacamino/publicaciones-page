@@ -6,7 +6,6 @@ import { useRouter, usePathname } from 'next/navigation';
 export default function PaginationClient({ pages, params }) {
   const router = useRouter();
   const path = usePathname();
-  console.log(path);
   return (
     <div className="w-full flex justify-center items-center">
       <Pagination

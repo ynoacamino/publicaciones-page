@@ -4,14 +4,15 @@ import { useEffect, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Button, Divider } from '@nextui-org/react';
+import { Button, Chip, Divider } from '@nextui-org/react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 import ArticleBox from '../components/Publicaciones/ArticleBox';
 import ButtonLink from '../components/ButtonLink';
 
 export default function Admin() {
   const router = useRouter();
-  const { status, data } = useSession();
+  const { status } = useSession();
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
@@ -19,12 +20,13 @@ export default function Admin() {
   }, [status, router]);
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  useEffect(() => {
     const getData = async () => {
-      const arts = await axios.get('/api/auth/article');
+      let arts;
+      try {
+        arts = await axios.get('/api/auth/article');
+      } catch (err) {
+        toast.error('Error al recuperar los datos');
+      }
       if (arts?.data)setArticles(arts.data.articles);
     };
     getData();
@@ -49,7 +51,10 @@ export default function Admin() {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-around">
           {articles.map((art) => (
-            <div key={art._id.toString()}>
+            <div key={art._id.toString()} className="flex flex-col gap-4">
+              <Chip radius="sm" size="md">
+                {art.seccion}
+              </Chip>
               <ArticleBox
                 key={art.title}
                 date={art.date}
@@ -60,7 +65,7 @@ export default function Admin() {
                 seccion={art.seccion}
                 path={art.path}
               />
-              <div className="flex justify-end items-center gap-4 m-4">
+              <div className="flex justify-end items-center gap-4">
                 <ButtonLink color="warning" path={`/admin/edit/${art._id.toString()}`}>
                   Editar
                 </ButtonLink>
@@ -77,6 +82,7 @@ export default function Admin() {
           Cerrar sesion
         </Button>
       </div>
+      <ToastContainer />
     </div>
   );
 }

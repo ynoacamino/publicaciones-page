@@ -6,6 +6,7 @@ import {
 } from '@nextui-org/react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function EditArticle({ params }) {
   const [title, setTitle] = useState('');
@@ -21,20 +22,29 @@ export default function EditArticle({ params }) {
 
   useEffect(() => {
     const getData = async () => {
-      const art = await axios.get('/api/auth/idArticle', {
-        params: {
-          id: params.id,
-        },
-      });
+      let art;
+      try {
+        art = await axios.get('/api/auth/idArticle', {
+          params: {
+            id: params.id,
+          },
+        });
+      } catch (err) {
+        toast.error('Error al recuperar datos');
+      }
       if (art?.data) {
-        setTitle(art.data.article.title);
-        setAuthor(art.data.article.author);
-        setImgSrc(art.data.article.imgSrc);
-        setSeccion(art.data.article.seccion);
-        setPreview(art.data.article.preview);
-        setTitleBody(art.data?.article?.titleBody || 'aw');
-        setBody(art.data.article.body);
-        setDate(art.data.article.date);
+        try {
+          setTitle(art.data.article.title);
+          setAuthor(art.data.article.author);
+          setImgSrc(art.data.article.imgSrc);
+          setSeccion(art.data.article.seccion);
+          setPreview(art.data.article.preview);
+          setTitleBody(art.data?.article?.titleBody);
+          setBody(art.data.article.body);
+          setDate(art.data.article.date);
+        } catch (err) {
+          toast.error('Datos corruptos');
+        }
       }
     };
     getData();
@@ -42,9 +52,8 @@ export default function EditArticle({ params }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let res;
     try {
-      res = await axios.put('/api/auth/article', {
+      await axios.put('/api/auth/article', {
         title,
         author,
         imgSrc,
@@ -56,7 +65,7 @@ export default function EditArticle({ params }) {
         id: params.id,
       });
     } catch (err) {
-      console.error(err);
+      toast.error('Error al subir los datos');
     }
     router.push('/admin');
   };
@@ -77,6 +86,7 @@ export default function EditArticle({ params }) {
           className="max-w-3xl"
           value={title}
           onValueChange={setTitle}
+          isRequired
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
@@ -89,6 +99,7 @@ export default function EditArticle({ params }) {
           className="max-w-3xl"
           value={imgSrc}
           onValueChange={setImgSrc}
+          isRequired
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
@@ -101,17 +112,17 @@ export default function EditArticle({ params }) {
           className="max-w-3xl"
           value={author}
           onValueChange={setAuthor}
+          isRequired
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
           Seccion
-          {seccion}
         </h2>
         <Select
           label="Select"
           className="max-w-xs"
           variant="bordered"
-          required
+          isRequired
           onChange={(e) => {
             if (e.target.value == '$.0') return setSeccion('jurisprudencia');
             if (e.target.value == '$.1') return setSeccion('articulos');
@@ -136,6 +147,7 @@ export default function EditArticle({ params }) {
           className="max-w-3xl"
           value={preview}
           onValueChange={setPreview}
+          isRequired
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
@@ -148,6 +160,7 @@ export default function EditArticle({ params }) {
           className="max-w-3xl"
           value={titleBody}
           onValueChange={setTitleBody}
+          isRequired
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
@@ -161,6 +174,7 @@ export default function EditArticle({ params }) {
           maxRows={40}
           value={body}
           onValueChange={setBody}
+          isRequired
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
@@ -173,6 +187,7 @@ export default function EditArticle({ params }) {
           className="max-w-3xl"
           value={date}
           onValueChange={setDate}
+          isRequired
         />
         <Divider className="my-12" />
 
@@ -182,6 +197,7 @@ export default function EditArticle({ params }) {
           </Button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 }

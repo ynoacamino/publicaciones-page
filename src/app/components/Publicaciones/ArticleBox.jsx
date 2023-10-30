@@ -10,7 +10,7 @@ export default function ArticleBox({
 }) {
   return (
     <article>
-      <Card className="max-w-[400px]">
+      <Card className="max-w-[400px] min-w-[150px]">
         <Link href={`/publicaciones/${seccion.toLowerCase()}/${id}`}>
           <CardHeader className="flex">
             <img
