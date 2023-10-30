@@ -14,12 +14,14 @@ export default function AddArticle() {
 
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [img, setImg] = useState(null); // <----------------
+  const [img, setImg] = useState(null);
   const [seccion, setSeccion] = useState('');
   const [preview, setPreview] = useState('');
   const [titleBody, setTitleBody] = useState('');
   const [bodyTxt, setBodyTxt] = useState('');
   const [date, setDate] = useState('');
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (status === 'unauthenticated') router.push('/');
@@ -27,6 +29,11 @@ export default function AddArticle() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    const formImg = new FormData();
+    formImg.append('file', img);
+    formImg.append('upload_preset', 'images');
 
     const body = bodyTxt.split('<enter>');
 
@@ -38,19 +45,22 @@ export default function AddArticle() {
     formData.append('titleBody', titleBody);
     formData.append('body', body);
     formData.append('date', date);
-    formData.append('img', img);
 
     try {
-      /* await axios.post('/api/auth/article', {
-        title,
-        author,
-        imgSrc,
-        seccion,
-        preview,
-        titleBody,
-        body,
-        date,
-      }); */
+      const res = await fetch(
+        'https://api.cloudinary.com/v1_1/dux0sb99g/upload',
+        {
+          method: 'POST',
+          body: formImg,
+        },
+      );
+      const file = await res.json();
+      formData.append('imgSrc', file.secure_url);
+    } catch (err) {
+      console.error(err);
+    }
+
+    try {
       await fetch('/api/auth/article', {
         method: 'POST',
         body: formData,
@@ -179,7 +189,7 @@ export default function AddArticle() {
         <Divider className="my-12" />
 
         <div className="w-full flex justify-end items-center my-10">
-          <Button type="submit">
+          <Button type="submit" isLoading={loading}>
             Guardar
           </Button>
         </div>

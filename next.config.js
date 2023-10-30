@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'rpa.pe',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
     ],
   },
   eslint: {

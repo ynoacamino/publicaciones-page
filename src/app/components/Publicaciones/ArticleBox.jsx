@@ -16,7 +16,7 @@ export default function ArticleBox({
             <img
               alt="logo"
               src={imgSrc}
-              className="w-full rounded-lg"
+              className="w-full rounded-lg aspect-video object-fill"
             />
           </CardHeader>
         </Link>

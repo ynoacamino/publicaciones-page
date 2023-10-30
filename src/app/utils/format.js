@@ -1,5 +1,10 @@
 export default function format(s) {
-  // Reemplaza tildes y caracteres especiales
+  s = s.replace('?', '');
+  s = s.replace('/', '');
+  s = s.replace('//', '');
+  s = s.replace('.', '');
+  s = s.replace('"', '');
+  s = s.replace("''", '');
   s = s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   s = s.replace(/ñ/g, 'n').replace(/Ñ/g, 'N');
 

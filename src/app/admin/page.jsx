@@ -14,6 +14,7 @@ export default function Admin() {
   const router = useRouter();
   const { status } = useSession();
   const [articles, setArticles] = useState([]);
+  const [jurisprudencia, setJurisprudencia] = useState([]);
 
   useEffect(() => {
     if (status === 'unauthenticated') router.push('/');
@@ -23,11 +24,14 @@ export default function Admin() {
     const getData = async () => {
       let arts;
       try {
-        arts = await axios.get('/api/auth/article');
+        arts = await axios.post('/api/auth/article/divide');
       } catch (err) {
         toast.error('Error al recuperar los datos');
       }
-      if (arts?.data)setArticles(arts.data.articles);
+      if (arts?.data) {
+        setArticles(arts.data.articleArticulo);
+        setJurisprudencia(arts.data.articleJuris);
+      }
     };
     getData();
   }, []);
@@ -51,6 +55,33 @@ export default function Admin() {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-around">
           {articles.map((art) => (
+            <div key={art._id.toString()} className="flex flex-col gap-4">
+              <Chip radius="sm" size="md">
+                {art.seccion}
+              </Chip>
+              <ArticleBox
+                key={art.title}
+                date={art.date}
+                author={art.author}
+                title={art.title}
+                imgSrc={art.imgSrc}
+                id={art._id.toString()}
+                seccion={art.seccion}
+                path={art.path}
+              />
+              <div className="flex justify-end items-center gap-4">
+                <ButtonLink color="warning" path={`/admin/edit/${art._id.toString()}`}>
+                  Editar
+                </ButtonLink>
+                <Button color="danger" onPress={() => deleteArticle(art._id.toString())}>
+                  Borrar
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-around">
+          {jurisprudencia.map((art) => (
             <div key={art._id.toString()} className="flex flex-col gap-4">
               <Chip radius="sm" size="md">
                 {art.seccion}
