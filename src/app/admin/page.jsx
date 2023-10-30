@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button, Divider } from '@nextui-org/react';
@@ -11,7 +11,7 @@ import ButtonLink from '../components/ButtonLink';
 
 export default function Admin() {
   const router = useRouter();
-  const { status } = useSession();
+  const { status, data } = useSession();
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
@@ -19,9 +19,12 @@ export default function Admin() {
   }, [status, router]);
 
   useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  useEffect(() => {
     const getData = async () => {
       const arts = await axios.get('/api/auth/article');
-      console.log(arts);
       if (arts?.data)setArticles(arts.data.articles);
     };
     getData();
@@ -55,6 +58,7 @@ export default function Admin() {
                 imgSrc={art.imgSrc}
                 id={art._id.toString()}
                 seccion={art.seccion}
+                path={art.path}
               />
               <div className="flex justify-end items-center gap-4 m-4">
                 <ButtonLink color="warning" path={`/admin/edit/${art._id.toString()}`}>
@@ -67,6 +71,11 @@ export default function Admin() {
             </div>
           ))}
         </div>
+      </div>
+      <div className="flex flex-col justify-center items-center">
+        <Button onPress={() => signOut()}>
+          Cerrar sesion
+        </Button>
       </div>
     </div>
   );

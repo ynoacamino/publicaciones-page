@@ -3,10 +3,12 @@
 import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 
-export default function ButtonLink({ children, className, path }) {
+export default function ButtonLink({
+  children, className, path, color,
+}) {
   const router = useRouter();
   return (
-    <Button className={className} onPress={() => router.push(path)}>
+    <Button color={color} className={className} onPress={() => router.push(path)}>
       {children}
     </Button>
   );

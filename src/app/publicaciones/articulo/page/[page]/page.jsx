@@ -42,6 +42,7 @@ export default async function Jurisprudencia({ params }) {
               imgSrc={art.imgSrc}
               id={art._id.toString()}
               seccion={art.seccion}
+              path={art.path}
             />
           ))}
         </div>

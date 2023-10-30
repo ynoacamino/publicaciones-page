@@ -18,7 +18,7 @@ export default function AddArticle() {
   const [seccion, setSeccion] = useState('');
   const [preview, setPreview] = useState('');
   const [titleBody, setTitleBody] = useState('');
-  const [body, setBody] = useState('');
+  const [bodyTxt, setBodyTxt] = useState('');
   const [date, setDate] = useState('');
 
   useEffect(() => {
@@ -27,9 +27,11 @@ export default function AddArticle() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let res;
+
+    const body = bodyTxt.split('<enter>');
+
     try {
-      res = await axios.post('/api/auth/article', {
+      await axios.post('/api/auth/article', {
         title,
         author,
         imgSrc,
@@ -39,10 +41,10 @@ export default function AddArticle() {
         body,
         date,
       });
+      router.push('/admin');
     } catch (err) {
       console.error(err);
     }
-    console.log(res);
   };
   return (
     <div className="w-full flex justify-center py-20">
@@ -88,7 +90,6 @@ export default function AddArticle() {
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
           Seccion
-          {seccion}
         </h2>
         <Select
           label="Select"
@@ -140,9 +141,9 @@ export default function AddArticle() {
           labelPlacement="outside"
           placeholder="Cuerpo"
           className="max-w-3xl"
-          maxRows={40}
-          value={body}
-          onValueChange={setBody}
+          maxRows={80}
+          value={bodyTxt}
+          onValueChange={setBodyTxt}
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">

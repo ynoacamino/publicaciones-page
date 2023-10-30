@@ -1,10 +1,12 @@
+'use client';
+
 import {
   Card, CardHeader, CardBody, CardFooter, Divider,
 } from '@nextui-org/react';
 import Link from 'next/link';
 
 export default function ArticleBox({
-  imgSrc, date, title, author, id, seccion,
+  imgSrc, date, title, author, id, seccion, path,
 }) {
   return (
     <article>
@@ -21,7 +23,7 @@ export default function ArticleBox({
         <Divider />
         <CardBody>
           <p className="text-gray-700 text-sm mb-4">{date}</p>
-          <Link href={`/publicaciones/${seccion.toLowerCase()}/${id}`}>
+          <Link href={`/publicaciones/${seccion.toLowerCase()}/${path}`}>
             <h2 className="text-xl font-semibold hover:text-red-800 transition-colors">
               {title}
             </h2>

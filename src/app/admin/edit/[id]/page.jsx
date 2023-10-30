@@ -26,9 +26,7 @@ export default function EditArticle({ params }) {
           id: params.id,
         },
       });
-      console.log(art);
       if (art?.data) {
-        console.log(art.data.article);
         setTitle(art.data.article.title);
         setAuthor(art.data.article.author);
         setImgSrc(art.data.article.imgSrc);
@@ -61,7 +59,6 @@ export default function EditArticle({ params }) {
       console.error(err);
     }
     router.push('/admin');
-    console.log(res);
   };
 
   return (

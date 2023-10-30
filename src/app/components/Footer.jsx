@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import error from '@/app/assets/error.svg';
 
 export default function Footer() {
@@ -15,38 +16,38 @@ export default function Footer() {
             width={70}
             height={70}
           />
-          <p className="text-sm">
+          <p className="text-medium">
             El Estudio Pariona Abogados es una firma de abogados especializada
             en Derecho Penal que brinda servicios legales de excelencia.
           </p>
         </div>
         <div className="flex justify-center items-center">
           <div className="flex flex-col items-start">
-            <h2>
+            <h2 className="text-lg font-semibold my-4">
               ACCESO RAPIDO
             </h2>
-            <ol className="text-sm flex flex-col items-start ml-4">
+            <ol className="text-medium flex flex-col items-start ml-4 gap-3">
               <li>
-                La firma
+                <Link href="/" className="underlineEffect">
+                  Inicio
+                </Link>
               </li>
               <li>
-                Especialidades
+                <Link href="/sobre-nosotros" className="underlineEffect">
+                  Sobre nosotros
+                </Link>
               </li>
               <li>
-                Equipo
-              </li>
-              <li>
-                Publicaciones
-              </li>
-              <li>
-                Cátedra
+                <Link href="/publicaciones" className="underlineEffect">
+                  Publicaciones
+                </Link>
               </li>
             </ol>
           </div>
         </div>
         <div className="">
           <h2>CONTACTO</h2>
-          <div className="text-sm">
+          <div className="text-medium">
             <p>Jr. Lampa Nro. 879, Oficinas 504 - 506, Cercado de Lima (Perú)</p>
             <p>(01) 4261037 - 915154298</p>
             <p>pariona@rpa.pe</p>

@@ -23,6 +23,7 @@ export default function PublicationsTabs({ articleArticulo, articleJuris }) {
                     imgSrc={art.imgSrc}
                     id={art._id.toString()}
                     seccion={art.seccion}
+                    path={art.path}
                   />
                 </div>
               ))}
@@ -45,6 +46,7 @@ export default function PublicationsTabs({ articleArticulo, articleJuris }) {
                     imgSrc={art.imgSrc}
                     id={art._id.toString()}
                     seccion={art.seccion}
+                    path={art.path}
                   />
                 </div>
               ))}

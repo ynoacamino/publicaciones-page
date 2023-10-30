@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-const handler = NextAuth({
+export const configAuth = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -14,10 +14,6 @@ const handler = NextAuth({
 
         const { USERNAME_SECRET, PASSWORD_SECRET } = process.env;
 
-        console.log({
-          username, password, USERNAME_SECRET, PASSWORD_SECRET,
-        });
-
         if (username != USERNAME_SECRET || password != PASSWORD_SECRET) {
           return null;
         }
@@ -26,6 +22,25 @@ const handler = NextAuth({
       },
     }),
   ],
-});
+  callbacks: {
+    jwt({
+      token, user,
+    }) {
+      if (user) token.user = user;
+      return token;
+    },
+    session({ token, session }) {
+      const {
+        user,
+      } = token;
+      session.user = {
+        user,
+      };
+      return session;
+    },
+  },
+};
+
+const handler = NextAuth(configAuth);
 
 export { handler as GET, handler as POST };

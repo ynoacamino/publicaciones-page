@@ -12,14 +12,13 @@ const getData = async (path) => {
   } catch (err) {
     console.error(err.message);
   }
-
   return article;
 };
-// mejorar
+
 export default async function Title({ params }) {
   const data = await getData(params.title);
   return (
-    <div className="w-full">
+    <div>
       <PreviewBody
         imgSrc={data.imgSrc}
         title={data.title}
@@ -27,8 +26,8 @@ export default async function Title({ params }) {
         preview={data.preview}
       />
       <div className="w-full flex justify-center items-center">
-        <div className="w-11/12 xl:w-7/12 grid grid-cols-1 md:grid-cols-4 gap-y-8 md:gap-8 py-20 items-start">
-          <article className="col-span-1 md:col-span-3 p-8 rounded-md bg-gray-200 flex flex-col gap-6 text-lg">
+        <div className="w-7/12 grid grid-cols-4 gap-8 py-20 items-start">
+          <article className="col-span-3 p-8 rounded-md bg-gray-200 flex flex-col gap-6 text-lg">
             <h2 className="text-2xl font-semibold">
               {data.titleBody || '¿CUÁLES SON LOS ALCANCES DE LA SOSPECHA INICIAL SIMPLE EN LA MOTIVACIÓN DE LA DISPOSICIÓN DE LA FISCALÍA SUPERIOR? [APELACIÓN N.º 66-2023/LA LIBERTAD]'}
             </h2>
@@ -48,7 +47,7 @@ export default async function Title({ params }) {
               <span>- WhatsApp: Comunidad Pariona Abogados</span>
             </p>
           </article>
-          <div className="w-full rounded-md bg-gray-200  sticky top-36 md:col-span-1">
+          <div className="w-full rounded-md bg-gray-200  sticky top-36">
             <div className="p-8 flex flex-col justify-center items-center">
               <Image
                 src={error}

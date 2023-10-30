@@ -58,12 +58,12 @@ export default function NavBar() {
       <NavbarContent justify="end">
         <div className="hidden sm:flex gap-4">
           <NavbarItem>
-            <Link color="foreground" href="/">
+            <Link color="foreground" href="/" className="underlineEffect">
               Sobre nosotros
             </Link>
           </NavbarItem>
           <NavbarItem isActive>
-            <Link href="/publicaciones">
+            <Link href="/publicaciones" className="underlineEffect">
               Publicaciones
             </Link>
           </NavbarItem>
@@ -71,12 +71,12 @@ export default function NavBar() {
       </NavbarContent>
       <NavbarMenu className="text-2xl">
         <NavbarMenuItem>
-          <Link href="/">
+          <Link href="/" className="underlineEffect">
             Sobre nosotros
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
-          <Link href="/publicaciones">
+          <Link href="/publicaciones" className="underlineEffect">
             Publicaciones
           </Link>
         </NavbarMenuItem>

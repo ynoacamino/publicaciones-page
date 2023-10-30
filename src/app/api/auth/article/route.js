@@ -1,8 +1,15 @@
 import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
 import Article from '@/app/db/models/Article';
 import dbConnect from '@/app/db/dbConnect';
+import { configAuth } from '../[...nextauth]/route';
+import format from '@/app/utils/format';
 
 export async function POST(req) {
+  const session = await getServerSession(configAuth);
+
+  if (!session) return NextResponse.json({ error: 'Wrong Credentials' }, { status: 401 });
+
   await dbConnect();
   const {
     title,
@@ -19,11 +26,12 @@ export async function POST(req) {
     imgSrc,
     title,
     author,
-    seccion,
+    seccion: seccion.toLowerCase(),
     preview,
     body,
     date,
     titleBody,
+    path: format(title),
   });
 
   try {
@@ -36,6 +44,9 @@ export async function POST(req) {
 }
 
 export async function PUT(req) {
+  const session = await getServerSession(configAuth);
+
+  if (!session) return NextResponse.json({ error: 'Wrong Credentials' }, { status: 401 });
   await dbConnect();
   const {
     title,
@@ -55,18 +66,6 @@ export async function PUT(req) {
   } catch (err) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
-
-  console.log({
-    title,
-    author,
-    imgSrc,
-    seccion,
-    preview,
-    titleBody,
-    body,
-    date,
-    id,
-  });
 
   if (!article) NextResponse.json({ error: 'Articulo no encontrado' }, { status: 400 });
 

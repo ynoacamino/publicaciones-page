@@ -12,7 +12,7 @@ const getData = async () => {
 };
 
 export default async function Publicaiones() {
-  const data = await JSON.parse(JSON.stringify(getData()));
+  const data = JSON.parse(JSON.stringify(await getData()));
   return (
     <>
       <PreviewBody
