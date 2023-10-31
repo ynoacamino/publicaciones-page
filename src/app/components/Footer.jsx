@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Divider } from '@nextui-org/react';
-import error from '@/app/assets/error.svg';
+import logo from '@/app/assets/logo.svg';
 
 export default function Footer() {
   return (
@@ -12,7 +12,7 @@ export default function Footer() {
       <div className="w-10/12 grid grid-cols-1 md:grid-cols-3 justify-center gap-8 py-10">
         <div className="flex justify-center items-center gap-2">
           <Image
-            src={error}
+            src={logo}
             alt="logo"
             width={70}
             height={70}

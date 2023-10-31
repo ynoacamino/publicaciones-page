@@ -7,7 +7,7 @@ import {
 } from '@nextui-org/react';
 import Link from 'next/link';
 import Image from 'next/image';
-import error from '@/app/assets/error.svg';
+import logo from '@/app/assets/logo.svg';
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -27,7 +27,7 @@ export default function NavBar() {
           <Link href="/">
             <p className="font-bold text-inherit flex justify-normal items-center gap-4">
               <Image
-                src={error}
+                src={logo}
                 alt="logo"
                 width={50}
                 height={50}
@@ -43,7 +43,7 @@ export default function NavBar() {
           <Link href="/">
             <p className="font-bold text-inherit flex items-center justify-center gap-4">
               <Image
-                src={error}
+                src={logo}
                 alt="logo"
                 width={50}
                 height={50}
@@ -58,7 +58,7 @@ export default function NavBar() {
       <NavbarContent justify="end">
         <div className="hidden sm:flex gap-4">
           <NavbarItem>
-            <Link color="foreground" href="/" className="underlineEffect">
+            <Link color="foreground" href="/sobre-nosotros" className="underlineEffect">
               Sobre nosotros
             </Link>
           </NavbarItem>
@@ -71,7 +71,7 @@ export default function NavBar() {
       </NavbarContent>
       <NavbarMenu className="text-2xl">
         <NavbarMenuItem>
-          <Link href="/" className="underlineEffect text-xl font-semibold m-6">
+          <Link href="/sobre-nosotros" className="underlineEffect text-xl font-semibold m-6">
             Sobre nosotros
           </Link>
         </NavbarMenuItem>

@@ -8,7 +8,11 @@ const getData = async ({ searchParams }) => {
   const articleJuris = await Article.find({ seccion: new RegExp('jurisprudencia', 'i') }).sort({ createdAt: -1 }).limit(4);
   const articleArticulo = await Article.find({ seccion: new RegExp('articulo', 'i') }).sort({ createdAt: -1 }).limit(4);
 
-  return { articleArticulo, articleJuris, searchParams };
+  const lastPub = new Date(articleJuris[0].createAt) > new Date(articleArticulo[0].createAt) ? articleJuris[0] : articleArticulo[0];
+
+  return {
+    articleArticulo, articleJuris, searchParams, lastPub,
+  };
 };
 
 export default async function Publicaiones({ searchParams }) {
@@ -16,10 +20,10 @@ export default async function Publicaiones({ searchParams }) {
   return (
     <>
       <PreviewBody
-        title={data.articleJuris[0].title}
-        imgSrc={data.articleJuris[0].imgSrc}
-        preview={data.articleJuris[0].preview}
-        seccion={data.articleJuris[0].seccion}
+        title={data.lastPub.title}
+        imgSrc={data.lastPub.imgSrc}
+        preview={data.lastPub.preview}
+        seccion={data.lastPub.seccion}
       />
       <TabPub articleJuris={data.articleJuris} articleArticulo={data.articleArticulo} />
     </>

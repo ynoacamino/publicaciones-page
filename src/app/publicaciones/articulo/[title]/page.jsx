@@ -2,7 +2,7 @@ import Image from 'next/image';
 import PreviewBody from '@/app/components/PreviewBody';
 import dbConnect from '@/app/db/dbConnect';
 import Article from '@/app/db/models/Article';
-import error from '@/app/assets/error.svg';
+import logo from '@/app/assets/logo.svg';
 
 const getData = async (path) => {
   await dbConnect();
@@ -50,7 +50,7 @@ export default async function Title({ params }) {
           <div className="w-full rounded-md bg-gray-200  sticky top-36">
             <div className="p-8 flex flex-col justify-center items-center">
               <Image
-                src={error}
+                src={logo}
                 alt="logo"
                 className="rounded-full bg-red-600 p-2 m-3"
                 width={100}

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Especialidades() {
   return (
@@ -11,7 +12,9 @@ export default function Especialidades() {
         especialidades de servicios legales:
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-8 w-11/12 md:w-9/12 lg:w-6/12 justify-around">
-        <div className="flex flex-col gap-4 justify-center items-center font-semibold
+        <Link
+          href="/"
+          className="flex flex-col gap-4 justify-center items-center font-semibold
           text-lg py-8 px-2 rounded-md hover:bg-gray-400"
         >
           <Image
@@ -22,8 +25,10 @@ export default function Especialidades() {
             className="rounded-full bg-gray-200 border-solid border-white border-4"
           />
           <span className="text-center">Derecho penal empresarial</span>
-        </div>
-        <div className="flex flex-col gap-4 justify-center items-center font-semibold
+        </Link>
+        <Link
+          href="/"
+          className="flex flex-col gap-4 justify-center items-center font-semibold
           text-lg py-8 px-2 rounded-md hover:bg-gray-400"
         >
           <Image
@@ -34,8 +39,10 @@ export default function Especialidades() {
             className="rounded-full bg-gray-200 border-solid border-white border-4"
           />
           <span className="text-center">Derecho penal empresarial</span>
-        </div>
-        <div className="flex flex-col gap-4 justify-center items-center font-semibold
+        </Link>
+        <Link
+          href="/"
+          className="flex flex-col gap-4 justify-center items-center font-semibold
           text-lg py-8 px-2 rounded-md hover:bg-gray-400"
         >
           <Image
@@ -46,8 +53,10 @@ export default function Especialidades() {
             className="rounded-full bg-gray-200 border-solid border-white border-4"
           />
           <span className="text-center">Derecho penal empresarial</span>
-        </div>
-        <div className="flex flex-col gap-4 justify-center items-center font-semibold
+        </Link>
+        <Link
+          href="/"
+          className="flex flex-col gap-4 justify-center items-center font-semibold
           text-lg py-8 px-2 rounded-md hover:bg-gray-400"
         >
           <Image
@@ -58,8 +67,10 @@ export default function Especialidades() {
             className="rounded-full bg-gray-200 border-solid border-white border-4"
           />
           <span className="text-center">Derecho penal empresarial</span>
-        </div>
-        <div className="flex flex-col gap-4 justify-center items-center font-semibold
+        </Link>
+        <Link
+          href="/"
+          className="flex flex-col gap-4 justify-center items-center font-semibold
           text-lg py-8 px-2 rounded-md hover:bg-gray-400"
         >
           <Image
@@ -70,8 +81,10 @@ export default function Especialidades() {
             className="rounded-full bg-gray-200 border-solid border-white border-4"
           />
           <span className="text-center">Derecho penal empresarial</span>
-        </div>
-        <div className="flex flex-col gap-4 justify-center items-center font-semibold
+        </Link>
+        <Link
+          href="/"
+          className="flex flex-col gap-4 justify-center items-center font-semibold
           text-lg py-8 px-2 rounded-md hover:bg-gray-400"
         >
           <Image
@@ -82,7 +95,7 @@ export default function Especialidades() {
             className="rounded-full bg-gray-200 border-solid border-white border-4"
           />
           <span className="text-center">Derecho penal empresarial</span>
-        </div>
+        </Link>
 
       </div>
     </div>
