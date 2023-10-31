@@ -17,7 +17,7 @@ export default function Inicio() {
         alt="logo"
         width={200}
         height={200}
-        className="absolute top-12 w-32 md:w-[200px] "
+        className="absolute lg:left-12 top-12 w-32 lg:w-[200px] "
       />
       <h1 className="z-10 flex flex-col gap-4 items-center justify-center w-full mt-28 lg:w-4/6 text-white p-10 lg:m-10 lg:mt-40">
         <span className="text-4xl md:text-5xl font-bold text-center">
