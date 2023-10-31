@@ -2,11 +2,12 @@
 
 import {
   Card, CardHeader, CardBody, CardFooter, Divider,
+  Button,
 } from '@nextui-org/react';
 import Link from 'next/link';
 
 export default function ArticleBox({
-  imgSrc, date, title, author, seccion, path,
+  imgSrc, date, title, author, seccion, path, pdfSrc,
 }) {
   return (
     <article>
@@ -35,12 +36,19 @@ export default function ArticleBox({
           </p>
         </CardBody>
         <Divider />
-        <CardFooter>
+        <CardFooter className="flex gap-4 justify-end items-center">
           <Link
             href="https://github.com/nextui-org/nextui"
           >
             Compartir
           </Link>
+          {pdfSrc && (
+            <Link href={pdfSrc} target="_blank">
+              <Button>
+                Pdf
+              </Button>
+            </Link>
+          )}
         </CardFooter>
       </Card>
     </article>

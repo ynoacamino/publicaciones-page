@@ -11,12 +11,17 @@ import { ToastContainer, toast } from 'react-toastify';
 export default function EditArticle({ params }) {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [imgSrc, setImgSrc] = useState('');
   const [seccion, setSeccion] = useState('');
   const [preview, setPreview] = useState('');
   const [titleBody, setTitleBody] = useState('');
-  const [body, setBody] = useState('');
+  const [bodyTxt, setBodyTxt] = useState('');
   const [date, setDate] = useState('');
+  const [link, setLink] = useState('');
+
+  const [img, setImg] = useState(null);
+  const [file, setFile] = useState(null);
+
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -36,12 +41,12 @@ export default function EditArticle({ params }) {
         try {
           setTitle(art.data.article.title);
           setAuthor(art.data.article.author);
-          setImgSrc(art.data.article.imgSrc);
           setSeccion(art.data.article.seccion);
           setPreview(art.data.article.preview);
           setTitleBody(art.data?.article?.titleBody);
-          setBody(art.data.article.body);
+          setBodyTxt(art.data.article.body.join('<enter>'));
           setDate(art.data.article.date);
+          setLink(art.data.article.link);
         } catch (err) {
           toast.error('Datos corruptos');
         }
@@ -52,22 +57,67 @@ export default function EditArticle({ params }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    const formImg = new FormData();
+    formImg.append('file', img);
+    formImg.append('upload_preset', 'images');
+
+    const formFile = new FormData();
+    formFile.append('file', file);
+    formFile.append('upload_preset', 'images');
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('author', author);
+    formData.append('seccion', seccion);
+    formData.append('preview', preview);
+    formData.append('titleBody', titleBody);
+    formData.append('body', bodyTxt);
+    formData.append('date', date);
+    formData.append('id', params.id);
+    formData.append('link', link);
+
+    if (img) {
+      try {
+        const res = await fetch(
+          'https://api.cloudinary.com/v1_1/dux0sb99g/upload',
+          {
+            method: 'POST',
+            body: formImg,
+          },
+        );
+        const fileImg = await res.json();
+        formData.append('imgSrc', fileImg.secure_url);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    if (file) {
+      try {
+        const res = await fetch(
+          'https://api.cloudinary.com/v1_1/dux0sb99g/upload',
+          {
+            method: 'POST',
+            body: formFile,
+          },
+        );
+        const fileFile = await res.json();
+        formData.append('pdfSrc', fileFile.secure_url);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
     try {
-      await axios.put('/api/auth/article', {
-        title,
-        author,
-        imgSrc,
-        seccion,
-        preview,
-        titleBody,
-        body,
-        date,
-        id: params.id,
+      await fetch('/api/auth/article', {
+        method: 'PUT',
+        body: formData,
       });
+      router.push('/admin');
     } catch (err) {
       toast.error('Error al subir los datos');
     }
-    router.push('/admin');
   };
 
   return (
@@ -90,16 +140,23 @@ export default function EditArticle({ params }) {
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
-          Imagen Url
+          Imagen
         </h2>
-        <Textarea
-          variant="bordered"
-          labelPlacement="outside"
-          placeholder="Imagen Url"
-          className="max-w-3xl"
-          value={imgSrc}
-          onValueChange={setImgSrc}
-          isRequired
+        <input
+          type="file"
+          onChange={(e) => {
+            setImg(e.target.files[0]);
+          }}
+        />
+        <Divider className="my-4" />
+        <h2 className="text-2xl font-semibold">
+          Pdf
+        </h2>
+        <input
+          type="file"
+          onChange={(e) => {
+            setFile(e.target.files[0]);
+          }}
         />
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
@@ -122,12 +179,12 @@ export default function EditArticle({ params }) {
           label="Select"
           className="max-w-xs"
           variant="bordered"
-          isRequired
           onChange={(e) => {
             if (e.target.value == '$.0') return setSeccion('jurisprudencia');
-            if (e.target.value == '$.1') return setSeccion('articulos');
+            if (e.target.value == '$.1') return setSeccion('articulo');
             return setSeccion('');
           }}
+          isRequired
         >
           <SelectItem value="jurisprudencia">
             Jurisprudencia
@@ -171,9 +228,9 @@ export default function EditArticle({ params }) {
           labelPlacement="outside"
           placeholder="Cuerpo"
           className="max-w-3xl"
-          maxRows={40}
-          value={body}
-          onValueChange={setBody}
+          maxRows={80}
+          value={bodyTxt}
+          onValueChange={setBodyTxt}
           isRequired
         />
         <Divider className="my-4" />
@@ -190,9 +247,20 @@ export default function EditArticle({ params }) {
           isRequired
         />
         <Divider className="my-12" />
+        <h2 className="text-2xl font-semibold">
+          Link
+        </h2>
+        <Textarea
+          variant="bordered"
+          labelPlacement="outside"
+          placeholder="Fecha"
+          className="max-w-3xl"
+          value={link}
+          onValueChange={setLink}
+        />
 
         <div className="w-full flex justify-end items-center my-10">
-          <Button type="submit">
+          <Button type="submit" isLoading={loading}>
             Guardar
           </Button>
         </div>

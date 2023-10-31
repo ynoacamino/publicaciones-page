@@ -43,6 +43,12 @@ const schema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  link: {
+    type: String,
+  },
+  pdfSrc: {
+    type: String,
+  },
 });
 
 export default mongoose.models.Article || mongoose.model('Article', schema);

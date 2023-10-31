@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import bg from '@/app/assets/bg.jpg';
+import logo from '@/app/assets/logo.svg';
 
 export default function Inicio() {
   return (
-    <div className="w-full flex relative overflow-hidden justify-center h-[50vh]">
+    <div className="w-full flex relative overflow-hidden justify-center h-[55vh] sm:h-[50vh]">
       <Image
         src={bg}
         alt="empresa"
@@ -11,14 +12,21 @@ export default function Inicio() {
         height={1920}
         className="absolute w-full top-50 object-cover h-full brightness-50"
       />
-      <div className="z-10 flex flex-col gap-4 items-center justify-center w-full mt-28 lg:w-4/6 text-white p-10 lg:m-10 lg:mt-40">
-        <h1 className="text-4xl md:text-5xl font-bold">
+      <Image
+        src={logo}
+        alt="logo"
+        width={200}
+        height={200}
+        className="absolute top-12 w-32 md:w-[200px] "
+      />
+      <h1 className="z-10 flex flex-col gap-4 items-center justify-center w-full mt-28 lg:w-4/6 text-white p-10 lg:m-10 lg:mt-40">
+        <span className="text-4xl md:text-5xl font-bold text-center">
           Especialistas en
-        </h1>
-        <h1 className="text-5xl md:text-6xl font-bold text-red-500">
+        </span>
+        <span className="text-5xl md:text-6xl font-bold text-red-500 text-center">
           Derecho Penal
-        </h1>
-      </div>
+        </span>
+      </h1>
     </div>
   );
 }

@@ -20,6 +20,9 @@ export default function AddArticle() {
   const [titleBody, setTitleBody] = useState('');
   const [bodyTxt, setBodyTxt] = useState('');
   const [date, setDate] = useState('');
+  const [link, setLink] = useState('');
+
+  const [file, setFile] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -35,6 +38,10 @@ export default function AddArticle() {
     formImg.append('file', img);
     formImg.append('upload_preset', 'images');
 
+    const formFile = new FormData();
+    formFile.append('file', file);
+    formFile.append('upload_preset', 'images');
+
     const body = bodyTxt.split('<enter>');
 
     const formData = new FormData();
@@ -43,21 +50,39 @@ export default function AddArticle() {
     formData.append('seccion', seccion);
     formData.append('preview', preview);
     formData.append('titleBody', titleBody);
-    formData.append('body', body);
+    formData.append('body', bodyTxt);
     formData.append('date', date);
+    formData.append('link', link);
 
-    try {
-      const res = await fetch(
-        'https://api.cloudinary.com/v1_1/dux0sb99g/upload',
-        {
-          method: 'POST',
-          body: formImg,
-        },
-      );
-      const file = await res.json();
-      formData.append('imgSrc', file.secure_url);
-    } catch (err) {
-      console.error(err);
+    if (img) {
+      try {
+        const res = await fetch(
+          'https://api.cloudinary.com/v1_1/dux0sb99g/upload',
+          {
+            method: 'POST',
+            body: formImg,
+          },
+        );
+        const fileImg = await res.json();
+        formData.append('imgSrc', fileImg.secure_url);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    if (file) {
+      try {
+        const res = await fetch(
+          'https://api.cloudinary.com/v1_1/dux0sb99g/upload',
+          {
+            method: 'POST',
+            body: formFile,
+          },
+        );
+        const fileFile = await res.json();
+        formData.append('pdfSrc', fileFile.secure_url);
+      } catch (err) {
+        console.error(err);
+      }
     }
 
     try {
@@ -96,6 +121,16 @@ export default function AddArticle() {
           type="file"
           onChange={(e) => {
             setImg(e.target.files[0]);
+          }}
+        />
+        <Divider className="my-4" />
+        <h2 className="text-2xl font-semibold">
+          Pdf
+        </h2>
+        <input
+          type="file"
+          onChange={(e) => {
+            setFile(e.target.files[0]);
           }}
         />
         <Divider className="my-4" />
@@ -187,6 +222,17 @@ export default function AddArticle() {
           isRequired
         />
         <Divider className="my-12" />
+        <h2 className="text-2xl font-semibold">
+          Link youtube
+        </h2>
+        <Textarea
+          variant="bordered"
+          labelPlacement="outside"
+          placeholder="Fecha"
+          className="max-w-3xl"
+          value={link}
+          onValueChange={setLink}
+        />
 
         <div className="w-full flex justify-end items-center my-10">
           <Button type="submit" isLoading={loading}>

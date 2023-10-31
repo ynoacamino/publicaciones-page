@@ -44,6 +44,7 @@ export default async function Jurisprudencia({ params }) {
               id={art._id.toString()}
               seccion={art.seccion}
               path={art.path}
+              pdfSrc={art.pdfSrc}
             />
           ))}
         </div>

@@ -68,6 +68,7 @@ export default function Admin() {
                 id={art._id.toString()}
                 seccion={art.seccion}
                 path={art.path}
+                pdfSrc={art.pdfSrc}
               />
               <div className="flex justify-end items-center gap-4">
                 <ButtonLink color="warning" path={`/admin/edit/${art._id.toString()}`}>
@@ -95,6 +96,7 @@ export default function Admin() {
                 id={art._id.toString()}
                 seccion={art.seccion}
                 path={art.path}
+                pdfSrc={art.pdfSrc}
               />
               <div className="flex justify-end items-center gap-4">
                 <ButtonLink color="warning" path={`/admin/edit/${art._id.toString()}`}>

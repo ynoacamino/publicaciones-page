@@ -15,16 +15,19 @@ export async function POST(req) {
   const form = await req.formData();
 
   const article = new Article({
-    imgSrc: form.get('imgSrc'),
+    imgSrc: 'https://res.cloudinary.com/dux0sb99g/image/upload/v1698768957/whwq8givatdsdt9gylew.png',
     title: form.get('title'),
     author: form.get('author'),
     seccion: form.get('seccion'),
     preview: form.get('preview'),
-    body: form.get('body'),
+    body: form.get('body').split('<enter>'),
     date: form.get('date'),
     titleBody: form.get('titleBody'),
     path: format(form.get('title')),
+    pdfSrc: form.get('pdfSrc'),
+    link: form.get('link'),
   });
+  if (form.get('imgSrc')) article.imgSrc = form.get('imgSrc');
 
   try {
     article.save();
@@ -32,43 +35,38 @@ export async function POST(req) {
     console.error(err);
   }
 
-  return NextResponse.json({ data: 'data' });
+  return NextResponse.json({ article });
 }
 
 export async function PUT(req) {
   const session = await getServerSession(configAuth);
 
   if (!session) return NextResponse.json({ error: 'Wrong Credentials' }, { status: 401 });
+
   await dbConnect();
-  const {
-    title,
-    author,
-    imgSrc,
-    seccion,
-    preview,
-    titleBody,
-    body,
-    date,
-    id,
-  } = await req.json();
+
+  const form = await req.formData();
 
   let article;
   try {
-    article = await Article.findById(id);
+    article = await Article.findById(form.get('id'));
   } catch (err) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 
   if (!article) NextResponse.json({ error: 'Articulo no encontrado' }, { status: 400 });
 
-  article.title = title;
-  article.author = author;
-  article.imgSrc = imgSrc;
-  article.seccion = seccion;
-  article.preview = preview;
-  article.titleBody = titleBody;
-  article.body = body;
-  article.date = date;
+  article.title = form.get('title');
+  article.author = form.get('author');
+  if (form.get('imgSrc')) article.imgSrc = form.get('imgSrc');
+  article.seccion = form.get('seccion');
+  article.preview = form.get('preview');
+  article.titleBody = form.get('titleBody');
+  article.body = form.get('body').split('<enter>');
+  article.date = form.get('date');
+  article.path = format(form.get('title'));
+  if (form.get('pdfSrc')) article.pdfSrc = form.get('pdfSrc');
+  article.link = form.get('link');
 
   try {
     await article.save();
