@@ -18,8 +18,8 @@ export default function Footer() {
             height={120}
             className="m-2"
           />
-          <header className="md:text-lg">
-            El Derecho se transforma día a día, prepárenos.
+          <header className="md:text-2xl">
+            El Derecho se transforma día a día, preparémonos.
           </header>
         </aside>
         <Divider className="md:hidden" />

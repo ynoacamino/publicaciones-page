@@ -10,12 +10,10 @@ import especialidad6 from '@/app/assets/especialidad6.png';
 export default function Especialidades() {
   return (
     <div className="bg-gray-300 w-full flex flex-col justify-center items-center py-20 gap-10">
-      <h2 className="font-bold text-4xl md:text-5xl">
-        Especialidades
-      </h2>
       <p className=" md:text-xl w-9/12 text-center">
-        Nuestro estudio cuenta con una basta experiencia en las siguientes
-        especialidades de servicios legales:
+        La finalidad de este espacio web es el estudio del derecho desde una perspectiva práctica
+        teniendo como referencia el análisis de la
+        jurisprudencia nacional
       </p>
       <ul className="grid grid-cols-2 md:grid-cols-3 gap-8 w-11/12 md:w-9/12 lg:w-6/12 justify-around">
         <li>

@@ -22,14 +22,11 @@ export default function obreNosotros() {
         <h1 className="text-5xl md:text-7xl font-bold text-red-500 mb-10">
           NOSOTROS
         </h1>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-center justify-items-center">
-          <p className="text-2xl font-semibold">
-            En Legalia, nuestra firma de abogados está comprometida con la
-            excelencia jurídica. Con años de experiencia en diversas áreas
-            del derecho, ofrecemos soluciones legales efectivas y personalizadas.
-            Nuestro equipo de profesionales altamente calificados aborda casos con
-            pasión y dedicación, asegurando representación legal de la más alta calidad.
-            Desde litigios civiles hasta asesoramiento corporativo.
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 items-center justify-items-center">
+          <p className="text-2xl font-semibold text-justify">
+            Página de estudio  formada por abogados comprometidos con el desarrollo del derecho,
+            en busca de la especialización en litigios y servicio de excelencia en base a la
+            aplicación de jurisprudencia
           </p>
           <Image
             src={bg}

@@ -10,7 +10,7 @@ export default function PublicationsTabs({ articleArticulo, articleJuris }) {
   return (
     <div className="w-full flex justify-center items-center my-10">
       <div className="w-11/12 md:w-8/12 flex flex-col justify-center items-center">
-        <Tabs aria-label="Options">
+        <Tabs aria-label="Options" size="lg">
           <Tab title="Jurisprudencia">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-around">
               {articleJuris.map((art) => (

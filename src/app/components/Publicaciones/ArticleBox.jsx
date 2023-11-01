@@ -40,7 +40,8 @@ export default function ArticleBox({
         <Divider />
         <CardFooter className="flex gap-4 justify-end items-center">
           <Link
-            href={`https://www.facebook.com/sharer/sharer.php?u=${process.env.NEXTAUTH_URL}/publicaciones/${seccion.toLowerCase()}/${path}/&src=sdkpreparse`}
+            target="_blank"
+            href={`https://www.facebook.com/sharer/sharer.php?u=https://miguelsalinasjuridico.com/publicaciones/${seccion.toLowerCase()}/${path}/&src=sdkpreparse`}
           >
             <Button>
               Compartir

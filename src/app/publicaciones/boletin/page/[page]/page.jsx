@@ -31,7 +31,7 @@ export default async function Jurisprudencia({ params }) {
       />
       <div className="w-full flex flex-col justify-center items-center py-20 gap-10">
         <h1 className=" md:text-3xl w-9/12 text-center font-bold">
-          Nuestras publicaciones de jurisprudencia
+          Nuestros Boletines
         </h1>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8 justify-around">
           {data.map((art) => (

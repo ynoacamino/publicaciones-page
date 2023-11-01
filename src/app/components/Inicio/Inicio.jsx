@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import bg from '@/app/assets/bg.jpg';
-import logo from '@/app/assets/logo.svg';
 import goldLogo from '@/app/assets/gold.svg';
 
 export default function Inicio() {
@@ -18,7 +17,7 @@ export default function Inicio() {
         alt="empresa"
         width={200}
         height={200}
-        className="absolute lg:left-12 top-12 w-32 h-32 lg:w-[200px] lg:h-[200px] rounded-full backdrop-blur-sm brightness-125"
+        className="absolute lg:left-12 top-12 w-32 h-32 lg:w-[200px] lg:h-[200px] rounded-full backdrop-blur-sm"
       />
       <h1 className="z-10 flex flex-col gap-4 items-center justify-center w-full mt-28 lg:w-4/6 text-white p-10 lg:m-10 lg:mt-40">
         <span className="text-4xl md:text-5xl font-bold text-center">
