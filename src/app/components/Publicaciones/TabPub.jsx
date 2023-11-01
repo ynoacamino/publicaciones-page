@@ -1,10 +1,10 @@
 'use client';
 
 import {
-  Tabs, Tab,
+  Tabs, Tab, Button,
 } from '@nextui-org/react';
+import Link from 'next/link';
 import ArticleBox from '@/app/components/Publicaciones/ArticleBox';
-import ButtonLink from '../ButtonLink';
 
 export default function PublicationsTabs({ articleArticulo, articleJuris }) {
   return (
@@ -30,9 +30,11 @@ export default function PublicationsTabs({ articleArticulo, articleJuris }) {
               ))}
             </div>
             <div className="w-full flex justify-center items-center my-10">
-              <ButtonLink path="/publicaciones/jurisprudencia/page/1">
-                Ver mas
-              </ButtonLink>
+              <Link href="/publicaciones/jurisprudencia/page/1">
+                <Button color="success">
+                  Ver mas
+                </Button>
+              </Link>
             </div>
           </Tab>
           <Tab title="Boletines">
@@ -54,9 +56,11 @@ export default function PublicationsTabs({ articleArticulo, articleJuris }) {
               ))}
             </div>
             <div className="w-full flex justify-center items-center my-10">
-              <ButtonLink path="/publicaciones/boletin/page/1">
-                Ver mas
-              </ButtonLink>
+              <Link href="/publicaciones/boletin/page/1">
+                <Button color="success">
+                  Ver mas
+                </Button>
+              </Link>
             </div>
           </Tab>
         </Tabs>

@@ -43,18 +43,19 @@ export default function ArticleBox({
             target="_blank"
             href={`https://www.facebook.com/sharer/sharer.php?u=https://miguelsalinasjuridico.com/publicaciones/${seccion.toLowerCase()}/${path}/&src=sdkpreparse`}
           >
-            <Button>
+            <Button color="primary">
               Compartir
             </Button>
           </Link>
           {pdfSrc && (
             <Link href={pdfSrc} target="_blank">
-              <Button className="flex gap-3">
+              <Button className="flex gap-3" color="danger">
                 <Image
                   src={archivoPdf}
                   alt="pdf"
                   width={25}
                   height={25}
+                  className="invert"
                 />
                 PDF
               </Button>

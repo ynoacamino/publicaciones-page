@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/react';
 import PreviewBody from '@/app/components/PreviewBody';
 import dbConnect from '@/app/db/dbConnect';
 import Article from '@/app/db/models/Article';
-import logo from '@/app/assets/logo.svg';
+import logo from '@/app/assets/gold.svg';
 import facebook from '@/app/assets/facebook.svg';
 import archivoPdf from '@/app/assets/archivo-pdf.svg';
 
@@ -71,12 +71,13 @@ export default async function Title({ params }) {
               {data?.pdfSrc && (
               <div className="w-full flex justify-start items-center">
                 <Link href={data.pdfSrc} target="_blank">
-                  <Button className="flex gap-3">
+                  <Button className="flex gap-3" color="danger">
                     <Image
                       src={archivoPdf}
                       alt="pdf"
                       width={25}
                       height={25}
+                      className="invert"
                     />
                     PDF
                   </Button>
@@ -90,7 +91,7 @@ export default async function Title({ params }) {
               <Image
                 src={logo}
                 alt="logo"
-                className="rounded-full bg-red-600 p-1 m-3"
+                className="m-3"
                 width={100}
                 height={100}
               />
@@ -101,7 +102,7 @@ export default async function Title({ params }) {
                 Abogado
               </span>
             </div>
-            <div className="bg-red-600 rounded-b-md px-8 py-4 flex justify-center items-center text-white font-bold">
+            <div className="bg-[#191970] rounded-b-md px-8 py-4 flex justify-center items-center text-white font-bold">
               <Link href="https://www.facebook.com/migu.3110567" target="_blank">
                 <Image
                   src={facebook}

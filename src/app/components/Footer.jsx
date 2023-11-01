@@ -7,9 +7,9 @@ export default function Footer() {
   return (
     <footer
       className="w-full bg-[#fefffe] border-t-2 text-black font-semibold
-      text-base md:text-md lg:text-xl text-center p-1 md:p-5 flex justify-center"
+      text-base md:text-md lg:text-xl text-center p-1 flex justify-center"
     >
-      <div className="w-10/12 grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-8 py-10">
+      <div className="w-10/12 grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-8 py-1 pb-4">
         <aside className="flex justify-center items-center gap-2 flex-col md:flex-row">
           <Image
             src={goldLogo}

@@ -7,10 +7,8 @@ import {
 } from '@nextui-org/react';
 import Link from 'next/link';
 import Image from 'next/image';
-import tikTok from '@/app/assets/tik-tok.svg';
-import facebook from '@/app/assets/facebook.svg';
-import goldLogo from '@/app/assets/gold.svg';
-import blueLogo from '@/app/assets/blue.svg';
+import tikTok from '@/app/assets/tikTok.png';
+import facebook from '@/app/assets/facebook.png';
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -27,25 +25,13 @@ export default function NavBar() {
 
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand>
-          <Link href="/" className="font-bold text-inherit flex justify-normal items-center gap-4 text-2xl">
-            <Image
-              src={goldLogo}
-              alt="empresa"
-              width={70}
-            />
-          </Link>
+          <Link href="/" className="font-bold text-inherit flex justify-normal items-center gap-4 text-2xl" />
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarBrand>
-          <Link href="/" className="font-bold text-inherit flex items-center justify-center gap-4 text-2xl">
-            <Image
-              src={goldLogo}
-              alt="empresa"
-              width={70}
-            />
-          </Link>
+          <Link href="/" className="font-bold text-inherit flex items-center justify-center gap-4 text-2xl" />
         </NavbarBrand>
 
       </NavbarContent>

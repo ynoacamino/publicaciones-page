@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import Image from 'next/image';
 import Link from 'next/link';
-import logo from '@/app/assets/logo.svg';
+import logo from '@/app/assets/gold.svg';
 import facebook from '@/app/assets/facebook.svg';
 import PreviewBody from '@/app/components/PreviewBody';
 
@@ -324,7 +324,7 @@ export default function EditArticle({ params }) {
                   <Image
                     src={logo}
                     alt="logo"
-                    className="rounded-full bg-red-600 p-2 m-3"
+                    className="m-3"
                     width={100}
                     height={100}
                   />
@@ -335,7 +335,7 @@ export default function EditArticle({ params }) {
                     Abogado
                   </span>
                 </div>
-                <div className="bg-red-600 rounded-b-md px-8 py-4 flex justify-center items-center text-white font-bold">
+                <div className="bg-[#191970] rounded-b-md px-8 py-4 flex justify-center items-center text-white font-bold">
                   <Link href="https://www.facebook.com/migu.3110567" target="_blank">
                     <Image
                       src={facebook}

@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function obreNosotros() {
   return (
-    <div className="w-full flex relative overflow-hidden justify-center min-h-[65vh]">
+    <div className="w-full flex relative overflow-hidden justify-center min-h-[66vh]">
       <Image
         src={bg}
         alt="empresa"
@@ -16,12 +16,6 @@ export default function obreNosotros() {
         className="absolute w-full top-50 object-cover h-full brightness-50"
       />
       <div className="z-10 flex flex-col gap-4 items-center justify-start w-full mt-10 lg:w-4/6 text-white p-10 lg:m-10 lg:mt-20">
-        <h1 className="text-4xl md:text-6xl font-bold">
-          SOBRE
-        </h1>
-        <h1 className="text-5xl md:text-7xl font-bold text-red-500 mb-10">
-          NOSOTROS
-        </h1>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 items-center justify-items-center">
           <p className="text-2xl font-semibold text-justify">
             Página de estudio  formada por abogados comprometidos con el desarrollo del derecho,
