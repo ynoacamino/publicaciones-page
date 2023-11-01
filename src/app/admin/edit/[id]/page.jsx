@@ -12,6 +12,7 @@ import Link from 'next/link';
 import logo from '@/app/assets/gold.svg';
 import facebook from '@/app/assets/facebook.svg';
 import PreviewBody from '@/app/components/PreviewBody';
+import archivoPdf from '@/app/assets/archivo-pdf.svg';
 
 export default function EditArticle({ params }) {
   const [title, setTitle] = useState('');
@@ -312,11 +313,19 @@ export default function EditArticle({ params }) {
                 ))}
                 <p className="flex flex-col gap-2">
                   <span>
-                    Para revisar la sentencia completa y otras
-                    jurisprudencias únete a nuestra COMUNIDAD:
+                    Para revisar la casación completa
                   </span>
-                  <span>- Telegram: Canal de la Comunidad Pariona Abogados</span>
-                  <span>- WhatsApp: Comunidad Pariona Abogados</span>
+
+                  <Button className="flex gap-3" color="danger">
+                    <Image
+                      src={archivoPdf}
+                      alt="pdf"
+                      width={25}
+                      height={25}
+                      className="invert"
+                    />
+                    PDF
+                  </Button>
                 </p>
               </article>
               <div className="w-full rounded-md bg-gray-200  xl:sticky xl:top-36 md:col-span-1 min-w-min">

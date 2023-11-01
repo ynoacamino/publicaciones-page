@@ -11,7 +11,7 @@ export default function Inicio() {
         alt="empresa"
         width={1080}
         height={1920}
-        className="absolute w-full top-50 object-cover h-full brightness-50"
+        className="absolute w-full top-50 object-cover h-full"
       />
       <Image
         src={goldLogo}
