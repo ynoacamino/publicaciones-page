@@ -1,6 +1,10 @@
 import Image from 'next/image';
 import bg from '@/app/assets/bg.jpg';
 
+export const metadata = {
+  title: 'Sobre nosotros',
+};
+
 export default function obreNosotros() {
   return (
     <div className="w-full flex relative overflow-hidden justify-center min-h-[65vh]">

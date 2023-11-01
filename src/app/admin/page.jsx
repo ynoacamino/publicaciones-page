@@ -30,6 +30,7 @@ export default function Admin() {
       }
       if (arts?.data) {
         setArticles(arts.data.articleArticulo);
+        console.log(arts.data.articleArticulo);
         setJurisprudencia(arts.data.articleJuris);
       }
     };
@@ -46,7 +47,9 @@ export default function Admin() {
   return (
     <div className="w-full flex flex-col justify-center items-center py-20 gap-10">
       <Link href="/admin/addArticle" className="text-3xl">
-        Agregar una publicacion
+        <Button className="text-3xl">
+          Agregar una publicacion
+        </Button>
       </Link>
       <Divider className="my-8" />
       <div className="flex flex-col justify-center items-center">

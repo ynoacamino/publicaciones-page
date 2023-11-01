@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '@nextui-org/react';
 import PreviewBody from '@/app/components/PreviewBody';
 import dbConnect from '@/app/db/dbConnect';
 import Article from '@/app/db/models/Article';
 import logo from '@/app/assets/logo.svg';
 import facebook from '@/app/assets/facebook.svg';
+import archivoPdf from '@/app/assets/archivo-pdf.svg';
 
 const getData = async (path) => {
   await dbConnect();
@@ -14,56 +16,89 @@ const getData = async (path) => {
   } catch (err) {
     console.error(err.message);
   }
-
   return article;
 };
-// mejorar
+
+export async function generateMetadata({ params }) {
+  // read route params
+  const data = await getData(params.title);
+  return {
+    title: data.title,
+    description: data.preview,
+    openGraph: {
+      images: [data.imgSrc],
+    },
+  };
+}
+
 export default async function Title({ params }) {
   const data = await getData(params.title);
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col items-center">
       <PreviewBody
         imgSrc={data.imgSrc}
         title={data.title}
         seccion={data.seccion}
         preview={data.preview}
       />
+      {
+          (data?.link && data.link.startsWith('https://www.youtube.com')) && (
+            <aside className="w-11/12 md:w-7/12 grid grid-cols-4 gap-8 py-20 items-start">
+              <iframe
+                className="w-[300px] sm:w-[400px] md:w-[600px] xl:w-[1000px] aspect-video"
+                src={data.link}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              />
+            </aside>
+          )
+        }
       <div className="w-full flex justify-center items-center">
         <div className="w-11/12 xl:w-8/12 grid grid-cols-1 xl:grid-cols-4 gap-y-8 xl:gap-8 py-20 items-start">
-          <article className="col-span-1 md:col-span-3 p-8 rounded-md bg-gray-200 flex flex-col gap-6 text-lg">
+          <article className="col-span-3 p-8 rounded-md bg-gray-200 gap-6 text-lg">
             <h2 className="text-2xl font-semibold">
-              {data.titleBody || '¿CUÁLES SON LOS ALCANCES DE LA SOSPECHA INICIAL SIMPLE EN LA MOTIVACIÓN DE LA DISPOSICIÓN DE LA FISCALÍA SUPERIOR? [APELACIÓN N.º 66-2023/LA LIBERTAD]'}
+              {data.titleBody}
             </h2>
-            <p>
-              {data.body.map((p) => (
-                <p key={p} className="my-5">
-                  {p}
-                </p>
-              ))}
-            </p>
-            <p className="flex flex-col gap-2">
+            {data.body.map((p) => (
+              <p key={p} className="my-5 text-justify">
+                {p}
+              </p>
+            ))}
+            <footer className="flex flex-col gap-2">
               <span>
-                Para revisar la sentencia completa y otras
-                jurisprudencias únete a nuestra COMUNIDAD:
+                Para revisar la casación completa
               </span>
-              <span>- Telegram: Canal de la Comunidad Pariona Abogados</span>
-              <span>- WhatsApp: Comunidad Pariona Abogados</span>
-            </p>
+              {data?.pdfSrc && (
+                <div className="w-full flex justify-end items-center">
+                  <Link href={data.pdfSrc} target="_blank">
+                    <Button className="flex gap-3">
+                      <Image
+                        src={archivoPdf}
+                        alt="pdf"
+                        width={25}
+                        height={25}
+                      />
+                      PDF
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </footer>
           </article>
-          <div className="w-full rounded-md bg-gray-200  xl:sticky xl:top-36 md:col-span-1 min-w-min">
+          <aside className="w-full rounded-md bg-gray-200  xl:sticky xl:top-36 md:col-span-1 min-w-min">
             <div className="p-8 flex flex-col justify-center items-center">
               <Image
                 src={logo}
                 alt="logo"
-                className="rounded-full bg-red-600 p-2 m-3"
+                className="rounded-full bg-red-600 p-1 m-3"
                 width={100}
                 height={100}
               />
-              <span className="text-2xl font-bold text-center">
+              <h3 className="text-2xl font-bold text-center">
                 Miguel Salinas Vargas
-              </span>
+              </h3>
               <span>
-                miguelsalinasjuridico@gmail.com
+                Abogado
               </span>
             </div>
             <div className="bg-red-600 rounded-b-md px-8 py-4 flex justify-center items-center text-white font-bold">
@@ -77,7 +112,7 @@ export default async function Title({ params }) {
                 />
               </Link>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </div>

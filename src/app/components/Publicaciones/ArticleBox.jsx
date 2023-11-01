@@ -5,6 +5,8 @@ import {
   Button,
 } from '@nextui-org/react';
 import Link from 'next/link';
+import Image from 'next/image';
+import archivoPdf from '@/app/assets/archivo-pdf.svg';
 
 export default function ArticleBox({
   imgSrc, date, title, author, seccion, path, pdfSrc,
@@ -38,14 +40,22 @@ export default function ArticleBox({
         <Divider />
         <CardFooter className="flex gap-4 justify-end items-center">
           <Link
-            href="https://github.com/nextui-org/nextui"
+            href={`https://www.facebook.com/sharer/sharer.php?u=${process.env.NEXTAUTH_URL}/publicaciones/${seccion.toLowerCase()}/${path}/&src=sdkpreparse`}
           >
-            Compartir
+            <Button>
+              Compartir
+            </Button>
           </Link>
           {pdfSrc && (
             <Link href={pdfSrc} target="_blank">
-              <Button>
-                Pdf
+              <Button className="flex gap-3">
+                <Image
+                  src={archivoPdf}
+                  alt="pdf"
+                  width={25}
+                  height={25}
+                />
+                PDF
               </Button>
             </Link>
           )}

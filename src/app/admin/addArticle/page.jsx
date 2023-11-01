@@ -7,6 +7,11 @@ import {
   Textarea, Divider, Select, SelectItem, Button,
 } from '@nextui-org/react';
 import { ToastContainer, toast } from 'react-toastify';
+import Image from 'next/image';
+import Link from 'next/link';
+import logo from '@/app/assets/logo.svg';
+import facebook from '@/app/assets/facebook.svg';
+import PreviewBody from '@/app/components/PreviewBody';
 
 export default function AddArticle() {
   const { status } = useSession();
@@ -42,7 +47,7 @@ export default function AddArticle() {
     formFile.append('file', file);
     formFile.append('upload_preset', 'images');
 
-    const body = bodyTxt.split('<enter>');
+    // const body = bodyTxt.split('<enter>');
 
     const formData = new FormData();
     formData.append('title', title);
@@ -156,7 +161,7 @@ export default function AddArticle() {
           variant="bordered"
           onChange={(e) => {
             if (e.target.value == '$.0') return setSeccion('jurisprudencia');
-            if (e.target.value == '$.1') return setSeccion('articulo');
+            if (e.target.value == '$.1') return setSeccion('boletin');
             return setSeccion('');
           }}
           isRequired
@@ -164,8 +169,8 @@ export default function AddArticle() {
           <SelectItem value="jurisprudencia">
             Jurisprudencia
           </SelectItem>
-          <SelectItem value="articulos">
-            Articulos
+          <SelectItem value="boletin">
+            Boletines
           </SelectItem>
         </Select>
         <Divider className="my-4" />
@@ -233,6 +238,81 @@ export default function AddArticle() {
           value={link}
           onValueChange={setLink}
         />
+
+        <Divider className="my-4" />
+
+        <div className="w-full flex flex-col items-center">
+          <PreviewBody
+            imgSrc="https://cdn.discordapp.com/attachments/772232222220615710/1169139656240144394/bg.jpg?ex=65545127&is=6541dc27&hm=b90b3d8fa5dfb47939ce504672fbc87aeb9a77d0cdb472a83b439e74fda23c5e&"
+            title={title}
+            seccion={seccion}
+            preview={preview}
+          />
+          {
+            (link && link.startsWith('https://www.youtube.com')) && (
+              <div className="w-11/12 md:w-7/12 grid grid-cols-4 gap-8 py-20 items-start">
+                <iframe
+                  className="w-[300px] sm:w-[400px] md:w-[600px] xl:w-[1000px] aspect-video"
+                  src={link}
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                />
+              </div>
+            )
+          }
+          <div className="w-full flex justify-center items-center">
+            <div className="w-11/12 xl:w-8/12 grid grid-cols-1 xl:grid-cols-4 gap-y-8 xl:gap-8 py-20 items-start">
+              <article className="col-span-3 p-8 rounded-md bg-gray-200 text-lg">
+                <h2 className="text-2xl font-semibold">
+                  {titleBody}
+                </h2>
+                {bodyTxt.split('<enter>').map((p) => (
+                  <p key={p} className=" text-justify">
+                    {p}
+                  </p>
+                ))}
+                <p className="flex flex-col gap-2 text-justify">
+                  <span>
+                    Para revisar la sentencia completa y otras
+                    jurisprudencias únete a nuestra COMUNIDAD:
+                  </span>
+                  <span>- Telegram: Canal de la Comunidad Pariona Abogados</span>
+                  <span>- WhatsApp: Comunidad Pariona Abogados</span>
+                </p>
+              </article>
+              <div className="w-full rounded-md bg-gray-200  xl:sticky xl:top-36 md:col-span-1 min-w-min">
+                <div className="p-8 flex flex-col justify-center items-center">
+                  <Image
+                    src={logo}
+                    alt="logo"
+                    className="rounded-full bg-red-600 p-1 m-3"
+                    width={100}
+                    height={100}
+                  />
+                  <span className="text-2xl font-bold text-center">
+                    Miguel Salinas Vargas
+                  </span>
+                  <span>
+                    Abogado
+                  </span>
+                </div>
+                <div className="bg-red-600 rounded-b-md px-8 py-4 flex justify-center items-center text-white font-bold">
+                  <Link href="https://www.facebook.com/migu.3110567" target="_blank">
+                    <Image
+                      src={facebook}
+                      alt="facebook"
+                      width={35}
+                      height={35}
+                      className="invert"
+                    />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <Divider className="my-4" />
 
         <div className="w-full flex justify-end items-center my-10">
           <Button type="submit" isLoading={loading}>

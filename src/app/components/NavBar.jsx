@@ -9,6 +9,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import tikTok from '@/app/assets/tik-tok.svg';
 import facebook from '@/app/assets/facebook.svg';
+import goldLogo from '@/app/assets/gold.svg';
+import blueLogo from '@/app/assets/blue.svg';
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -26,7 +28,11 @@ export default function NavBar() {
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand>
           <Link href="/" className="font-bold text-inherit flex justify-normal items-center gap-4 text-2xl">
-            NOMBRE
+            <Image
+              src={goldLogo}
+              alt="empresa"
+              width={70}
+            />
           </Link>
         </NavbarBrand>
       </NavbarContent>
@@ -34,8 +40,11 @@ export default function NavBar() {
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarBrand>
           <Link href="/" className="font-bold text-inherit flex items-center justify-center gap-4 text-2xl">
-
-            NOMBRE
+            <Image
+              src={goldLogo}
+              alt="empresa"
+              width={70}
+            />
           </Link>
         </NavbarBrand>
 
@@ -57,7 +66,7 @@ export default function NavBar() {
           </div>
           <div className="hidden sm:flex gap-4 items-center">
             <NavbarItem>
-              <Link href="https://www.tiktok.com/" target="_blank" className="underlineEffect">
+              <Link href="https://www.tiktok.com/@miguelsalinasjuridico" target="_blank" className="underlineEffect">
                 <Image
                   src={tikTok}
                   alt="tik-tok"
@@ -91,7 +100,7 @@ export default function NavBar() {
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
-          <Link href="https://www.tiktok.com" target="_blank" className="underlineEffect text-xl  font-semibold m-6">
+          <Link href="https://www.tiktok.com/@miguelsalinasjuridico" target="_blank" className="underlineEffect text-xl  font-semibold m-6">
             <Image
               src={tikTok}
               alt="tik-tok"

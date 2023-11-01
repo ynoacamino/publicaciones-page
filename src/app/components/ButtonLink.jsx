@@ -1,15 +1,14 @@
-'use client';
-
 import { Button } from '@nextui-org/react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function ButtonLink({
   children, className, path, color,
 }) {
-  const router = useRouter();
   return (
-    <Button color={color} className={className} onPress={() => router.push(path)}>
-      {children}
-    </Button>
+    <Link href={path}>
+      <Button color={color} className={className}>
+        {children}
+      </Button>
+    </Link>
   );
 }

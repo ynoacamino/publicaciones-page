@@ -6,7 +6,7 @@ import Article from '@/app/db/models/Article';
 const getData = async (pageNumber) => {
   try {
     dbConnect();
-    const articles = await Article.find({ seccion: new RegExp('articulo', 'i') })
+    const articles = await Article.find({ seccion: new RegExp('boletin', 'i') })
       .sort({ createdAt: -1 })
       .skip((Number(pageNumber) - 1) * 6)
       .limit(6);

@@ -1,33 +1,33 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Divider } from '@nextui-org/react';
-import logo from '@/app/assets/logo.svg';
+import goldLogo from '@/app/assets/gold.svg';
 
 export default function Footer() {
   return (
     <footer
       className="w-full bg-[#fefffe] border-t-2 text-black font-semibold
-    text-base md:text-md lg:text-xl text-center p-1 md:p-5 flex justify-center"
+      text-base md:text-md lg:text-xl text-center p-1 md:p-5 flex justify-center"
     >
-      <div className="w-10/12 grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-8 py-10">
-        <div className="flex justify-center items-center gap-2 flex-col md:flex-row">
+      <div className="w-10/12 grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-8 py-10">
+        <aside className="flex justify-center items-center gap-2 flex-col md:flex-row">
           <Image
-            src={logo}
+            src={goldLogo}
             alt="logo"
             width={120}
             height={120}
             className="m-2"
           />
-          <p className="md:text-lg">
-            El Derecho se transforma dia a dia, preparemonos
-          </p>
-        </div>
+          <header className="md:text-lg">
+            El Derecho se transforma día a día, prepárenos.
+          </header>
+        </aside>
         <Divider className="md:hidden" />
-        <div className="flex justify-center items-center">
+        <aside className="flex justify-center items-center">
           <div className="flex flex-col items-start">
-            <h2 className="md:text-lg font-semibold my-4">
+            <header className="md:text-lg font-semibold my-4">
               ACCESO RAPIDO
-            </h2>
+            </header>
             <ol className="text-medium flex flex-col items-start ml-4 gap-3">
               <li>
                 <Link href="/" className="underlineEffect">
@@ -46,16 +46,7 @@ export default function Footer() {
               </li>
             </ol>
           </div>
-        </div>
-        <Divider className="md:hidden" />
-        <div className="flex items-center justify-center flex-col">
-          <h2>CONTACTO</h2>
-          <div className="text-sm md:text-lg">
-            <p>Jr. Lampa Nro. 879, Oficinas 504 - 506, Cercado de Lima (Perú)</p>
-            <p>(01) 4261037 - 915154298</p>
-            <p>pariona@rpa.pe</p>
-          </div>
-        </div>
+        </aside>
       </div>
     </footer>
   );

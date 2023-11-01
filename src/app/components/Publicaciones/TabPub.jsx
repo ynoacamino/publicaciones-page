@@ -35,7 +35,7 @@ export default function PublicationsTabs({ articleArticulo, articleJuris }) {
               </ButtonLink>
             </div>
           </Tab>
-          <Tab title="Articulos">
+          <Tab title="Boletines">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-around">
               {articleArticulo.map((art) => (
                 <div key={art._id.toString()}>
@@ -54,7 +54,7 @@ export default function PublicationsTabs({ articleArticulo, articleJuris }) {
               ))}
             </div>
             <div className="w-full flex justify-center items-center my-10">
-              <ButtonLink path="/publicaciones/articulo/page/1">
+              <ButtonLink path="/publicaciones/boletin/page/1">
                 Ver mas
               </ButtonLink>
             </div>

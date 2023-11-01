@@ -1,10 +1,10 @@
 import ButtonLink from './ButtonLink';
 
-export default async function PreviewBody({
+export default function PreviewBody({
   imgSrc, title, seccion, preview,
 }) {
   return (
-    <div className="w-full flex relative overflow-hidden justify-center">
+    <header className="w-full flex relative overflow-hidden justify-center">
       <img
         src={imgSrc}
         alt={title}
@@ -12,15 +12,15 @@ export default async function PreviewBody({
       />
       <div className="z-10 flex flex-col gap-4 items-start justify-end w-full mt-28 lg:w-4/6 text-white p-10 lg:m-10 lg:mt-40">
         <ButtonLink color="danger" path={`/publicaciones/${seccion}/page/1`}>
-          {seccion}
+          <strong>{seccion.substring(0, 1).toUpperCase() + seccion.substring(1)}</strong>
         </ButtonLink>
         <h1 className="text-3xl font-bold">
           {title}
         </h1>
-        <h2>
+        <summary>
           {preview}
-        </h2>
+        </summary>
       </div>
-    </div>
+    </header>
   );
 }

@@ -2,9 +2,13 @@ import PaginationClient from '@/app/components/Publicaciones/PaginationClient';
 import dbConnect from '@/app/db/dbConnect';
 import Article from '@/app/db/models/Article';
 
+export const metadata = {
+  title: 'Jurisprudencia',
+};
+
 const getData = async (searchParams) => {
   dbConnect();
-  const pages = await Article.countDocuments({ seccion: new RegExp('articulo', 'i') });
+  const pages = await Article.countDocuments({ seccion: new RegExp('boletin', 'i') });
   return { num: Math.ceil(pages / 6), searchParams };
 };
 
