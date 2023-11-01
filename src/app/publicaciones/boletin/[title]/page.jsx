@@ -69,7 +69,7 @@ export default async function Title({ params }) {
                 Para revisar la casación completa
               </span>
               {data?.pdfSrc && (
-              <div className="w-full flex justify-end items-center">
+              <div className="w-full flex justify-start items-center">
                 <Link href={data.pdfSrc} target="_blank">
                   <Button className="flex gap-3">
                     <Image
