@@ -7,7 +7,7 @@ import NavBar from './components/NavBar';
 
 export const metadata = {
   title: 'Abogado Miguel Salinas',
-  description: 'En Legalia, nuestra firma de abogados está comprometida con la excelencia jurídica. Con años de experiencia en diversas áreas del derecho, ofrecemos soluciones legales efectivas y personalizadas. Nuestro equipo de profesionales altamente calificados aborda casos con pasión y dedicación, asegurando representación legal de la más alta calidad. Desde litigios civiles hasta asesoramiento corporativo.',
+  description: 'Comprometido con el desarrollo del derecho en base al estudio y el ejercicio de la profesión. Compartimos nuestra página de estudio con fines exclusivamente académicos, no se ofrece ningún servicio.',
   generator: 'Next.js',
   keywords: ['Arequipa', 'Abogacia', 'Derecho', 'legal'],
   creator: 'Yenaro Joel Noa Camino',
@@ -30,7 +30,7 @@ export const metadata = {
     shortcut: '/logo.svg',
   },
   openGraph: {
-    images: ['https://cdn.discordapp.com/attachments/772232222220615710/1169312451356000327/image.png?ex=6554f215&is=65427d15&hm=30ab9dfe935b6461ab9a5751595aa3b3fe62cb62b44579ca9e2c986d24013c41&'],
+    images: ['https://cdn.discordapp.com/attachments/772232222220615710/1170355316253265920/image.png?ex=6558bd53&is=65464853&hm=b33655c138accea99a40e5e523d5cbd642cdd423e923cfc874a1e04b382e01a7&'],
   },
 };
 
