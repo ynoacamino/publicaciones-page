@@ -60,7 +60,7 @@ export default async function Title({ params }) {
               {data.titleBody}
             </h2>
             {data.body.map((p) => (
-              <p key={p} className="my-5 text-justify">
+              <p key={p} className={`my-5 text-justify ${(p.startsWith('-') || p.charAt(1) === ')' || p.startsWith('')) && 'ml-3'}`}>
                 {p}
               </p>
             ))}

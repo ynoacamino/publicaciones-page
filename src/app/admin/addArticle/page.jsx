@@ -262,31 +262,33 @@ export default function AddArticle() {
             )
           }
           <div className="w-full flex justify-center items-center">
-            <div className="w-11/12 xl:w-8/12 grid grid-cols-1 xl:grid-cols-4 gap-y-8 xl:gap-8 py-20 items-start">
+            <div className="w-full grid grid-cols-1 xl:grid-cols-4 gap-y-8 xl:gap-8 py-20 items-start">
               <article className="col-span-3 p-8 rounded-md bg-gray-200 text-lg">
                 <h2 className="text-2xl font-semibold">
                   {titleBody}
                 </h2>
-                {bodyTxt.split('<enter>').map((p) => (
-                  <p key={p} className=" text-justify">
+                {bodyTxt.split('\n').map((p) => (
+                  <p key={p} className={`my-5 text-justify ${(p.startsWith('-') || p.charAt(1) === ')' || p.startsWith('')) && 'ml-3'}`}>
                     {p}
                   </p>
                 ))}
-                <p className="flex flex-col gap-2 text-justify">
+                <footer className="flex flex-col gap-2">
                   <span>
                     Para revisar la casación completa
                   </span>
-                  <Button className="flex gap-3" color="danger">
-                    <Image
-                      src={archivoPdf}
-                      alt="pdf"
-                      width={25}
-                      height={25}
-                      className="invert"
-                    />
-                    PDF
-                  </Button>
-                </p>
+                  <div className="w-full flex justify-start items-center">
+                    <Button className="flex gap-3" color="danger">
+                      <Image
+                        src={archivoPdf}
+                        alt="pdf"
+                        width={25}
+                        height={25}
+                        className="invert"
+                      />
+                      PDF
+                    </Button>
+                  </div>
+                </footer>
               </article>
               <div className="w-full rounded-md bg-gray-200  xl:sticky xl:top-36 md:col-span-1 min-w-min">
                 <div className="p-8 flex flex-col justify-center items-center">
