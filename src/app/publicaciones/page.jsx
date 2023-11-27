@@ -13,7 +13,6 @@ const getData = async ({ searchParams }) => {
   const articleArticulo = await Article.find({ seccion: new RegExp('boletin', 'i') }).sort({ createdAt: -1 }).limit(4);
 
   const lastPub = new Date(articleJuris[0].createdAt) > new Date(articleArticulo[0].createdAt) ? articleJuris[0] : articleArticulo[0];
-  console.log(articleArticulo[0].createdAt);
   return {
     articleArticulo, articleJuris, searchParams, lastPub,
   };

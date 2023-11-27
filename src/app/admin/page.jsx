@@ -30,7 +30,6 @@ export default function Admin() {
       }
       if (arts?.data) {
         setArticles(arts.data.articleArticulo);
-        console.log(arts.data.articleArticulo);
         setJurisprudencia(arts.data.articleJuris);
       }
     };

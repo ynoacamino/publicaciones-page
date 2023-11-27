@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@algolia/autocomplete-core": "^1.12.1",
     "@nextui-org/react": "^2.1.13",
     "axios": "^1.6.0",
     "bcryptjs": "^2.4.3",

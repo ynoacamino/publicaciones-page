@@ -1,23 +1,24 @@
 'use client';
 
-import React from 'react';
 import {
   Navbar, NavbarBrand,
   NavbarMenuToggle, NavbarMenuItem, NavbarMenu, NavbarContent, NavbarItem,
 } from '@nextui-org/react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import tikTok from '@/app/assets/tikTok.png';
 import facebook from '@/app/assets/facebook.png';
 
 export default function NavBar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <Navbar
       isBordered
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
+      className="z-50"
     >
       <NavbarContent className="sm:hidden" justify="start">
         <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} />
@@ -37,7 +38,7 @@ export default function NavBar() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <div className="hidden sm:flex gap-20 items-center">
+        <div className="hidden sm:flex gap-4 items-center">
           <div className="hidden sm:flex gap-4 items-center">
             <NavbarItem>
               <Link color="foreground" href="/sobre-nosotros" className="underlineEffect">

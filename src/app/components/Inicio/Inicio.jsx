@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import bg from '@/app/assets/bg.jpg';
 import goldLogo from '@/app/assets/gold.svg';
-import RedBox from './RedBox';
+import SearchBar from '../SearchBar';
 
 export default function Inicio() {
   return (
-    <div className="w-full flex relative overflow-hidden justify-center h-[55vh] sm:h-[50vh]">
+    <div className="w-full flex items-start relative overflow-hidden justify-center h-[55vh] sm:h-[50vh]">
       <Image
         src={bg}
         alt="empresa"
@@ -20,7 +20,9 @@ export default function Inicio() {
         height={100}
         className="absolute lg:left-12 top-12 w-32 h-32 lg:w-[100px] lg:h-[100px] rounded-full backdrop-blur-sm"
       />
-      <RedBox />
+      <div className="m-5 mt-16 w-full flex justify-center items-center">
+        <SearchBar />
+      </div>
     </div>
   );
 }
