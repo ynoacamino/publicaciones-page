@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import Image from 'next/image';
 import MoreOptionsIcon from './MoreOptionsIcon.jsx';
 import ButtonNavBar from './ButtonNavBar.jsx';
 import ExitButton from './ExitButton.jsx';
+import tikTok from '@/app/assets/tikTok.png';
+import facebook from '@/app/assets/facebook.png';
 
 export default function NavBarMobile() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,8 +22,22 @@ export default function NavBarMobile() {
       >
         <ButtonNavBar href="/sobre-nosotros">Sobre nosotros</ButtonNavBar>
         <ButtonNavBar href="/publicaciones">Publicaciones</ButtonNavBar>
-        <ButtonNavBar href="/sobre-nosotros">Sobre nosotros</ButtonNavBar>
-        <ButtonNavBar href="/publicaciones">Publicaciones</ButtonNavBar>
+        <ButtonNavBar href="/sobre-nosotros" target>
+          <Image
+            src={tikTok}
+            alt="https://www.tiktok.com/@miguelsalinasjuridico"
+            width={34}
+            height={34}
+          />
+        </ButtonNavBar>
+        <ButtonNavBar href="https://www.facebook.com/migu.3110567" target>
+          <Image
+            src={facebook}
+            alt="facebook"
+            width={34}
+            height={34}
+          />
+        </ButtonNavBar>
         <button type="button" aria-label="salir" className="w-9 mt-20" onClick={handleClick}>
           <ExitButton />
         </button>

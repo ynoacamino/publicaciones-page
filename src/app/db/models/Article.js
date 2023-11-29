@@ -25,12 +25,10 @@ const schema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  body: [
-    {
-      type: String,
-      require: true,
-    },
-  ],
+  body: {
+    type: String,
+    require: true,
+  },
   date: {
     type: String,
     require: true,
