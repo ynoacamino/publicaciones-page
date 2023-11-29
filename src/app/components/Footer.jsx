@@ -6,7 +6,7 @@ import goldLogo from '@/app/assets/gold.svg';
 export default function Footer() {
   return (
     <footer
-      className="w-full bg-[#fefffe] border-t-2 text-black font-semibold
+      className="w-full bg-[#191970] border-t-2 text-white font-semibold
       text-base md:text-md lg:text-xl text-center p-1 flex justify-center"
     >
       <div className="w-10/12 grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-8 py-1 pb-4">

@@ -7,12 +7,8 @@ import {
   Textarea, Divider, Select, SelectItem, Button,
 } from '@nextui-org/react';
 import { ToastContainer, toast } from 'react-toastify';
-import Image from 'next/image';
-import Link from 'next/link';
-import logo from '@/app/assets/gold.svg';
-import facebook from '@/app/assets/facebook.svg';
-import PreviewBody from '@/app/components/PreviewBody';
-import archivoPdf from '@/app/assets/archivo-pdf.svg';
+import ArticleContent from '@/app/components/ArticleContent';
+import Jodit from '@/app/components/Jodit';
 
 export default function AddArticle() {
   const { status } = useSession();
@@ -204,16 +200,13 @@ export default function AddArticle() {
         <h2 className="text-2xl font-semibold">
           Cuerpo
         </h2>
-        <Textarea
-          variant="bordered"
-          labelPlacement="outside"
-          placeholder="Cuerpo"
-          className="max-w-3xl"
-          maxRows={80}
-          value={bodyTxt}
-          onValueChange={setBodyTxt}
-          isRequired
-        />
+        <div className="joditBox">
+          <Jodit
+            placeholder="Escriba el contenido del articulo"
+            content={bodyTxt}
+            setContent={setBodyTxt}
+          />
+        </div>
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
           Fecha
@@ -242,85 +235,16 @@ export default function AddArticle() {
 
         <Divider className="my-4" />
 
-        <div className="w-full flex flex-col items-center">
-          <PreviewBody
-            imgSrc="https://cdn.discordapp.com/attachments/772232222220615710/1169139656240144394/bg.jpg?ex=65545127&is=6541dc27&hm=b90b3d8fa5dfb47939ce504672fbc87aeb9a77d0cdb472a83b439e74fda23c5e&"
-            title={title}
-            seccion={seccion}
-            preview={preview}
-          />
-          {
-            (link && link.startsWith('https://www.youtube.com')) && (
-              <div className="w-11/12 md:w-7/12 grid grid-cols-4 gap-8 py-20 items-start">
-                <iframe
-                  className="w-[300px] sm:w-[400px] md:w-[600px] xl:w-[1000px] aspect-video"
-                  src={link}
-                  title="YouTube video player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                />
-              </div>
-            )
-          }
-          <div className="w-full flex justify-center items-center">
-            <div className="w-full grid grid-cols-1 xl:grid-cols-4 gap-y-8 xl:gap-8 py-20 items-start">
-              <article className="col-span-3 p-8 rounded-md bg-gray-200 text-lg">
-                <h2 className="text-2xl font-semibold">
-                  {titleBody}
-                </h2>
-                {bodyTxt.split('\n').map((p) => (
-                  <p key={p} className={`my-5 text-justify ${(p.startsWith('-') || p.charAt(1) === ')' || p.startsWith('')) && 'ml-3'}`}>
-                    {p}
-                  </p>
-                ))}
-                <footer className="flex flex-col gap-2">
-                  <span>
-                    Para revisar la casación completa
-                  </span>
-                  <div className="w-full flex justify-start items-center">
-                    <Button className="flex gap-3" color="danger">
-                      <Image
-                        src={archivoPdf}
-                        alt="pdf"
-                        width={25}
-                        height={25}
-                        className="invert"
-                      />
-                      PDF
-                    </Button>
-                  </div>
-                </footer>
-              </article>
-              <div className="w-full rounded-md bg-gray-200  xl:sticky xl:top-36 md:col-span-1 min-w-min">
-                <div className="p-8 flex flex-col justify-center items-center">
-                  <Image
-                    src={logo}
-                    alt="logo"
-                    className="m-3"
-                    width={100}
-                    height={100}
-                  />
-                  <span className="text-2xl font-bold text-center">
-                    Miguel Salinas Vargas
-                  </span>
-                  <span>
-                    Abogado
-                  </span>
-                </div>
-                <div className="bg-[#191970] rounded-b-md px-8 py-4 flex justify-center items-center text-white font-bold">
-                  <Link href="https://www.facebook.com/migu.3110567" target="_blank">
-                    <Image
-                      src={facebook}
-                      alt="facebook"
-                      width={35}
-                      height={35}
-                      className="invert"
-                    />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ArticleContent
+          link={link}
+          body={bodyTxt}
+          imgSrc="https://cdn.discordapp.com/attachments/772232222220615710/1169139656240144394/bg.jpg?ex=65545127&is=6541dc27&hm=b90b3d8fa5dfb47939ce504672fbc87aeb9a77d0cdb472a83b439e74fda23c5e&"
+          pdfSrc="/"
+          preview={preview}
+          seccion={seccion}
+          title={title}
+          titleBody={titleBody}
+        />
 
         <Divider className="my-4" />
 

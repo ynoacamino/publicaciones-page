@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import bg from '@/app/assets/bg.jpg';
 import goldLogo from '@/app/assets/gold.svg';
-import SearchBar from '../SearchBar';
 
 export default function Inicio() {
   return (
@@ -20,9 +19,6 @@ export default function Inicio() {
         height={100}
         className="absolute lg:left-12 top-12 w-32 h-32 lg:w-[100px] lg:h-[100px] rounded-full backdrop-blur-sm"
       />
-      <div className="m-5 mt-16 w-full flex justify-center items-center">
-        <SearchBar />
-      </div>
     </div>
   );
 }

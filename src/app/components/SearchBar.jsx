@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useRef, useState } from 'react';
+import { Divider } from '@nextui-org/react';
 import { createAutocomplete } from '@algolia/autocomplete-core';
 import Link from 'next/link';
 
@@ -8,15 +9,18 @@ function AutocompleteItem({
   title, imgSrc, seccion, path,
 }) {
   return (
-    <Link
-      href={`/publicaciones/${seccion.toLowerCase()}/${path}`}
-      className="flex gap-4 items-center justify-between hover:bg-gray-200 p-2 rounded-md"
-    >
-      <h3>
-        {title}
-      </h3>
-      <img src={imgSrc} alt={title} width={150} height={100} />
-    </Link>
+    <>
+      <Link
+        href={`/publicaciones/${seccion.toLowerCase()}/${path}`}
+        className="flex md:flex-row flex-col gap-4 items-center justify-between hover:bg-gray-200 p-2 rounded-md"
+      >
+        <h3>
+          {title}
+        </h3>
+        <img src={imgSrc} alt={title} width={150} height={100} />
+      </Link>
+      <Divider />
+    </>
   );
 }
 
@@ -54,19 +58,19 @@ export default function SearchBar() {
 
   return (
     <form
-      className="flex justify-center z-40 w-full max-w-2xl relative"
+      className="flex justify-center z-20 w-full max-w-xl xl:max-w-2xl relative"
       {...formProps}
     >
       <input
         type="text"
-        className="flex-1 py-4 pl-6 rounded-2xl bg-white text-lg focus:outline-none"
+        className="flex-1 py-3 pl-6 rounded-2xl bg-white text-base focus:outline-none shadow-lg z-40"
         {...inputProps}
       />
       {
         autocompleteState.isOpen && (
-          <div className="absolute top-10 p-2 pt-6 pr-0 bg-white rounded-lg shadow-lg z-20 w-full max-w-2xl max-h-[320px]">
+          <div className="absolute top-10 p-2 pt-6 pr-0 bg-white rounded-b-lg shadow-lg z-30 w-full max-w-2xl max-h-[60vh]">
             <div
-              className="overflow-y-scroll max-h-[270px]"
+              className="overflow-y-scroll max-h-[55vh]"
               ref={panelRef}
               {...autocomplete.getPanelProps()}
             >

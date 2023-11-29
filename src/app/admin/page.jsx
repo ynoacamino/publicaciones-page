@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Button, Chip, Divider } from '@nextui-org/react';
+import {
+  Button, Chip, Divider, Spinner,
+} from '@nextui-org/react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import ArticleBox from '../components/Publicaciones/ArticleBox';
@@ -15,6 +17,7 @@ export default function Admin() {
   const { status } = useSession();
   const [articles, setArticles] = useState([]);
   const [jurisprudencia, setJurisprudencia] = useState([]);
+  const [loadingGet, setLoadingGet] = useState(true);
 
   useEffect(() => {
     if (status === 'unauthenticated') router.push('/');
@@ -34,6 +37,7 @@ export default function Admin() {
       }
     };
     getData();
+    setLoadingGet(false);
   }, []);
 
   const deleteArticle = async (id) => {
@@ -42,6 +46,14 @@ export default function Admin() {
     });
     location.reload();
   };
+
+  if (loadingGet) {
+    return (
+      <div className="w-full flex justify-center items-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full flex flex-col justify-center items-center py-20 gap-10">

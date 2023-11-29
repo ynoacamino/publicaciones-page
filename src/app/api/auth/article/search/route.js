@@ -7,7 +7,17 @@ export async function GET(req) {
   const q = req.nextUrl.searchParams.get('q');
 
   const results = await Article.find({
-    title: new RegExp(q, 'i'),
+    $or: [
+      {
+        title: new RegExp(q, 'i'),
+      },
+      {
+        body: new RegExp(q, 'i'),
+      },
+      {
+        preview: new RegExp(q, 'i'),
+      },
+    ],
   }).sort({ createdAt: -1 });
 
   return NextResponse.json({ results });

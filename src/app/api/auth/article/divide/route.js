@@ -4,8 +4,8 @@ import Article from '@/app/db/models/Article';
 
 export async function POST() {
   dbConnect();
-  const articleJuris = await Article.find({ seccion: new RegExp('jurisprudencia', 'i') }).sort({ createdAt: -1 }).limit(4);
-  const articleArticulo = await Article.find({ seccion: new RegExp('boletin', 'i') }).sort({ createdAt: -1 }).limit(4);
+  const articleJuris = await Article.find({ seccion: new RegExp('jurisprudencia', 'i') }).sort({ createdAt: -1 });
+  const articleArticulo = await Article.find({ seccion: new RegExp('boletin', 'i') }).sort({ createdAt: -1 });
 
   return NextResponse.json({ articleArticulo, articleJuris });
 }

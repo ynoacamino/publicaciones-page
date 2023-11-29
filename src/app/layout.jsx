@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={roboto.className}>
         <NextAuth>
-          <div className="w-full flex flex-col justify-between h-full bg-[#fbfafb] min-h-screen">
+          <div className="w-full flex flex-col justify-between h-full bg-[#fbfafb] min-h-screen relative">
             <NavBar />
             <main className="w-full flex flex-col justify-start items-start">
               {children}
