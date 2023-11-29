@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -8,7 +9,8 @@ import {
 } from '@nextui-org/react';
 import { ToastContainer, toast } from 'react-toastify';
 import ArticleContent from '@/app/components/ArticleContent';
-import Jodit from '@/app/components/Jodit';
+
+const Jodit = dynamic(() => import('../../components/Jodit'), { ssr: false });
 
 export default function AddArticle() {
   const { status } = useSession();
