@@ -13,7 +13,7 @@ const getData = async (params) => {
 export default async function Publicaciones({ searchParams }) {
   const data = JSON.parse(JSON.stringify(await getData(searchParams)));
   return (
-    <div className="bg-gray-200 w-full flex flex-col justify-center items-center py-20 gap-10">
+    <div className="bg-[#dadaff] w-full flex flex-col justify-center items-center py-20 gap-10">
       <div className="flex w-full flex-col">
         <TabPub articleJuris={data.articleJuris} articleArticulo={data.articleArticulo} />
       </div>

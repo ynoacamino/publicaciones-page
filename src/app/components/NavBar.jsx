@@ -9,7 +9,7 @@ import SearchBar from './SearchBar';
 
 export default function NavBar() {
   return (
-    <header className="flex w-full justify-between px-4 py-5 sticky top-0 bg-one z-20 bg-[#f7f7f7a2] backdrop-blur-lg h-[74px]">
+    <header className="flex text-white w-full justify-between px-4 py-5 sticky top-0 bg-one z-20 bg-[#191970] backdrop-blur-lg h-[74px]">
       <div className="" />
       <div className="absolute left-0 right-0 top-0 bottom-0 flex justify-start px-4 md:px-10 2xl:justify-center items-center pr-16">
         <SearchBar />

@@ -29,7 +29,7 @@ export default async function Jurisprudencia({ params }) {
         preview={data[0].preview}
         seccion={data[0].seccion}
       />
-      <div className="w-full flex flex-col justify-center items-center py-20 gap-10">
+      <div className="w-full bg-[#dadaff] flex flex-col justify-center items-center py-20 gap-10">
         <h1 className=" md:text-3xl w-9/12 text-center font-bold">
           Nuestros Boletines
         </h1>

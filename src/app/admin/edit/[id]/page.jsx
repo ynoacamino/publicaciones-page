@@ -51,7 +51,7 @@ export default function EditArticle({ params }) {
           setSeccion(art.data.article.seccion === 'jurisprudencia' ? new Set(['$.0']) : new Set(['$.1']));
           setPreview(art.data.article.preview);
           setTitleBody(art.data?.article?.titleBody);
-          setBodyTxt(art.data.article.body.join('\n'));
+          setBodyTxt(art.data.article.body);
           setDate(art.data.article.date);
           setLink(art.data.article.link);
           setImgSrc(art.data.article.imgSrc);

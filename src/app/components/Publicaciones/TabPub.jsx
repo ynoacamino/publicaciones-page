@@ -8,7 +8,7 @@ import ArticleBox from '@/app/components/Publicaciones/ArticleBox';
 
 export default function PublicationsTabs({ articleArticulo, articleJuris }) {
   return (
-    <div className="w-full flex justify-center items-center my-10">
+    <div className="w-full bg-[#dadaff] flex justify-center items-center py-10">
       <div className="w-11/12 md:w-8/12 flex flex-col justify-center items-center">
         <Tabs aria-label="Options" size="lg">
           <Tab title="Jurisprudencia">
