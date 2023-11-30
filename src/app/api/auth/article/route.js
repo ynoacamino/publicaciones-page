@@ -20,7 +20,7 @@ export async function POST(req) {
     author: form.get('author'),
     seccion: form.get('seccion'),
     preview: form.get('preview'),
-    body: form.get('body').split('\n'),
+    body: form.get('body'),
     date: form.get('date'),
     titleBody: form.get('titleBody'),
     path: format(form.get('title')),
@@ -62,7 +62,7 @@ export async function PUT(req) {
   article.seccion = form.get('seccion');
   article.preview = form.get('preview');
   article.titleBody = form.get('titleBody');
-  article.body = form.get('body').split('\n');
+  article.body = form.get('body');
   article.date = form.get('date');
   article.path = format(form.get('title'));
   if (form.get('pdfSrc')) article.pdfSrc = form.get('pdfSrc');
