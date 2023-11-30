@@ -285,7 +285,7 @@ export default function EditArticle({ params }) {
 
         <ArticleContent
           link={link}
-          body={bodyTxt.split('\n')}
+          body={bodyTxt}
           imgSrc="https://cdn.discordapp.com/attachments/772232222220615710/1169139656240144394/bg.jpg?ex=65545127&is=6541dc27&hm=b90b3d8fa5dfb47939ce504672fbc87aeb9a77d0cdb472a83b439e74fda23c5e&"
           pdfSrc="/"
           preview={preview}
