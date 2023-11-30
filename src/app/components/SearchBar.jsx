@@ -31,7 +31,7 @@ export default function SearchBar() {
   });
 
   const autocomplete = useMemo(() => createAutocomplete({
-    placeholder: 'Buscar',
+    placeholder: 'Buscar por palabra',
     onStateChange: ({ state }) => setAutocompleteState(state),
     getSources: () => [
       {

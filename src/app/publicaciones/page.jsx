@@ -12,7 +12,13 @@ const getData = async ({ searchParams }) => {
   const articleJuris = await Article.find({ seccion: new RegExp('jurisprudencia', 'i') }).sort({ createdAt: -1 }).limit(4);
   const articleArticulo = await Article.find({ seccion: new RegExp('boletin', 'i') }).sort({ createdAt: -1 }).limit(4);
 
-  const lastPub = new Date(articleJuris[0].createdAt) > new Date(articleArticulo[0].createdAt) ? articleJuris[0] : articleArticulo[0];
+  let lastPub;
+  if (articleJuris.length == 0) [lastPub] = articleArticulo;
+  else if (articleArticulo.length == 0) [lastPub] = articleJuris;
+  else {
+    lastPub = new Date(articleJuris[0].createdAt) > new Date(articleArticulo[0].createdAt)
+      ? articleJuris[0] : articleArticulo[0];
+  }
   return {
     articleArticulo, articleJuris, searchParams, lastPub,
   };
