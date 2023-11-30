@@ -12,7 +12,7 @@ function AutocompleteItem({
     <>
       <Link
         href={`/publicaciones/${seccion.toLowerCase()}/${path}`}
-        className="flex md:flex-row flex-col gap-4 items-center justify-between hover:bg-gray-200 p-2 rounded-md"
+        className="flex text-black md:flex-row flex-col gap-4 items-center justify-between hover:bg-gray-200 p-2 rounded-md"
       >
         <h3>
           {title}
@@ -58,7 +58,7 @@ export default function SearchBar() {
 
   return (
     <form
-      className="flex justify-center z-20 w-full max-w-xl xl:max-w-2xl relative"
+      className="flex justify-center z-20 w-full max-w-xl xl:max-w-2xl relative text-black"
       {...formProps}
     >
       <input

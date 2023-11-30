@@ -30,7 +30,7 @@ export const metadata = {
     shortcut: '/logo.svg',
   },
   openGraph: {
-    images: ['https://cdn.discordapp.com/attachments/772232222220615710/1170355316253265920/image.png?ex=6558bd53&is=65464853&hm=b33655c138accea99a40e5e523d5cbd642cdd423e923cfc874a1e04b382e01a7&'],
+    images: ['https://cdn.discordapp.com/attachments/1110352472993710123/1179769630143807488/image_1.png?ex=657afd16&is=65688816&hm=3c65c0bc7198a56d172e89b585c91453f386eda299f0b3993602bff458163a59&'],
   },
 };
 
