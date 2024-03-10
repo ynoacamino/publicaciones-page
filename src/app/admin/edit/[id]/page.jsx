@@ -19,14 +19,21 @@ export default function EditArticle({ params }) {
   const [bodyTxt, setBodyTxt] = useState('');
   const [date, setDate] = useState('');
   const [link, setLink] = useState('');
+  const [authorName, setAuthorName] = useState('');
+  const [authorPosition, setAuthorPosition] = useState('');
+  const [authorFacebook, setAuthorFacebook] = useState('');
 
   const [img, setImg] = useState(null);
   const [file, setFile] = useState(null);
+  const [video, setVideo] = useState(null);
+  const [authorImgFile, setAuthorImgFile] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [loadingGet, setLoadingGet] = useState(true);
 
   const [imgSrc, setImgSrc] = useState('');
+  const [videoUrl, setVideoUrl] = useState('');
+  const [authorImg, setAuthorImg] = useState('');
 
   const router = useRouter();
 
@@ -55,6 +62,11 @@ export default function EditArticle({ params }) {
           setDate(art.data.article.date);
           setLink(art.data.article.link);
           setImgSrc(art.data.article.imgSrc);
+          setVideoUrl(art.data.article.videoUrl);
+          setAuthorImg(art.data.article.authorImg);
+          setAuthorName(art.data.article.authorName || 'Miguel Salinas Vargas');
+          setAuthorPosition(art.data.article.authorPosition || 'Abogado');
+          setAuthorFacebook(art.data.article.authorFacebook || 'https://www.facebook.com/migu.3110567');
         } catch (err) {
           toast.error('Datos corruptos');
         }
@@ -62,7 +74,7 @@ export default function EditArticle({ params }) {
     };
     getData();
     setLoadingGet(false);
-  }, []);
+  }, [params.id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,6 +88,14 @@ export default function EditArticle({ params }) {
     formFile.append('file', file);
     formFile.append('upload_preset', 'images');
 
+    const formVideo = new FormData();
+    formVideo.append('file', video);
+    formVideo.append('upload_preset', 'images');
+
+    const formAuthorImgFile = new FormData();
+    formAuthorImgFile.append('file', authorImgFile);
+    formAuthorImgFile.append('upload_preset', 'images');
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('author', author);
@@ -86,6 +106,9 @@ export default function EditArticle({ params }) {
     formData.append('date', date);
     formData.append('id', params.id);
     formData.append('link', link);
+    formData.append('authorName', authorName);
+    formData.append('authorPosition', authorPosition);
+    formData.append('authorFacebook', authorFacebook);
 
     if (img) {
       try {
@@ -113,6 +136,36 @@ export default function EditArticle({ params }) {
         );
         const fileFile = await res.json();
         formData.append('pdfSrc', fileFile.secure_url);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    if (video) {
+      try {
+        const res = await fetch(
+          'https://api.cloudinary.com/v1_1/dux0sb99g/upload',
+          {
+            method: 'POST',
+            body: formVideo,
+          },
+        );
+        const fileVideo = await res.json();
+        formData.append('videoUrl', fileVideo.secure_url);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    if (authorImgFile) {
+      try {
+        const res = await fetch(
+          'https://api.cloudinary.com/v1_1/dux0sb99g/upload',
+          {
+            method: 'POST',
+            body: formAuthorImgFile,
+          },
+        );
+        const fileImgFile = await res.json();
+        formData.append('authorImg', fileImgFile.secure_url);
       } catch (err) {
         console.error(err);
       }
@@ -280,18 +333,105 @@ export default function EditArticle({ params }) {
           value={link}
           onValueChange={setLink}
         />
+        <Divider className="my-12" />
+        <h2 className="text-2xl font-semibold">
+          Video
+        </h2>
+        <input
+          type="file"
+          onChange={(e) => {
+            setVideo(e.target.files[0]);
+          }}
+        />
+        {videoUrl && (
+        <video width="640" height="640" controls className="w-full max-w-5xl mx-10 my-10 h-auto border-2 border-zinc-300 shadow-lg">
+          <source src={videoUrl} type="video/mp4" />
+          <track kind="captions" src="captions.vtt" label="Espanish" />
+          Tu navegador no soporta la etiqueta de video.
+        </video>
+        )}
+        <Divider className="my-12" />
+        <h1 className="text-3xl font-bold">
+          Informacion lateral
+        </h1>
 
+        <Divider className="my-12" />
+        <h2 className="text-2xl font-semibold">
+          Nombre del autor
+        </h2>
+        <Textarea
+          variant="bordered"
+          labelPlacement="outside"
+          placeholder="Miguel Salinas Vargas"
+          className="max-w-3xl"
+          value={authorName}
+          onValueChange={setAuthorName}
+          isRequired
+        />
+
+        <Divider className="my-12" />
+        <h2 className="text-2xl font-semibold">
+          Titulo del autor
+        </h2>
+        <Textarea
+          variant="bordered"
+          labelPlacement="outside"
+          placeholder="Abogado"
+          className="max-w-3xl"
+          value={authorPosition}
+          onValueChange={setAuthorPosition}
+          isRequired
+        />
+
+        <Divider className="my-12" />
+        <h2 className="text-2xl font-semibold">
+          Link de facebook del autor
+        </h2>
+        <Textarea
+          variant="bordered"
+          labelPlacement="outside"
+          placeholder="https://www.facebook.com/migu.3110567"
+          className="max-w-3xl"
+          value={authorFacebook}
+          onValueChange={setAuthorFacebook}
+          isRequired
+        />
+
+        <Divider className="my-12" />
+        <h2 className="text-2xl font-semibold">
+          Imagen de perfil del autor
+        </h2>
+        <h3>
+          *POR DEFECTO SE USARA LA IMAGEN DE PERFIL DE MIGUEL SALINAS VARGAS
+        </h3>
+        <input
+          type="file"
+          onChange={(e) => {
+            setAuthorImgFile(e.target.files[0]);
+          }}
+        />
+        {authorImg && (
+        <img
+          src={authorImg}
+          alt={title}
+          className="max-w-md w-full my-4"
+        />
+        )}
         <Divider className="my-4" />
 
         <ArticleContent
           link={link}
           body={bodyTxt}
-          imgSrc="https://cdn.discordapp.com/attachments/772232222220615710/1169139656240144394/bg.jpg?ex=65545127&is=6541dc27&hm=b90b3d8fa5dfb47939ce504672fbc87aeb9a77d0cdb472a83b439e74fda23c5e&"
+          imgSrc="/bg.jpg"
           pdfSrc="/"
           preview={preview}
           seccion={secc}
           title={title}
           titleBody={titleBody}
+          videoUrl={videoUrl}
+          autorFacebook={authorFacebook}
+          autorName={authorName}
+          autorPosition={authorPosition}
         />
 
         <Divider className="my-4" />

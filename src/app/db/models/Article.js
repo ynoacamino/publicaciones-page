@@ -47,6 +47,21 @@ const schema = new mongoose.Schema({
   pdfSrc: {
     type: String,
   },
+  videoUrl: {
+    type: String,
+  },
+  authorImg: {
+    type: String,
+  },
+  authorName: {
+    type: String,
+  },
+  authorPosition: {
+    type: String,
+  },
+  authorFacebook: {
+    type: String,
+  },
 });
 
 export default mongoose.models.Article || mongoose.model('Article', schema);

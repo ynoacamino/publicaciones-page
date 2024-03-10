@@ -36,6 +36,11 @@ export default async function Title({ params }) {
       seccion={data.seccion}
       title={data.title}
       titleBody={data.titleBody}
+      videoUrl={data?.videoUrl}
+      autorFacebook={data?.authorFacebook}
+      autorImg={data?.authorImg}
+      autorName={data?.authorName}
+      autorPosition={data?.authorPosition}
     />
   );
 }

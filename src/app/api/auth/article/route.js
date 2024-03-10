@@ -26,8 +26,14 @@ export async function POST(req) {
     path: format(form.get('title')),
     pdfSrc: form.get('pdfSrc'),
     link: form.get('link'),
+    videoUrl: form.get('videoUrl'),
+    authorImg: '/gold.svg',
+    authorName: form.get('authorName'),
+    authorPosition: form.get('authorPosition'),
+    authorFacebook: form.get('authorFacebook'),
   });
   if (form.get('imgSrc')) article.imgSrc = form.get('imgSrc');
+  if (form.get('authorImg')) article.authorImg = form.get('authorImg');
 
   try {
     article.save();
@@ -35,7 +41,7 @@ export async function POST(req) {
     console.error(err);
   }
 
-  return NextResponse.json({ article });
+  return NextResponse.json({ res: 'res' });
 }
 
 export async function PUT(req) {
@@ -67,6 +73,12 @@ export async function PUT(req) {
   article.path = format(form.get('title'));
   if (form.get('pdfSrc')) article.pdfSrc = form.get('pdfSrc');
   article.link = form.get('link');
+
+  if (form.get('videoUrl')) article.videoUrl = form.get('videoUrl');
+  if (form.get('authorImg')) article.authorImg = form.get('authorImg');
+  article.authorName = form.get('authorName');
+  article.authorPosition = form.get('authorPosition');
+  article.authorFacebook = form.get('authorFacebook');
 
   try {
     await article.save();
