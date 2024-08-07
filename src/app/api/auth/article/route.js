@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import Article from '@/app/db/models/Article';
-import dbConnect from '@/app/db/dbConnect';
+import Article from '@/db/models/Article';
+import dbConnect from '@/db/dbConnect';
 import { configAuth } from '../[...nextauth]/route';
 import format from '@/app/utils/format';
+import Section from '@/db/models/Section';
 
 export async function POST(req) {
   const session = await getServerSession(configAuth);
@@ -13,6 +14,22 @@ export async function POST(req) {
   await dbConnect();
 
   const form = await req.formData();
+
+  const sectionInput = form.get('seccion');
+
+  const section = await Section.findOne({ name: sectionInput });
+
+  if (!section) {
+    const newSection = new Section({
+      name: sectionInput,
+    });
+
+    try {
+      await newSection.save();
+    } catch (err) {
+      return NextResponse.json({ error: err.message }, { status: 500 });
+    }
+  }
 
   const article = new Article({
     imgSrc: 'https://res.cloudinary.com/dux0sb99g/image/upload/v1698768957/whwq8givatdsdt9gylew.png',
@@ -61,6 +78,22 @@ export async function PUT(req) {
   }
 
   if (!article) NextResponse.json({ error: 'Articulo no encontrado' }, { status: 400 });
+
+  const sectionInput = form.get('seccion');
+
+  const section = await Section.findOne({ name: sectionInput });
+
+  if (!section) {
+    const newSection = new Section({
+      name: sectionInput,
+    });
+
+    try {
+      await newSection.save();
+    } catch (err) {
+      return NextResponse.json({ error: err.message }, { status: 500 });
+    }
+  }
 
   article.title = form.get('title');
   article.author = form.get('author');

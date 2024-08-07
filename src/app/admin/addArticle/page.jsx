@@ -4,13 +4,18 @@ import dynamic from 'next/dynamic';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import {
-  Textarea, Divider, Select, SelectItem, Button,
-} from '@nextui-org/react';
-import { ToastContainer, toast } from 'react-toastify';
-import ArticleContent from '@/app/components/ArticleContent';
 
-const Jodit = dynamic(() => import('../../components/Jodit'), { ssr: false });
+import { ToastContainer, toast } from 'react-toastify';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Select, SelectItem, SelectTrigger, SelectContent,
+  SelectValue,
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
+import ArticleContent from '@/components/ArticleContent';
+import Divider from '@/components/ui/divider';
+
+const Jodit = dynamic(() => import('../../../components/Jodit'), { ssr: false });
 
 export default function AddArticle() {
   const { status } = useSession();
@@ -201,20 +206,20 @@ export default function AddArticle() {
         <Select
           label="Select"
           className="max-w-xs"
-          variant="bordered"
-          onChange={(e) => {
-            if (e.target.value == '$.0') return setSeccion('jurisprudencia');
-            if (e.target.value == '$.1') return setSeccion('boletin');
-            return setSeccion('');
-          }}
+          onValueChange={setSeccion}
           isRequired
         >
-          <SelectItem value="jurisprudencia">
-            Jurisprudencia
-          </SelectItem>
-          <SelectItem value="boletin">
-            Boletines
-          </SelectItem>
+          <SelectTrigger>
+            <SelectValue placeholder="Seccion" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="jurisprudencia">
+              Jurisprudencia
+            </SelectItem>
+            <SelectItem value="boletin">
+              Boletines
+            </SelectItem>
+          </SelectContent>
         </Select>
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">

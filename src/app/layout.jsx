@@ -1,9 +1,9 @@
 import './globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { Roboto_Slab } from 'next/font/google';
-import NextAuth from './providers/NextAuth';
-import Footer from './components/Footer';
-import NavBar from './components/NavBar';
+import NextAuth from '@/components/providers/NextAuth';
+import Footer from '../components/Footer';
+import NavBar from '../components/NavBar';
 
 export const metadata = {
   title: 'Abogado Miguel Salinas',

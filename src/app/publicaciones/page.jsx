@@ -1,7 +1,8 @@
-import PreviewBody from '../components/PreviewBody';
-import TabPub from '../components/Publicaciones/TabPub';
-import dbConnect from '../db/dbConnect';
-import Article from '../db/models/Article';
+import Section from '@/db/models/Section';
+import PreviewBody from '../../components/PreviewBody';
+import TabPub from '../../components/Publicaciones/TabPub';
+import dbConnect from '../../db/dbConnect';
+import Article from '../../db/models/Article';
 
 export const metadata = {
   title: 'Publicaciones',
@@ -9,23 +10,25 @@ export const metadata = {
 
 const getData = async ({ searchParams }) => {
   dbConnect();
-  const articleJuris = await Article.find({ seccion: new RegExp('jurisprudencia', 'i') }).sort({ createdAt: -1 }).limit(4);
-  const articleArticulo = await Article.find({ seccion: new RegExp('boletin', 'i') }).sort({ createdAt: -1 }).limit(4);
 
-  let lastPub;
-  if (articleJuris.length == 0) [lastPub] = articleArticulo;
-  else if (articleArticulo.length == 0) [lastPub] = articleJuris;
-  else {
-    lastPub = new Date(articleJuris[0].createdAt) > new Date(articleArticulo[0].createdAt)
-      ? articleJuris[0] : articleArticulo[0];
-  }
+  const sections = await Section.find();
+
+  const populedSections = await Promise.all(sections.map(async (section) => ({
+    section: section.name,
+    articles: await Article.find({ seccion: new RegExp(section.name, 'i') }).sort({ createdAt: -1 }).limit(6),
+  })));
+
+  const lastPub = await Article.findOne().sort({ createdAt: -1 });
+
   return {
-    articleArticulo, articleJuris, searchParams, lastPub,
+    searchParams, lastPub, populedSections,
   };
 };
 
 export default async function Publicaiones({ searchParams }) {
-  const data = JSON.parse(JSON.stringify(await getData({ searchParams })));
+  const data = await getData({ searchParams });
+
+  console.log(data.populedSections);
 
   return (
     <>
@@ -35,7 +38,7 @@ export default async function Publicaiones({ searchParams }) {
         preview={data.lastPub.preview}
         seccion={data.lastPub.seccion}
       />
-      <TabPub articleJuris={data.articleJuris} articleArticulo={data.articleArticulo} />
+      <TabPub sections={data.populedSections} />
     </>
   );
 }

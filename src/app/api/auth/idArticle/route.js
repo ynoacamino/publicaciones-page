@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import Article from '@/app/db/models/Article';
+import Article from '@/db/models/Article';
 
 export async function GET(req) {
   const id = req.nextUrl.searchParams.get('id');

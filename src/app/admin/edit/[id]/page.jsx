@@ -1,19 +1,28 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import {
-  Textarea, Divider, Select, SelectItem, Button, Spinner,
-} from '@nextui-org/react';
+
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
-import ArticleContent from '@/app/components/ArticleContent';
-import Jodit from '@/app/components/Jodit';
+import Spinner from '@/components/ui/spinner';
+import Divider from '@/components/ui/divider';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import ArticleContent from '@/components/ArticleContent';
+import Jodit from '@/components/Jodit';
 
 export default function EditArticle({ params }) {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [seccion, setSeccion] = useState(new Set([]));
+  const [seccion, setSeccion] = useState('');
   const [preview, setPreview] = useState('');
   const [titleBody, setTitleBody] = useState('');
   const [bodyTxt, setBodyTxt] = useState('');
@@ -37,8 +46,6 @@ export default function EditArticle({ params }) {
 
   const router = useRouter();
 
-  const secc = seccion.has('$.0') ? 'jurisprudencia' : 'boletin';
-
   useEffect(() => {
     const getData = async () => {
       let art;
@@ -55,7 +62,7 @@ export default function EditArticle({ params }) {
         try {
           setTitle(art.data.article.title);
           setAuthor(art.data.article.author);
-          setSeccion(art.data.article.seccion === 'jurisprudencia' ? new Set(['$.0']) : new Set(['$.1']));
+          setSeccion(art.data.article.seccion);
           setPreview(art.data.article.preview);
           setTitleBody(art.data?.article?.titleBody);
           setBodyTxt(art.data.article.body);
@@ -99,7 +106,7 @@ export default function EditArticle({ params }) {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('author', author);
-    formData.append('seccion', seccion.has('$.0') ? 'jurisprudencia' : 'boletin');
+    formData.append('seccion', seccion);
     formData.append('preview', preview);
     formData.append('titleBody', titleBody);
     formData.append('body', bodyTxt);
@@ -259,17 +266,20 @@ export default function EditArticle({ params }) {
         <Select
           label="Select"
           className="max-w-xs"
-          variant="bordered"
-          selectedKeys={seccion}
-          onSelectionChange={setSeccion}
+          onValueChange={setSeccion}
           isRequired
         >
-          <SelectItem value="jurisprudencia">
-            Jurisprudencia
-          </SelectItem>
-          <SelectItem value="boletin">
-            Boletines
-          </SelectItem>
+          <SelectTrigger>
+            <SelectValue placeholder="Seccion" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="jurisprudencia">
+              Jurisprudencia
+            </SelectItem>
+            <SelectItem value="boletin">
+              Boletines
+            </SelectItem>
+          </SelectContent>
         </Select>
         <Divider className="my-4" />
         <h2 className="text-2xl font-semibold">
@@ -425,7 +435,7 @@ export default function EditArticle({ params }) {
           imgSrc="/bg.jpg"
           pdfSrc="/"
           preview={preview}
-          seccion={secc}
+          seccion={seccion}
           title={title}
           titleBody={titleBody}
           videoUrl={videoUrl}

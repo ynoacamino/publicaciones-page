@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import dbConnect from '@/app/db/dbConnect';
-import Article from '@/app/db/models/Article';
+import dbConnect from '@/db/dbConnect';
+import Article from '@/db/models/Article';
 import { configAuth } from '../../[...nextauth]/route';
 
 export async function PUT(req) {
