@@ -68,7 +68,7 @@ export default function Admin() {
         <h2 className="text-3xl my-5 text-center">
           Editar o eliminar una publicacion
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-around">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-16 justify-around w-full max-w-7xl">
           {articles.map((art) => (
             <div key={art._id.toString()} className="flex flex-col gap-4 items-start">
               <span>
@@ -97,7 +97,7 @@ export default function Admin() {
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-around">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-16 justify-around w-full max-w-7xl">
           {jurisprudencia.map((art) => (
             <div key={art._id.toString()} className="flex flex-col gap-4 items-start">
               <span>

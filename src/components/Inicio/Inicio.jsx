@@ -1,24 +1,35 @@
-import Image from 'next/image';
-import bg from '@/app/assets/bg.jpg';
-import goldLogo from '@/app/assets/gold.svg';
+import dbConnect from '@/db/dbConnect';
+import Article from '@/db/models/Article';
+import Carousel from '../ui/carousel';
 
-export default function Inicio() {
+const getArticles = async () => {
+  await dbConnect();
+
+  const articles = await Article.find({}).sort({ createdAt: -1 }).limit(5);
+
+  return {
+    articles: articles.map(({
+      title, imgSrc, preview, seccion, path,
+    }) => ({
+      title, imgSrc, preview, seccion, path,
+    })),
+  };
+};
+
+export default async function Inicio() {
+  const { articles } = await getArticles();
+
+  articles.push({
+    title: 'Ofertas laborales',
+    imgSrc: 'https://res.cloudinary.com/dazt6g3o1/image/upload/v1723219602/iifnfpura4ose8sobpw1.jpg',
+    preview: 'Encuentra las mejores ofertas laborales en nuestra seccion de ofertas laborales',
+    seccion: 'Ofertas laborales',
+    path: '/',
+  });
+
   return (
-    <div className="w-full flex items-start relative overflow-hidden justify-center h-[55vh] sm:h-[50vh]">
-      <Image
-        src={bg}
-        alt="empresa"
-        width={1080}
-        height={1920}
-        className="absolute w-full top-50 object-cover h-full"
-      />
-      <Image
-        src={goldLogo}
-        alt="empresa"
-        width={100}
-        height={100}
-        className="absolute lg:left-12 top-12 w-32 h-32 lg:w-[100px] lg:h-[100px] rounded-full backdrop-blur-sm"
-      />
+    <div className=" w-full">
+      <Carousel articles={articles} />
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import ButtonLink from './ButtonLink';
+import { cn } from '@/lib/utils';
 
 export default function PreviewBody({
-  imgSrc, title, seccion, preview,
+  imgSrc, title, seccion, preview, className = '',
 }) {
   return (
-    <header className="w-full flex relative overflow-hidden justify-center">
+    <header className={cn('w-full flex relative overflow-hidden justify-center', className)}>
       <img
         src={imgSrc}
         alt={title}
@@ -14,7 +15,7 @@ export default function PreviewBody({
         <ButtonLink color="danger" path={`/publicaciones/${seccion}/page/1`}>
           <strong>{seccion.substring(0, 1).toUpperCase() + seccion.substring(1)}</strong>
         </ButtonLink>
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-4xl font-bold">
           {title}
         </h1>
         <summary>

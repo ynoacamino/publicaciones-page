@@ -5,6 +5,7 @@ import ButtonNavBar from './ButtonNavBar.jsx';
 import ExitButton from './ExitButton.jsx';
 import tikTok from '@/app/assets/tikTok.png';
 import facebook from '@/app/assets/facebook.png';
+import SearchModal from './ui/searchModal.jsx';
 
 export default function NavBarMobile() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,12 +15,17 @@ export default function NavBarMobile() {
 
   return (
     <>
-      <button type="button" aria-label="más opciones" className="w-7 lg:hidden z-30" onClick={handleClick}>
-        <MoreOptionsIcon />
-      </button>
+      <div className="lg:hidden z-30 flex gap-3 items-center">
+        <SearchModal />
+        <button type="button" aria-label="más opciones" className="w-7" onClick={handleClick}>
+          <MoreOptionsIcon />
+        </button>
+      </div>
       <nav className={`flex flex-col items-center justify-center gap-4 fixed h-screen
         w-screen bg-gray-100 top-0 left-0 ${isOpen || 'left-[-100vh] opacity-0'} lg:hidden transition-all`}
       >
+        <ButtonNavBar>Inicio</ButtonNavBar>
+        <ButtonNavBar href="/">Ofertas laborales</ButtonNavBar>
         <ButtonNavBar href="/sobre-nosotros">Sobre nosotros</ButtonNavBar>
         <ButtonNavBar href="/publicaciones">Publicaciones</ButtonNavBar>
         <ButtonNavBar href="/sobre-nosotros" target>

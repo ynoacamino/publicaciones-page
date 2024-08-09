@@ -42,12 +42,10 @@ const data = [
 
 export default function Especialidades() {
   return (
-    <div className="bg-gray-300 w-full flex flex-col justify-center items-center py-20 gap-10">
-      <p className=" md:text-xl w-9/12 text-center">
-        La finalidad de este espacio web es el estudio del derecho desde una perspectiva práctica
-        teniendo como referencia el análisis de la
-        jurisprudencia nacional
-      </p>
+    <section className="bg-gray-300 w-full flex flex-col justify-center items-center py-20 gap-10">
+      <h1 className=" md:text-3xl w-9/12 text-center uppercase text-xl font-bold">
+        Revisa nuestros textos mas importantes
+      </h1>
       <ul className="grid grid-cols-2 md:grid-cols-3 gap-8 w-11/12 md:w-9/12 lg:w-6/12 justify-around">
         {
           data.map((d) => (
@@ -56,7 +54,7 @@ export default function Especialidades() {
                 href={d.link}
                 target="_blank"
                 className="flex flex-col gap-4 justify-center items-center font-semibold
-                  text-lg py-8 px-2 rounded-md hover:bg-gray-400"
+                  text-lg py-8 px-2 rounded-md hover:bg-gray-400/40"
               >
                 <div className="rounded-full bg-gray-200 border-solid border-white border-4 flex
                   justify-center items-center w-32 h-32"
@@ -75,6 +73,6 @@ export default function Especialidades() {
           ))
         }
       </ul>
-    </div>
+    </section>
   );
 }

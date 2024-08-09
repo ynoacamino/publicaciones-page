@@ -21,14 +21,32 @@ const getData = async ({ searchParams }) => {
   const lastPub = await Article.findOne().sort({ createdAt: -1 });
 
   return {
-    searchParams, lastPub, populedSections,
+    searchParams,
+    lastPub: {
+      title: lastPub.title,
+      imgSrc: lastPub.imgSrc,
+      preview: lastPub.preview,
+      seccion: lastPub.seccion,
+    },
+    populedSections: populedSections.map((section) => ({
+      section: section.section,
+      articles: section.articles.map((article) => ({
+        title: article.title,
+        imgSrc: article.imgSrc,
+        preview: article.preview,
+        seccion: article.seccion,
+        body: article.body,
+        _id: article._id.toString(),
+        pdfSrc: article.pdfSrc,
+        author: article.author,
+        path: article.path,
+      })),
+    })),
   };
 };
 
 export default async function Publicaiones({ searchParams }) {
   const data = await getData({ searchParams });
-
-  console.log(data.populedSections);
 
   return (
     <>
@@ -38,7 +56,10 @@ export default async function Publicaiones({ searchParams }) {
         preview={data.lastPub.preview}
         seccion={data.lastPub.seccion}
       />
-      <TabPub sections={data.populedSections} />
+      <div className="w-full flex flex-col items-center my-20 gap-10">
+        <h1 className="uppercase text-4xl font-bold text-center">Publicaciones</h1>
+        <TabPub sections={data.populedSections} />
+      </div>
     </>
   );
 }

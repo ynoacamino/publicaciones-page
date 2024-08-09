@@ -41,6 +41,7 @@ export default async function Title({ params }) {
       autorImg={data?.authorImg}
       autorName={data?.authorName}
       autorPosition={data?.authorPosition}
+      path={data?.path}
     />
   );
 }

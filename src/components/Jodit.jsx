@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/tabindex-no-positive */
+
 'use client';
 
 import React, { useRef } from 'react';

@@ -3,24 +3,20 @@
 import { useMemo, useRef, useState } from 'react';
 import { createAutocomplete } from '@algolia/autocomplete-core';
 import Link from 'next/link';
-import Divider from '@/components/ui/divider';
 
 function AutocompleteItem({
   title, imgSrc, seccion, path,
 }) {
   return (
-    <>
-      <Link
-        href={`/publicaciones/${seccion.toLowerCase()}/${path}`}
-        className="flex text-black md:flex-row flex-col gap-4 items-center justify-between hover:bg-gray-200 p-2 rounded-md"
-      >
-        <h3>
-          {title}
-        </h3>
-        <img src={imgSrc} alt={title} width={150} height={100} />
-      </Link>
-      <Divider />
-    </>
+    <Link
+      href={`/publicaciones/${seccion.toLowerCase()}/${path}`}
+      className="flex text-black md:flex-row flex-col gap-4 items-center justify-between hover:bg-gray-200 px-2 py-6 rounded-md"
+    >
+      <h3>
+        {title}
+      </h3>
+      <img src={imgSrc} alt={title} width={150} height={150} className="aspect-video object-cover rounded-md" />
+    </Link>
   );
 }
 
@@ -58,7 +54,7 @@ export default function SearchBar() {
 
   return (
     <form
-      className="flex justify-center z-20 w-full max-w-xl xl:max-w-2xl relative text-black"
+      className="flex justify-center z-20 w-full text-black flex-col"
       {...formProps}
     >
       <input
@@ -68,7 +64,7 @@ export default function SearchBar() {
       />
       {
         autocompleteState.isOpen && (
-          <div className="absolute top-10 p-2 pt-6 pr-0 bg-white rounded-b-lg shadow-lg z-30 w-full max-w-2xl max-h-[60vh]">
+          <div className="p-2 pt-6 pr-0 bg-white rounded-b-lg w-full max-h-[60vh]">
             <div
               className="overflow-y-scroll max-h-[55vh]"
               ref={panelRef}
@@ -77,7 +73,7 @@ export default function SearchBar() {
               {autocompleteState.collections.map((collection) => {
                 const { items } = collection;
                 return (
-                  <section key="" className="">
+                  <section key={crypto.randomUUID()} className="">
                     {
                       items.length > 0 && (
                         <ul {...autocomplete.getListProps} className="flex flex-col">

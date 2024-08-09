@@ -15,7 +15,7 @@ const getData = async (searchParams, section) => {
 export default async function PageLayout({ children, params, searchParams }) {
   const data = await getData(searchParams, params.section);
   return (
-    <div className="bg-gray-200 pb-10 w-full">
+    <div className="bg-background pb-10 w-full">
       {children}
       <PaginationClient pages={data.num} params={params} />
     </div>

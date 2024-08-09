@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 import Article from '@/db/models/Article';
 import dbConnect from '@/db/dbConnect';
 import { configAuth } from '../[...nextauth]/route';
-import format from '@/app/utils/format';
+import format from '@/lib/format';
 import Section from '@/db/models/Section';
 
 export async function POST(req) {

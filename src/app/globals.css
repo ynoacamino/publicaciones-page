@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 96%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -21,7 +21,7 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
+    --input: 240 5.9% 75%;
     --ring: 240 10% 3.9%;
     --radius: 0.5rem;
     --chart-1: 12 76% 61%;
@@ -80,7 +80,7 @@
   height: 2px;
   bottom: -10px;
   left: 0;
-  background-color: #c7c7c7;
+  background-color: #5a5a5a;
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }
@@ -152,4 +152,32 @@ input[type=file]::file-selector-button {
 
 input[type=file]::file-selector-button:hover {
   background: #1f1f8d;
+}
+
+#header {
+  animation: enhance-header linear both;
+  animation-timeline: scroll(root block);
+  animation-range: 0 200px;
+} 
+
+@keyframes enhance-header {
+  to {
+    border-bottom: 1px solid rgba(27, 30, 36, 0.575);
+  }
+}
+
+@keyframes enhance-header-dark {
+  to {
+    border-bottom: 1px solid rgba(138, 154, 187, 0.26);
+  }
+}
+
+
+/*cambiar el color cuando esta en modo oscuro */
+@media (prefers-color-scheme: dark) {
+  #header {
+    animation: enhance-header-dark linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 200px;
+  }
 }

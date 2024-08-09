@@ -14,6 +14,7 @@ import {
 import { Button } from '@/components/ui/button';
 import ArticleContent from '@/components/ArticleContent';
 import Divider from '@/components/ui/divider';
+import { Input } from '@/components/ui/input';
 
 const Jodit = dynamic(() => import('../../../components/Jodit'), { ssr: false });
 
@@ -24,7 +25,6 @@ export default function AddArticle() {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [img, setImg] = useState(null);
-  const [seccion, setSeccion] = useState('');
   const [preview, setPreview] = useState('');
   const [titleBody, setTitleBody] = useState('');
   const [bodyTxt, setBodyTxt] = useState('');
@@ -33,6 +33,9 @@ export default function AddArticle() {
   const [authorName, setAuthorName] = useState('Miguel Salinas Vargas');
   const [authorPosition, setAuthorPosition] = useState('Abogado');
   const [authorFacebook, setAuthorFacebook] = useState('https://www.facebook.com/migu.3110567');
+
+  const [seccion, setSeccion] = useState('');
+  const [seccionText, setSeccionText] = useState('');
 
   const [file, setFile] = useState(null);
   const [video, setVideo] = useState(null);
@@ -67,7 +70,7 @@ export default function AddArticle() {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('author', author);
-    formData.append('seccion', seccion);
+    formData.append('seccion', seccionText.length > 0 ? seccionText : seccion);
     formData.append('preview', preview);
     formData.append('titleBody', titleBody);
     formData.append('body', bodyTxt);
@@ -166,7 +169,7 @@ export default function AddArticle() {
           onValueChange={setTitle}
           isRequired
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Imagen
         </h2>
@@ -176,7 +179,7 @@ export default function AddArticle() {
             setImg(e.target.files[0]);
           }}
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Pdf
         </h2>
@@ -186,7 +189,7 @@ export default function AddArticle() {
             setFile(e.target.files[0]);
           }}
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Autor
         </h2>
@@ -199,7 +202,7 @@ export default function AddArticle() {
           onValueChange={setAuthor}
           isRequired
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Seccion
         </h2>
@@ -207,6 +210,8 @@ export default function AddArticle() {
           label="Select"
           className="max-w-xs"
           onValueChange={setSeccion}
+          value={seccion}
+          disabled={seccionText.length > 0}
           isRequired
         >
           <SelectTrigger>
@@ -221,7 +226,16 @@ export default function AddArticle() {
             </SelectItem>
           </SelectContent>
         </Select>
-        <Divider className="my-4" />
+        <span>
+          o
+        </span>
+        <Input
+          type="text"
+          placeholder="Otra seccion"
+          value={seccionText}
+          onChange={(e) => setSeccionText(e.target.value)}
+        />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Preview
         </h2>
@@ -234,7 +248,7 @@ export default function AddArticle() {
           onValueChange={setPreview}
           isRequired
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Titulo del contenido
         </h2>
@@ -247,7 +261,7 @@ export default function AddArticle() {
           onValueChange={setTitleBody}
           isRequired
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Cuerpo
         </h2>
@@ -258,7 +272,7 @@ export default function AddArticle() {
             setContent={setBodyTxt}
           />
         </div>
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Fecha
         </h2>
@@ -354,7 +368,7 @@ export default function AddArticle() {
           }}
         />
 
-        <Divider className="my-4" />
+        <div className="my-10" />
 
         <ArticleContent
           link={link}
@@ -371,7 +385,7 @@ export default function AddArticle() {
           autorPosition={authorPosition}
         />
 
-        <Divider className="my-4" />
+        <div className="my-10" />
 
         <div className="w-full flex justify-end items-center my-10">
           <Button type="submit" isLoading={loading}>

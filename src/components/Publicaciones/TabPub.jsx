@@ -13,8 +13,8 @@ import { Button } from '../ui/button';
 
 export default function PublicationsTabs({ sections }) {
   return (
-    <div className="w-full bg-[#dadaff] flex justify-center items-center py-10 px-6">
-      <div className="w-full max-w-6xl flex flex-col justify-center items-center">
+    <div className="w-full bg-background flex justify-center items-center py-10 px-6">
+      <div className="w-full max-w-7xl flex flex-col justify-center items-center">
         <Tabs defaultValue="jurisprudencia" className="w-full">
           <TabsList className="flex items-center justify-start">
             {
@@ -28,7 +28,7 @@ export default function PublicationsTabs({ sections }) {
           {
             sections.map((section) => (
               <TabsContent key={section.section} value={section.section}>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-around">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14 justify-around">
                   {
                     section.articles.map((art) => (
                       <ArticleBox

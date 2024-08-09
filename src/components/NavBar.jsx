@@ -1,20 +1,23 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import tikTok from '@/app/assets/tikTok.png';
 import facebook from '@/app/assets/facebook.png';
 import ButtonNavBar from './ButtonNavBar';
 import NavBarMobile from './NavBarMobile';
-import SearchBar from './SearchBar';
+import SearchModal from './ui/searchModal';
 
 export default function NavBar() {
   return (
-    <header className="flex text-white w-full justify-between px-4 py-5 sticky top-0 bg-one z-20 bg-[#191970] backdrop-blur-lg h-[74px]">
-      <div className="" />
-      <div className="absolute left-0 right-0 top-0 bottom-0 flex justify-start px-4 md:px-10 2xl:justify-center items-center pr-16">
-        <SearchBar />
-      </div>
-      <nav id="navBarH" className="lg:flex items-center justify-center gap-4 text-lg hidden">
+    <header className="flex w-full justify-between px-4 shadow-md sticky top-0 bg-one z-20 backdrop-blur-lg h-[70px] bg-background" id="header">
+      <Link href="/" className="flex items-center justify-center">
+        <img src="/logo.svg" alt="Home" className="w-14 h-14" />
+      </Link>
+      <nav id="navBarH" className="lg:flex items-center justify-center gap-4 text-lg hidden py-5">
+        <ButtonNavBar>Inicio</ButtonNavBar>
+        <ButtonNavBar href="/">Ofertas laborales</ButtonNavBar>
+        <SearchModal />
         <ButtonNavBar href="/sobre-nosotros">Sobre nosotros</ButtonNavBar>
         <ButtonNavBar href="/publicaciones">Publicaciones</ButtonNavBar>
         <ButtonNavBar href="/sobre-nosotros" target>
