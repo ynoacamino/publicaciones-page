@@ -15,9 +15,9 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import ArticleContent from '@/components/ArticleContent';
 import Jodit from '@/components/Jodit';
 import { Input } from '@/components/ui/input';
+import ArticleBody from '@/components/ArticleBody';
 
 export default function EditArticle({ params }) {
   const [title, setTitle] = useState('');
@@ -442,7 +442,7 @@ export default function EditArticle({ params }) {
         )}
         <div className="my-10" />
 
-        <ArticleContent
+        <ArticleBody
           link={link}
           body={bodyTxt}
           imgSrc="/bg.jpg"
@@ -451,7 +451,6 @@ export default function EditArticle({ params }) {
           seccion={seccion}
           title={title}
           titleBody={titleBody}
-          videoUrl={videoUrl}
           autorFacebook={authorFacebook}
           autorName={authorName}
           autorPosition={authorPosition}

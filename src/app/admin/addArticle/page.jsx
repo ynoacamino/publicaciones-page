@@ -12,9 +12,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import ArticleContent from '@/components/ArticleContent';
 import Divider from '@/components/ui/divider';
 import { Input } from '@/components/ui/input';
+import ArticleBody from '@/components/ArticleBody';
 
 const Jodit = dynamic(() => import('../../../components/Jodit'), { ssr: false });
 
@@ -370,7 +370,7 @@ export default function AddArticle() {
 
         <div className="my-10" />
 
-        <ArticleContent
+        <ArticleBody
           link={link}
           body={bodyTxt}
           imgSrc="/bg.jpg"
@@ -379,7 +379,6 @@ export default function AddArticle() {
           seccion={seccion}
           title={title}
           titleBody={titleBody}
-          videoUrl="https://res.cloudinary.com/dux0sb99g/video/upload/v1710079144/images/koftqywiw72ykla3tnl4.mp4"
           autorFacebook={authorFacebook}
           autorName={authorName}
           autorPosition={authorPosition}
