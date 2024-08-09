@@ -13,7 +13,11 @@ const paths = [
   },
   {
     name: 'Ofertas laborales',
-    href: '/jobs',
+    href: 'https://app.servir.gob.pe/DifusionOfertasExterno/faces/consultas/ofertas_laborales.xhtml',
+  },
+  {
+    name: 'Diccionario',
+    href: '/diccionario',
   },
   {
     name: 'Publicaciones',

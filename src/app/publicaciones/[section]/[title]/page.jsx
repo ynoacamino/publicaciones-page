@@ -20,6 +20,8 @@ export async function generateMetadata({ params }) {
     description: data.preview,
     openGraph: {
       images: [data.imgSrc],
+      description: data.preview,
+      title: data.title,
     },
   };
 }

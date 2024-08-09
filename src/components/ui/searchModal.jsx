@@ -35,7 +35,7 @@ export default function SearchModal() {
       <Button variant="ghost" className="justify-start py-0 h-auto underlineEffect" onClick={() => setOpen(true)}>
         <MagnifyingGlassIcon className="w-7 h-7 md:mr-4" />
         <span className="min-w-32 text-start hidden md:flex text-base font-normal">
-          Buscar productos...
+          Buscar artículos
         </span>
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>

@@ -1,5 +1,5 @@
-import PreviewBody from '@/components/PreviewBody';
 import ArticleBox from '@/components/Publicaciones/ArticleBox';
+import Carousel from '@/components/ui/carousel';
 import dbConnect from '@/db/dbConnect';
 import Article from '@/db/models/Article';
 import { upperFirst } from '@/lib/utils';
@@ -22,14 +22,7 @@ export default async function Jurisprudencia({ params }) {
   const data = await getData(params.page, params.section);
   return (
     <>
-      <PreviewBody
-        title={data[0].title}
-        date={data[0].date}
-        author={data[0].author}
-        imgSrc={data[0].imgSrc}
-        preview={data[0].preview}
-        seccion={data[0].seccion}
-      />
+      <Carousel articles={data} />
       <div className="w-full bg-background flex flex-col justify-center items-center py-20 gap-10 px-6">
         <h1 className="text-2xl md:text-3xl w-9/12 text-center font-bold">
           Nuestras Publicaciones de

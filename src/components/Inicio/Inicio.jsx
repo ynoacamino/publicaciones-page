@@ -24,7 +24,7 @@ export default async function Inicio() {
     imgSrc: 'https://res.cloudinary.com/dazt6g3o1/image/upload/v1723219602/iifnfpura4ose8sobpw1.jpg',
     preview: 'Encuentra las mejores ofertas laborales en nuestra seccion de ofertas laborales',
     seccion: 'Ofertas laborales',
-    path: '/',
+    path: 'https://app.servir.gob.pe/DifusionOfertasExterno/faces/consultas/ofertas_laborales.xhtml',
   });
 
   return (

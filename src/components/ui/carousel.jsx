@@ -51,6 +51,21 @@ export default function Carousel({ articles }) {
         </summary>
       </div>
 
+      <div className="absolute bottom-4 w-full flex items-center justify-center h-10 gap-1 z-10">
+        {
+          Array.from({ length: articles.length }, (_, i) => (
+            <button
+              key={articles[i].title}
+              type="button"
+              onClick={() => setPage(i)}
+              className={`h-3 rounded-full mx-1 transition-all duration-500 ${i === page ? 'w-14 bg-white' : 'w-3 bg-white/40'}`}
+            >
+              <span className="sr-only">Page</span>
+            </button>
+          ))
+        }
+      </div>
+
       <motion.button
         type="button"
         className="absolute top-1/2 right-4 flex justify-center items-center w-8 h-8 rounded-full

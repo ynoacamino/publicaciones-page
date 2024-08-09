@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { BookA } from 'lucide-react';
 import tikTok from '@/app/assets/tikTok.png';
 import facebook from '@/app/assets/facebook.png';
 import ButtonNavBar from './ButtonNavBar';
@@ -15,11 +16,14 @@ export default function NavBar() {
         <img src="/logo.svg" alt="Home" className="w-14 h-14" />
       </Link>
       <nav id="navBarH" className="lg:flex items-center justify-center gap-4 text-lg hidden py-5">
-        <ButtonNavBar>Inicio</ButtonNavBar>
-        <ButtonNavBar href="/">Ofertas laborales</ButtonNavBar>
         <SearchModal />
+        <ButtonNavBar>Inicio</ButtonNavBar>
+        <ButtonNavBar href="https://app.servir.gob.pe/DifusionOfertasExterno/faces/consultas/ofertas_laborales.xhtml">Ofertas laborales</ButtonNavBar>
         <ButtonNavBar href="/sobre-nosotros">Sobre nosotros</ButtonNavBar>
         <ButtonNavBar href="/publicaciones">Publicaciones</ButtonNavBar>
+        <ButtonNavBar href="/diccionario">
+          <BookA className="w-7 h-7" />
+        </ButtonNavBar>
         <ButtonNavBar href="/sobre-nosotros" target>
           <Image
             src={tikTok}

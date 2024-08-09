@@ -1,8 +1,8 @@
 import Section from '@/db/models/Section';
-import PreviewBody from '../../components/PreviewBody';
 import TabPub from '../../components/Publicaciones/TabPub';
 import dbConnect from '../../db/dbConnect';
 import Article from '../../db/models/Article';
+import Carousel from '@/components/ui/carousel';
 
 export const metadata = {
   title: 'Publicaciones',
@@ -18,16 +18,16 @@ const getData = async ({ searchParams }) => {
     articles: await Article.find({ seccion: new RegExp(section.name, 'i') }).sort({ createdAt: -1 }).limit(6),
   })));
 
-  const lastPub = await Article.findOne().sort({ createdAt: -1 });
+  const lastPubs = await Article.find().sort({ createdAt: -1 }).limit(6);
 
   return {
     searchParams,
-    lastPub: {
-      title: lastPub.title,
-      imgSrc: lastPub.imgSrc,
-      preview: lastPub.preview,
-      seccion: lastPub.seccion,
-    },
+    lastPubs: lastPubs.map((p) => ({
+      title: p.title,
+      imgSrc: p.imgSrc,
+      preview: p.preview,
+      seccion: p.seccion,
+    })),
     populedSections: populedSections.map((section) => ({
       section: section.section,
       articles: section.articles.map((article) => ({
@@ -50,11 +50,8 @@ export default async function Publicaiones({ searchParams }) {
 
   return (
     <>
-      <PreviewBody
-        title={data.lastPub.title}
-        imgSrc={data.lastPub.imgSrc}
-        preview={data.lastPub.preview}
-        seccion={data.lastPub.seccion}
+      <Carousel
+        articles={data.lastPubs}
       />
       <div className="w-full flex flex-col items-center my-20 gap-10">
         <h1 className="uppercase text-4xl font-bold text-center">Publicaciones</h1>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
+import { BookA } from 'lucide-react';
 import MoreOptionsIcon from './MoreOptionsIcon.jsx';
 import ButtonNavBar from './ButtonNavBar.jsx';
 import ExitButton from './ExitButton.jsx';
@@ -25,9 +26,12 @@ export default function NavBarMobile() {
         w-screen bg-gray-100 top-0 left-0 ${isOpen || 'left-[-100vh] opacity-0'} lg:hidden transition-all`}
       >
         <ButtonNavBar>Inicio</ButtonNavBar>
-        <ButtonNavBar href="/">Ofertas laborales</ButtonNavBar>
+        <ButtonNavBar href="https://app.servir.gob.pe/DifusionOfertasExterno/faces/consultas/ofertas_laborales.xhtml">Ofertas laborales</ButtonNavBar>
         <ButtonNavBar href="/sobre-nosotros">Sobre nosotros</ButtonNavBar>
         <ButtonNavBar href="/publicaciones">Publicaciones</ButtonNavBar>
+        <ButtonNavBar href="/diccionario">
+          <BookA className="w-8 h-8" />
+        </ButtonNavBar>
         <ButtonNavBar href="/sobre-nosotros" target>
           <Image
             src={tikTok}
