@@ -42,7 +42,7 @@ export default function Carousel({ articles }) {
         </Link>
         <Link
           className="text-3xl font-bold hover:underline"
-          href={`/publicaciones/${articles[page].seccion.toLowerCase()}/${articles[page].path}`}
+          href={articles[page].path.startWith('http') ? articles[page].path : `/publicaciones/${articles[page].seccion.toLowerCase()}/${articles[page].path}`}
         >
           {articles[page].title}
         </Link>
