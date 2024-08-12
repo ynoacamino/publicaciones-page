@@ -9,7 +9,7 @@ const paths = [
   },
   {
     name: 'Sobre nosotros',
-    href: '/about',
+    href: '/sobre-nosotros',
   },
   {
     name: 'Ofertas laborales',
@@ -21,7 +21,7 @@ const paths = [
   },
   {
     name: 'Publicaciones',
-    href: '/publications',
+    href: '/publicaciones',
   },
 ];
 

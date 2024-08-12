@@ -11,32 +11,32 @@ const data = [
   {
     link: 'https://spij.minjus.gob.pe/spij-ext-web/#/detallenorma/H682692',
     img: especialidad1,
-    name: 'Codigo Penal',
+    name: 'Código Penal',
   },
   {
     link: 'https://spij.minjus.gob.pe/spij-ext-web/#/detallenorma/H682695',
     img: especialidad2,
-    name: 'Codigo Procesal Penal',
+    name: 'Código Procesal Penal',
   },
   {
     link: 'https://spij.minjus.gob.pe/spij-ext-web/#/detallenorma/H682684',
     img: especialidad3,
-    name: 'Codigo Civil',
+    name: 'Código Civil',
   },
   {
     link: 'https://spij.minjus.gob.pe/spij-ext-web/#/detallenorma/H682700',
     img: especialidad4,
-    name: 'Codigo Penal Militar',
+    name: 'Código Penal Militar',
   },
   {
     link: 'https://spij.minjus.gob.pe/spij-ext-web/#/detallenorma/H1288461',
     img: especialidad5,
-    name: 'Codigo Procesal Constitucional',
+    name: 'Código Procesal Constitucional',
   },
   {
     link: 'https://spij.minjus.gob.pe/spij-ext-web/#/detallenorma/H682678',
     img: especialidad6,
-    name: 'Constitucion Politica del Perú',
+    name: 'Constitución Política del Perú',
   },
 ];
 

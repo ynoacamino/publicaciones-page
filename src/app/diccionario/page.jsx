@@ -1,10 +1,10 @@
-import { upperFirst } from '@/lib/utils';
 import Diccionario from '@/db/models/Diccionario';
 import dbConnect from '@/db/dbConnect';
+import Letter from '@/components/pages/diccionario/Letter';
+import SearchWordModal from '@/components/pages/diccionario/SearchWordModal';
 
 export const revalidate = 0;
 
-/* eslint-disable react/no-danger */
 const getData = async () => {
   await dbConnect();
 
@@ -41,32 +41,27 @@ export default async function DiccionarioPage() {
     return result;
   };
 
-  const data = classifyAndShuffleWords(await getData());
+  const query = await getData();
+
+  const data = classifyAndShuffleWords(query.sort((a, b) => a.word.localeCompare(b.word)));
 
   return (
     <main className="w-full flex flex-col items-center justify-start my-20">
-      <div className="w-full max-w-7xl flex flex-col items-start gap-12">
+      <div className="w-full max-w-7xl flex flex-col items-start gap-12 px-6">
         <span className="flex flex-col gap-4">
           <h1 className="text-4xl uppercase font-bold">Diccionario</h1>
         </span>
+        <SearchWordModal words={query.map((w) => ({ word: w.word, description: w.description }))} />
         {
-        data.map((l) => (
-          <div key={crypto.randomUUID()} className="w-full">
-            <h2 className="uppercase text-4xl font-bold text-muted-foreground">{l.letter}</h2>
-            <div className="flex flex-col gap-8 pl-4 w-full">
-              {
-              l.words.map((w) => (
-                <div key={w.id} className="w-full flex gap-2">
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold">{upperFirst(w.word)}</h3>
-                    <div dangerouslySetInnerHTML={{ __html: w.description }} />
-                  </div>
-                </div>
-              ))
-              }
-            </div>
-          </div>
-        ))
+          data.map((l) => (
+            <Letter
+              key={l.letter}
+              letter={l.letter}
+              words={l.words.map((w) => ({
+                letter: w.letter, word: w.word, description: w.description,
+              }))}
+            />
+          ))
         }
       </div>
     </main>

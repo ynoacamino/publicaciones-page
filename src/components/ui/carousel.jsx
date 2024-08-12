@@ -36,7 +36,7 @@ export default function Carousel({ articles }) {
         src={articles[page].imgSrc}
       />
       <div className="z-10 flex flex-col gap-4 items-start justify-end w-full mt-28 lg:w-4/6 text-white p-10 lg:m-10 lg:mt-40 min-h-[350px]">
-        <Link href={`/publicaciones/${articles[page].seccion}/page/1`}>
+        <Link href={articles[page].path?.startsWith('http') ? articles[page].path : `/publicaciones/${articles[page].seccion}/page/1`}>
           <strong>{upperFirst(articles[page].seccion)}</strong>
           <div className="border-b-4 border-b-blue-800" />
         </Link>
