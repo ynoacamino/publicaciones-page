@@ -28,7 +28,7 @@ const paths = [
 export default function Footer() {
   return (
     <footer
-      className="w-full flex flex-col gap-4 items-center justify-start py-16 px-6 border-t-2 border-t-zinc-500/30"
+      className="w-full flex flex-col gap-8 items-center justify-start py-16 px-6 border-t-2 border-t-zinc-500/30"
     >
       <div className="text-3xl uppercase font-bold text-center w-full max-w-lg">
         EL DERECHO SE TRANSFORMA
@@ -44,7 +44,7 @@ export default function Footer() {
       <nav className="flex flex-col md:flex-row items-center justify-center w-full max-w-xl gap-y-4 gap-x-10 text-lg">
         {
           paths.map((p) => (
-            <Link key={p.name} href={p.href} className="hover:underline">
+            <Link key={p.name} href={p.href} className="hover:underline text-center whitespace-nowrap">
               {p.name}
             </Link>
           ))

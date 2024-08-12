@@ -27,6 +27,7 @@ const getData = async ({ searchParams }) => {
       imgSrc: p.imgSrc,
       preview: p.preview,
       seccion: p.seccion,
+      path: p.path,
     })),
     populedSections: populedSections.map((section) => ({
       section: section.section,
