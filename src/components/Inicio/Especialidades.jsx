@@ -6,6 +6,7 @@ import especialidad3 from '@/app/assets/especialidad3.png';
 import especialidad4 from '@/app/assets/especialidad4.png';
 import especialidad5 from '@/app/assets/especialidad5.png';
 import especialidad6 from '@/app/assets/especialidad6.png';
+import { cn } from '@/lib/utils';
 
 const data = [
   {
@@ -64,7 +65,7 @@ export default function Especialidades() {
                     width={80}
                     height={80}
                     alt="Img"
-                    className="m-4"
+                    className={cn('m-4', { 'pl-2': d.name === 'Código Civil' })}
                   />
                 </div>
                 <span className="text-center">{d.name}</span>
