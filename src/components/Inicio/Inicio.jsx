@@ -19,14 +19,6 @@ const getArticles = async () => {
 export default async function Inicio() {
   const { articles } = await getArticles();
 
-  articles.push({
-    title: 'Ofertas laborales',
-    imgSrc: 'https://res.cloudinary.com/dazt6g3o1/image/upload/v1723219602/iifnfpura4ose8sobpw1.jpg',
-    preview: 'Encuentra las mejores ofertas laborales en nuestra seccion de ofertas laborales',
-    seccion: 'Ofertas laborales',
-    path: 'https://app.servir.gob.pe/DifusionOfertasExterno/faces/consultas/ofertas_laborales.xhtml',
-  });
-
   return (
     <div className=" w-full">
       <Carousel articles={articles} />

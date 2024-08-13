@@ -45,7 +45,7 @@ export default function Especialidades() {
   return (
     <section className="bg-gray-300 w-full flex flex-col justify-center items-center py-20 gap-10">
       <h1 className=" md:text-3xl w-9/12 text-center uppercase text-xl font-bold">
-        Revisa nuestros textos mas importantes
+        Legislación Actualizada
       </h1>
       <ul className="grid grid-cols-2 md:grid-cols-3 gap-8 w-11/12 md:w-9/12 lg:w-6/12 justify-around">
         {

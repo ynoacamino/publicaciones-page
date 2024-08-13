@@ -12,10 +12,6 @@ import xIcon from '@/app/assets/x.png';
 export default function ArticleBody({
   titleBody,
   body,
-  autorFacebook,
-  autorImg,
-  autorName,
-  autorPosition,
   pdfSrc,
   path,
   seccion,
@@ -50,20 +46,8 @@ export default function ArticleBody({
       </h2>
       <div className="joditBox articleJoditBox" dangerouslySetInnerHTML={{ __html: body }} />
       <footer className="flex flex-col gap-2 font-bold ">
-        <div>
-          <span className="flex gap-3 items-center">
-            <span className="">
-              Autor:
-            </span>
-            <Link href={autorFacebook} className="font-normal flex gap-2 items-center hover:underline">
-              <img src={autorImg} alt={autorName} className="w-10 aspect-square" />
-              {`${autorPosition} ${autorName}`}
-            </Link>
-          </span>
-        </div>
-
         <span>
-          Para revisar la casación completa:
+          Para revisar la resolución completa:
         </span>
         {pdfSrc && (
         <div className="w-full flex justify-start items-center text-lg">

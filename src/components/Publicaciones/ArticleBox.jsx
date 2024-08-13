@@ -8,7 +8,7 @@ import ShareButton from '../ui/shareButton';
 import { upperFirst } from '@/lib/utils';
 
 export default function ArticleBox({
-  imgSrc, date, title, author, seccion, path, pdfSrc,
+  imgSrc, date, title, seccion, path, pdfSrc,
 }) {
   return (
     <article className='className="max-w-[400px] min-w-[150px] flex flex-col items-start gap-2'>
@@ -33,13 +33,7 @@ export default function ArticleBox({
         </Link>
       </main>
       <p className="text-sm my-2 flex items-center justify-between w-full">
-        <span>
-          Por:
-          {' '}
-          <span className="font-bold">
-            {author.toUpperCase()}
-          </span>
-        </span>
+        <span />
         <span>
           {date}
         </span>

@@ -23,7 +23,6 @@ export default async function Publicaciones({ searchParams }) {
 
   return (
     <div className="bg-background w-full flex flex-col justify-center items-center py-20 gap-16">
-      <h1 className="uppercase text-4xl font-bold text-center">Publicaciones</h1>
       <div className="flex w-full flex-col">
         <TabPub sections={data.populedSections} />
       </div>
