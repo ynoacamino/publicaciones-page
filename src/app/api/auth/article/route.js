@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import Article from '@/app/db/models/Article';
-import dbConnect from '@/app/db/dbConnect';
+import Article from '@/db/models/Article';
+import dbConnect from '@/db/dbConnect';
 import { configAuth } from '../[...nextauth]/route';
-import format from '@/app/utils/format';
+import format from '@/lib/format';
+import Section from '@/db/models/Section';
 
 export async function POST(req) {
   const session = await getServerSession(configAuth);
@@ -13,6 +14,22 @@ export async function POST(req) {
   await dbConnect();
 
   const form = await req.formData();
+
+  const sectionInput = form.get('seccion');
+
+  const section = await Section.findOne({ name: sectionInput });
+
+  if (!section) {
+    const newSection = new Section({
+      name: sectionInput,
+    });
+
+    try {
+      await newSection.save();
+    } catch (err) {
+      return NextResponse.json({ error: err.message }, { status: 500 });
+    }
+  }
 
   const article = new Article({
     imgSrc: 'https://res.cloudinary.com/dux0sb99g/image/upload/v1698768957/whwq8givatdsdt9gylew.png',
@@ -28,12 +45,10 @@ export async function POST(req) {
     link: form.get('link'),
     videoUrl: form.get('videoUrl'),
     authorImg: '/gold.svg',
-    authorName: form.get('authorName'),
-    authorPosition: form.get('authorPosition'),
-    authorFacebook: form.get('authorFacebook'),
+    authorName: 'Miguel Salinas Vargas',
+    authorPosition: 'Abogado',
+    authorFacebook: 'https://www.facebook.com/migu.3110567',
   });
-  if (form.get('imgSrc')) article.imgSrc = form.get('imgSrc');
-  if (form.get('authorImg')) article.authorImg = form.get('authorImg');
 
   try {
     article.save();
@@ -62,6 +77,22 @@ export async function PUT(req) {
 
   if (!article) NextResponse.json({ error: 'Articulo no encontrado' }, { status: 400 });
 
+  const sectionInput = form.get('seccion');
+
+  const section = await Section.findOne({ name: sectionInput });
+
+  if (!section) {
+    const newSection = new Section({
+      name: sectionInput,
+    });
+
+    try {
+      await newSection.save();
+    } catch (err) {
+      return NextResponse.json({ error: err.message }, { status: 500 });
+    }
+  }
+
   article.title = form.get('title');
   article.author = form.get('author');
   if (form.get('imgSrc')) article.imgSrc = form.get('imgSrc');
@@ -75,10 +106,11 @@ export async function PUT(req) {
   article.link = form.get('link');
 
   if (form.get('videoUrl')) article.videoUrl = form.get('videoUrl');
-  if (form.get('authorImg')) article.authorImg = form.get('authorImg');
-  article.authorName = form.get('authorName');
-  article.authorPosition = form.get('authorPosition');
-  article.authorFacebook = form.get('authorFacebook');
+
+  article.authorImg = '/gold.svg';
+  article.authorName = 'Miguel Salinas Vargas';
+  article.authorPosition = 'Abogado';
+  article.authorFacebook = 'https://www.facebook.com/migu.3110567';
 
   try {
     await article.save();

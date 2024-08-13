@@ -4,34 +4,41 @@ import dynamic from 'next/dynamic';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import {
-  Textarea, Divider, Select, SelectItem, Button,
-} from '@nextui-org/react';
-import { ToastContainer, toast } from 'react-toastify';
-import ArticleContent from '@/app/components/ArticleContent';
 
-const Jodit = dynamic(() => import('../../components/Jodit'), { ssr: false });
+import { ToastContainer, toast } from 'react-toastify';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Select, SelectItem, SelectTrigger, SelectContent,
+  SelectValue,
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
+import Divider from '@/components/ui/divider';
+import { Input } from '@/components/ui/input';
+import ArticleBody from '@/components/ArticleBody';
+
+const Jodit = dynamic(() => import('../../../components/Jodit'), { ssr: false });
 
 export default function AddArticle() {
   const { status } = useSession();
   const router = useRouter();
 
   const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+  const [author, setAuthor] = useState('CMSALINASV');
   const [img, setImg] = useState(null);
-  const [seccion, setSeccion] = useState('');
   const [preview, setPreview] = useState('');
   const [titleBody, setTitleBody] = useState('');
   const [bodyTxt, setBodyTxt] = useState('');
   const [date, setDate] = useState('');
   const [link, setLink] = useState('');
-  const [authorName, setAuthorName] = useState('Miguel Salinas Vargas');
-  const [authorPosition, setAuthorPosition] = useState('Abogado');
-  const [authorFacebook, setAuthorFacebook] = useState('https://www.facebook.com/migu.3110567');
+  // const [authorName, setAuthorName] = useState('Miguel Salinas Vargas');
+  // const [authorPosition, setAuthorPosition] = useState('Abogado');
+  // const [authorFacebook, setAuthorFacebook] = useState('https://www.facebook.com/migu.3110567');
+
+  const [seccion, setSeccion] = useState('');
+  const [seccionText, setSeccionText] = useState('');
 
   const [file, setFile] = useState(null);
   const [video, setVideo] = useState(null);
-  const [authorImgFile, setAuthorImgFile] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -55,22 +62,18 @@ export default function AddArticle() {
     formVideo.append('file', video);
     formVideo.append('upload_preset', 'images');
 
-    const formAuthorImgFile = new FormData();
-    formAuthorImgFile.append('file', authorImgFile);
-    formAuthorImgFile.append('upload_preset', 'images');
-
     const formData = new FormData();
     formData.append('title', title);
     formData.append('author', author);
-    formData.append('seccion', seccion);
+    formData.append('seccion', seccionText.length > 0 ? seccionText : seccion);
     formData.append('preview', preview);
     formData.append('titleBody', titleBody);
     formData.append('body', bodyTxt);
     formData.append('date', date);
     formData.append('link', link);
-    formData.append('authorName', authorName);
-    formData.append('authorPosition', authorPosition);
-    formData.append('authorFacebook', authorFacebook);
+    // formData.append('authorName', authorName);
+    // formData.append('authorPosition', authorPosition);
+    // formData.append('authorFacebook', authorFacebook);
 
     if (img) {
       try {
@@ -117,21 +120,6 @@ export default function AddArticle() {
         console.error(err);
       }
     }
-    if (authorImgFile) {
-      try {
-        const res = await fetch(
-          'https://api.cloudinary.com/v1_1/dux0sb99g/upload',
-          {
-            method: 'POST',
-            body: formAuthorImgFile,
-          },
-        );
-        const fileImgFile = await res.json();
-        formData.append('authorImg', fileImgFile.secure_url);
-      } catch (err) {
-        console.error(err);
-      }
-    }
 
     try {
       await fetch('/api/auth/article', {
@@ -161,7 +149,7 @@ export default function AddArticle() {
           onValueChange={setTitle}
           isRequired
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Imagen
         </h2>
@@ -171,7 +159,7 @@ export default function AddArticle() {
             setImg(e.target.files[0]);
           }}
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Pdf
         </h2>
@@ -181,42 +169,53 @@ export default function AddArticle() {
             setFile(e.target.files[0]);
           }}
         />
-        <Divider className="my-4" />
-        <h2 className="text-2xl font-semibold">
+        <div className="my-10" />
+        {/* <h2 className="text-2xl font-semibold">
           Autor
-        </h2>
-        <Textarea
-          variant="bordered"
+        </h2> */}
+        <input
           labelPlacement="outside"
           placeholder="Autor"
           className="max-w-3xl"
           value={author}
           onValueChange={setAuthor}
           isRequired
+          type="hidden"
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Seccion
         </h2>
         <Select
           label="Select"
           className="max-w-xs"
-          variant="bordered"
-          onChange={(e) => {
-            if (e.target.value == '$.0') return setSeccion('jurisprudencia');
-            if (e.target.value == '$.1') return setSeccion('boletin');
-            return setSeccion('');
-          }}
+          onValueChange={setSeccion}
+          value={seccion}
+          disabled={seccionText.length > 0}
           isRequired
         >
-          <SelectItem value="jurisprudencia">
-            Jurisprudencia
-          </SelectItem>
-          <SelectItem value="boletin">
-            Boletines
-          </SelectItem>
+          <SelectTrigger>
+            <SelectValue placeholder="Seccion" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="jurisprudencia">
+              Jurisprudencia
+            </SelectItem>
+            <SelectItem value="boletin">
+              Boletines
+            </SelectItem>
+          </SelectContent>
         </Select>
-        <Divider className="my-4" />
+        <span>
+          o
+        </span>
+        <Input
+          type="text"
+          placeholder="Otra seccion"
+          value={seccionText}
+          onChange={(e) => setSeccionText(e.target.value)}
+        />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Preview
         </h2>
@@ -229,7 +228,7 @@ export default function AddArticle() {
           onValueChange={setPreview}
           isRequired
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Titulo del contenido
         </h2>
@@ -242,7 +241,7 @@ export default function AddArticle() {
           onValueChange={setTitleBody}
           isRequired
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Cuerpo
         </h2>
@@ -253,7 +252,7 @@ export default function AddArticle() {
             setContent={setBodyTxt}
           />
         </div>
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Fecha
         </h2>
@@ -288,7 +287,7 @@ export default function AddArticle() {
             setVideo(e.target.files[0]);
           }}
         />
-        <Divider className="my-12" />
+        {/* <Divider className="my-12" />
         <h1 className="text-3xl font-bold">
           Informacion lateral
         </h1>
@@ -297,61 +296,61 @@ export default function AddArticle() {
         <h2 className="text-2xl font-semibold">
           Nombre del autor
         </h2>
-        <Textarea
-          variant="bordered"
+        <input
           labelPlacement="outside"
           placeholder="Miguel Salinas Vargas"
           className="max-w-3xl"
           value={authorName}
           onValueChange={setAuthorName}
+          type="hidden"
           isRequired
-        />
+        /> */}
 
-        <Divider className="my-12" />
+        {/* <Divider className="my-12" />
         <h2 className="text-2xl font-semibold">
           Titulo del autor
-        </h2>
-        <Textarea
-          variant="bordered"
+        </h2> */}
+        {/* <input
+          type="hidden"
           labelPlacement="outside"
           placeholder="Abogado"
           className="max-w-3xl"
           value={authorPosition}
           onValueChange={setAuthorPosition}
           isRequired
-        />
+        /> */}
 
-        <Divider className="my-12" />
+        {/* <Divider className="my-12" />
         <h2 className="text-2xl font-semibold">
           Link de facebook del autor
-        </h2>
-        <Textarea
-          variant="bordered"
+        </h2> */}
+        {/* <input
+          type="hidden"
           labelPlacement="outside"
           placeholder="https://www.facebook.com/migu.3110567"
           className="max-w-3xl"
           value={authorFacebook}
           onValueChange={setAuthorFacebook}
           isRequired
-        />
+        /> */}
 
-        <Divider className="my-12" />
+        {/* <Divider className="my-12" />
         <h2 className="text-2xl font-semibold">
           Imagen de perfil del autor
         </h2>
         <h3>
           *POR DEFECTO SE USARA LA IMAGEN DE PERFIL DE MIGUEL SALINAS VARGAS
-        </h3>
-        <input
+        </h3> */}
+        {/* <input
           type="file"
           onChange={(e) => {
             setAuthorImgFile(e.target.files[0]);
           }}
-        />
+        /> */}
 
-        <Divider className="my-4" />
+        <div className="my-10" />
 
-        <ArticleContent
+        <ArticleBody
           link={link}
           body={bodyTxt}
           imgSrc="/bg.jpg"
@@ -360,13 +359,9 @@ export default function AddArticle() {
           seccion={seccion}
           title={title}
           titleBody={titleBody}
-          videoUrl="https://res.cloudinary.com/dux0sb99g/video/upload/v1710079144/images/koftqywiw72ykla3tnl4.mp4"
-          autorFacebook={authorFacebook}
-          autorName={authorName}
-          autorPosition={authorPosition}
         />
 
-        <Divider className="my-4" />
+        <div className="my-10" />
 
         <div className="w-full flex justify-end items-center my-10">
           <Button type="submit" isLoading={loading}>

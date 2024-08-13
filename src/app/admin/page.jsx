@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import {
-  Button, Chip, Divider, Spinner,
-} from '@nextui-org/react';
+
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import ArticleBox from '../components/Publicaciones/ArticleBox';
-import ButtonLink from '../components/ButtonLink';
+import { Button } from '@/components/ui/button';
+import ArticleBox from '../../components/Publicaciones/ArticleBox';
+import ButtonLink from '../../components/ButtonLink';
+import Spinner from '@/components/ui/spinner';
+import Divider from '@/components/ui/divider';
 
 export default function Admin() {
   const router = useRouter();
@@ -62,17 +63,18 @@ export default function Admin() {
           Agregar una publicacion
         </Button>
       </Link>
-      <Divider className="my-8" />
+      <Divider />
       <div className="flex flex-col justify-center items-center">
         <h2 className="text-3xl my-5 text-center">
           Editar o eliminar una publicacion
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-around">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-16 justify-around w-full max-w-7xl">
           {articles.map((art) => (
-            <div key={art._id.toString()} className="flex flex-col gap-4">
-              <Chip radius="sm" size="md">
+            <div key={art._id.toString()} className="flex flex-col gap-4 items-start">
+              <span>
                 {art.seccion}
-              </Chip>
+                <div className="w-full border-b-4 border-blue-800" />
+              </span>
               <ArticleBox
                 key={art.title}
                 date={art.date}
@@ -95,12 +97,13 @@ export default function Admin() {
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-around">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-16 justify-around w-full max-w-7xl">
           {jurisprudencia.map((art) => (
-            <div key={art._id.toString()} className="flex flex-col gap-4">
-              <Chip radius="sm" size="md">
+            <div key={art._id.toString()} className="flex flex-col gap-4 items-start">
+              <span>
                 {art.seccion}
-              </Chip>
+                <div className="w-full border-b-4 border-blue-800" />
+              </span>
               <ArticleBox
                 key={art.title}
                 date={art.date}

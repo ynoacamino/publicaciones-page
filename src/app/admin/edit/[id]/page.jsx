@@ -1,43 +1,52 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import {
-  Textarea, Divider, Select, SelectItem, Button, Spinner,
-} from '@nextui-org/react';
+
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
-import ArticleContent from '@/app/components/ArticleContent';
-import Jodit from '@/app/components/Jodit';
+import Spinner from '@/components/ui/spinner';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import Jodit from '@/components/Jodit';
+import { Input } from '@/components/ui/input';
+import ArticleBody from '@/components/ArticleBody';
 
 export default function EditArticle({ params }) {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [seccion, setSeccion] = useState(new Set([]));
   const [preview, setPreview] = useState('');
   const [titleBody, setTitleBody] = useState('');
   const [bodyTxt, setBodyTxt] = useState('');
   const [date, setDate] = useState('');
   const [link, setLink] = useState('');
-  const [authorName, setAuthorName] = useState('');
-  const [authorPosition, setAuthorPosition] = useState('');
-  const [authorFacebook, setAuthorFacebook] = useState('');
+  // const [authorName, setAuthorName] = useState('');
+  // const [authorPosition, setAuthorPosition] = useState('');
+  // const [authorFacebook, setAuthorFacebook] = useState('');
+
+  const [seccion, setSeccion] = useState('');
+  const [seccionText, setSeccionText] = useState('');
 
   const [img, setImg] = useState(null);
   const [file, setFile] = useState(null);
   const [video, setVideo] = useState(null);
-  const [authorImgFile, setAuthorImgFile] = useState(null);
+  //  const [authorImgFile, setAuthorImgFile] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [loadingGet, setLoadingGet] = useState(true);
 
   const [imgSrc, setImgSrc] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
-  const [authorImg, setAuthorImg] = useState('');
+  // const [authorImg, setAuthorImg] = useState('');
 
   const router = useRouter();
-
-  const secc = seccion.has('$.0') ? 'jurisprudencia' : 'boletin';
 
   useEffect(() => {
     const getData = async () => {
@@ -55,7 +64,7 @@ export default function EditArticle({ params }) {
         try {
           setTitle(art.data.article.title);
           setAuthor(art.data.article.author);
-          setSeccion(art.data.article.seccion === 'jurisprudencia' ? new Set(['$.0']) : new Set(['$.1']));
+          setSeccion(art.data.article.seccion);
           setPreview(art.data.article.preview);
           setTitleBody(art.data?.article?.titleBody);
           setBodyTxt(art.data.article.body);
@@ -63,10 +72,9 @@ export default function EditArticle({ params }) {
           setLink(art.data.article.link);
           setImgSrc(art.data.article.imgSrc);
           setVideoUrl(art.data.article.videoUrl);
-          setAuthorImg(art.data.article.authorImg);
-          setAuthorName(art.data.article.authorName || 'Miguel Salinas Vargas');
-          setAuthorPosition(art.data.article.authorPosition || 'Abogado');
-          setAuthorFacebook(art.data.article.authorFacebook || 'https://www.facebook.com/migu.3110567');
+          // setAuthorName(art.data.article.authorName || 'Miguel Salinas Vargas');
+          // setAuthorPosition(art.data.article.authorPosition || 'Abogado');
+          // setAuthorFacebook(art.data.article.authorFacebook || 'https://www.facebook.com/migu.3110567');
         } catch (err) {
           toast.error('Datos corruptos');
         }
@@ -92,23 +100,19 @@ export default function EditArticle({ params }) {
     formVideo.append('file', video);
     formVideo.append('upload_preset', 'images');
 
-    const formAuthorImgFile = new FormData();
-    formAuthorImgFile.append('file', authorImgFile);
-    formAuthorImgFile.append('upload_preset', 'images');
-
     const formData = new FormData();
     formData.append('title', title);
     formData.append('author', author);
-    formData.append('seccion', seccion.has('$.0') ? 'jurisprudencia' : 'boletin');
+    formData.append('seccion', seccionText.length > 0 ? seccionText : seccion);
     formData.append('preview', preview);
     formData.append('titleBody', titleBody);
     formData.append('body', bodyTxt);
     formData.append('date', date);
     formData.append('id', params.id);
     formData.append('link', link);
-    formData.append('authorName', authorName);
-    formData.append('authorPosition', authorPosition);
-    formData.append('authorFacebook', authorFacebook);
+    // formData.append('authorName', authorName);
+    // formData.append('authorPosition', authorPosition);
+    // formData.append('authorFacebook', authorFacebook);
 
     if (img) {
       try {
@@ -155,21 +159,6 @@ export default function EditArticle({ params }) {
         console.error(err);
       }
     }
-    if (authorImgFile) {
-      try {
-        const res = await fetch(
-          'https://api.cloudinary.com/v1_1/dux0sb99g/upload',
-          {
-            method: 'POST',
-            body: formAuthorImgFile,
-          },
-        );
-        const fileImgFile = await res.json();
-        formData.append('authorImg', fileImgFile.secure_url);
-      } catch (err) {
-        console.error(err);
-      }
-    }
 
     try {
       await fetch('/api/auth/article', {
@@ -208,7 +197,7 @@ export default function EditArticle({ params }) {
           onValueChange={setTitle}
           isRequired
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Imagen
         </h2>
@@ -229,7 +218,7 @@ export default function EditArticle({ params }) {
             setImg(e.target.files[0]);
           }}
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Pdf
         </h2>
@@ -239,7 +228,7 @@ export default function EditArticle({ params }) {
             setFile(e.target.files[0]);
           }}
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Autor
         </h2>
@@ -252,26 +241,40 @@ export default function EditArticle({ params }) {
           onValueChange={setAuthor}
           isRequired
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Seccion
         </h2>
         <Select
           label="Select"
           className="max-w-xs"
-          variant="bordered"
-          selectedKeys={seccion}
-          onSelectionChange={setSeccion}
+          onValueChange={setSeccion}
+          value={seccion}
+          disabled={seccionText.length > 0}
           isRequired
         >
-          <SelectItem value="jurisprudencia">
-            Jurisprudencia
-          </SelectItem>
-          <SelectItem value="boletin">
-            Boletines
-          </SelectItem>
+          <SelectTrigger>
+            <SelectValue placeholder="Seccion" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="jurisprudencia">
+              Jurisprudencia
+            </SelectItem>
+            <SelectItem value="boletin">
+              Boletines
+            </SelectItem>
+          </SelectContent>
         </Select>
-        <Divider className="my-4" />
+        <span>
+          o
+        </span>
+        <Input
+          type="text"
+          placeholder="Otra seccion"
+          value={seccionText}
+          onChange={(e) => setSeccionText(e.target.value)}
+        />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Preview
         </h2>
@@ -284,7 +287,7 @@ export default function EditArticle({ params }) {
           onValueChange={setPreview}
           isRequired
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Titulo del contenido
         </h2>
@@ -297,7 +300,7 @@ export default function EditArticle({ params }) {
           onValueChange={setTitleBody}
           isRequired
         />
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Cuerpo
         </h2>
@@ -308,7 +311,7 @@ export default function EditArticle({ params }) {
             setContent={setBodyTxt}
           />
         </div>
-        <Divider className="my-4" />
+        <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Fecha
         </h2>
@@ -321,7 +324,7 @@ export default function EditArticle({ params }) {
           onValueChange={setDate}
           isRequired
         />
-        <Divider className="my-12" />
+        <div className="my-12" />
         <h2 className="text-2xl font-semibold">
           Link
         </h2>
@@ -333,7 +336,7 @@ export default function EditArticle({ params }) {
           value={link}
           onValueChange={setLink}
         />
-        <Divider className="my-12" />
+        <div className="my-12" />
         <h2 className="text-2xl font-semibold">
           Video
         </h2>
@@ -350,12 +353,12 @@ export default function EditArticle({ params }) {
           Tu navegador no soporta la etiqueta de video.
         </video>
         )}
-        <Divider className="my-12" />
-        <h1 className="text-3xl font-bold">
+        <div className="my-12" />
+        {/* <h1 className="text-3xl font-bold">
           Informacion lateral
         </h1>
 
-        <Divider className="my-12" />
+        <div className="my-12" />
         <h2 className="text-2xl font-semibold">
           Nombre del autor
         </h2>
@@ -369,7 +372,7 @@ export default function EditArticle({ params }) {
           isRequired
         />
 
-        <Divider className="my-12" />
+        <div className="my-12" />
         <h2 className="text-2xl font-semibold">
           Titulo del autor
         </h2>
@@ -383,7 +386,7 @@ export default function EditArticle({ params }) {
           isRequired
         />
 
-        <Divider className="my-12" />
+        <div className="my-12" />
         <h2 className="text-2xl font-semibold">
           Link de facebook del autor
         </h2>
@@ -397,7 +400,7 @@ export default function EditArticle({ params }) {
           isRequired
         />
 
-        <Divider className="my-12" />
+        <div className="my-12" />
         <h2 className="text-2xl font-semibold">
           Imagen de perfil del autor
         </h2>
@@ -416,25 +419,21 @@ export default function EditArticle({ params }) {
           alt={title}
           className="max-w-md w-full my-4"
         />
-        )}
-        <Divider className="my-4" />
+        )} */}
+        <div className="my-10" />
 
-        <ArticleContent
+        <ArticleBody
           link={link}
           body={bodyTxt}
           imgSrc="/bg.jpg"
           pdfSrc="/"
           preview={preview}
-          seccion={secc}
+          seccion={seccion}
           title={title}
           titleBody={titleBody}
-          videoUrl={videoUrl}
-          autorFacebook={authorFacebook}
-          autorName={authorName}
-          autorPosition={authorPosition}
         />
 
-        <Divider className="my-4" />
+        <div className="my-10" />
 
         <div className="w-full flex justify-end items-center my-10">
           <Button type="submit" isLoading={loading}>

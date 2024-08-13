@@ -1,9 +1,10 @@
 import './globals.css';
 import 'react-toastify/dist/ReactToastify.css';
-import { Roboto_Slab } from 'next/font/google';
-import NextAuth from './providers/NextAuth';
-import Footer from './components/Footer';
-import NavBar from './components/NavBar';
+import NextAuth from '@/components/providers/NextAuth';
+import Footer from '../components/Footer';
+import NavBar from '../components/NavBar';
+import { cn } from '@/lib/utils';
+import ProgressBarProvider from '@/components/providers/ProgressBarProvider';
 
 export const metadata = {
   title: 'Abogado Miguel Salinas',
@@ -30,28 +31,24 @@ export const metadata = {
     shortcut: '/logo.svg',
   },
   openGraph: {
-    images: ['https://cdn.discordapp.com/attachments/1110352472993710123/1179769630143807488/image_1.png?ex=657afd16&is=65688816&hm=3c65c0bc7198a56d172e89b585c91453f386eda299f0b3993602bff458163a59&'],
+    images: ['https://res.cloudinary.com/dazt6g3o1/image/upload/v1723512351/nau2wsii0ljzyc23ykds.png'],
   },
 };
-
-const roboto = Roboto_Slab({
-  weight: ['300', '400', '500', '700'],
-  style: ['normal'],
-  subsets: ['latin'],
-});
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={roboto.className}>
+      <body className={cn('bg-background')}>
         <NextAuth>
-          <div className="w-full flex flex-col justify-between h-full bg-[#fbfafb] min-h-screen relative">
-            <NavBar />
-            <main className="w-full flex flex-col justify-start items-start">
-              {children}
-            </main>
-            <Footer />
-          </div>
+          <ProgressBarProvider>
+            <div className="w-full flex flex-col justify-between h-full bg-background min-h-screen relative">
+              <NavBar />
+              <main className="w-full flex flex-col justify-start items-start flex-1">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </ProgressBarProvider>
         </NextAuth>
       </body>
     </html>

@@ -1,7 +1,8 @@
-import PreviewBody from '../components/PreviewBody';
-import TabPub from '../components/Publicaciones/TabPub';
-import dbConnect from '../db/dbConnect';
-import Article from '../db/models/Article';
+import Section from '@/db/models/Section';
+import TabPub from '../../components/Publicaciones/TabPub';
+import dbConnect from '../../db/dbConnect';
+import Article from '../../db/models/Article';
+import Carousel from '@/components/ui/carousel';
 
 export const metadata = {
   title: 'Publicaciones',
@@ -9,33 +10,54 @@ export const metadata = {
 
 const getData = async ({ searchParams }) => {
   dbConnect();
-  const articleJuris = await Article.find({ seccion: new RegExp('jurisprudencia', 'i') }).sort({ createdAt: -1 }).limit(4);
-  const articleArticulo = await Article.find({ seccion: new RegExp('boletin', 'i') }).sort({ createdAt: -1 }).limit(4);
 
-  let lastPub;
-  if (articleJuris.length == 0) [lastPub] = articleArticulo;
-  else if (articleArticulo.length == 0) [lastPub] = articleJuris;
-  else {
-    lastPub = new Date(articleJuris[0].createdAt) > new Date(articleArticulo[0].createdAt)
-      ? articleJuris[0] : articleArticulo[0];
-  }
+  const sections = await Section.find();
+
+  const populedSections = await Promise.all(sections.map(async (section) => ({
+    section: section.name,
+    articles: await Article.find({ seccion: new RegExp(section.name, 'i') }).sort({ createdAt: -1 }).limit(6),
+  })));
+
+  const lastPubs = await Article.find().sort({ createdAt: -1 }).limit(6);
+
   return {
-    articleArticulo, articleJuris, searchParams, lastPub,
+    searchParams,
+    lastPubs: lastPubs.map((p) => ({
+      title: p.title,
+      imgSrc: p.imgSrc,
+      preview: p.preview,
+      seccion: p.seccion,
+      path: p.path,
+    })),
+    populedSections: populedSections.map((section) => ({
+      section: section.section,
+      articles: section.articles.map((article) => ({
+        title: article.title,
+        imgSrc: article.imgSrc,
+        preview: article.preview,
+        seccion: article.seccion,
+        body: article.body,
+        _id: article._id.toString(),
+        pdfSrc: article.pdfSrc,
+        author: article.author,
+        path: article.path,
+      })),
+    })),
   };
 };
 
 export default async function Publicaiones({ searchParams }) {
-  const data = JSON.parse(JSON.stringify(await getData({ searchParams })));
+  const data = await getData({ searchParams });
 
   return (
     <>
-      <PreviewBody
-        title={data.lastPub.title}
-        imgSrc={data.lastPub.imgSrc}
-        preview={data.lastPub.preview}
-        seccion={data.lastPub.seccion}
+      <Carousel
+        articles={data.lastPubs}
       />
-      <TabPub articleJuris={data.articleJuris} articleArticulo={data.articleArticulo} />
+      <div className="w-full flex flex-col items-center my-20 gap-10">
+        <h1 className="uppercase text-4xl font-bold text-center">Publicaciones</h1>
+        <TabPub sections={data.populedSections} />
+      </div>
     </>
   );
 }
