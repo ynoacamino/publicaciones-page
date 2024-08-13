@@ -23,23 +23,22 @@ export default function AddArticle() {
   const router = useRouter();
 
   const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+  const [author, setAuthor] = useState('CMSALINASV');
   const [img, setImg] = useState(null);
   const [preview, setPreview] = useState('');
   const [titleBody, setTitleBody] = useState('');
   const [bodyTxt, setBodyTxt] = useState('');
   const [date, setDate] = useState('');
   const [link, setLink] = useState('');
-  const [authorName, setAuthorName] = useState('Miguel Salinas Vargas');
-  const [authorPosition, setAuthorPosition] = useState('Abogado');
-  const [authorFacebook, setAuthorFacebook] = useState('https://www.facebook.com/migu.3110567');
+  // const [authorName, setAuthorName] = useState('Miguel Salinas Vargas');
+  // const [authorPosition, setAuthorPosition] = useState('Abogado');
+  // const [authorFacebook, setAuthorFacebook] = useState('https://www.facebook.com/migu.3110567');
 
   const [seccion, setSeccion] = useState('');
   const [seccionText, setSeccionText] = useState('');
 
   const [file, setFile] = useState(null);
   const [video, setVideo] = useState(null);
-  const [authorImgFile, setAuthorImgFile] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -63,10 +62,6 @@ export default function AddArticle() {
     formVideo.append('file', video);
     formVideo.append('upload_preset', 'images');
 
-    const formAuthorImgFile = new FormData();
-    formAuthorImgFile.append('file', authorImgFile);
-    formAuthorImgFile.append('upload_preset', 'images');
-
     const formData = new FormData();
     formData.append('title', title);
     formData.append('author', author);
@@ -76,9 +71,9 @@ export default function AddArticle() {
     formData.append('body', bodyTxt);
     formData.append('date', date);
     formData.append('link', link);
-    formData.append('authorName', authorName);
-    formData.append('authorPosition', authorPosition);
-    formData.append('authorFacebook', authorFacebook);
+    // formData.append('authorName', authorName);
+    // formData.append('authorPosition', authorPosition);
+    // formData.append('authorFacebook', authorFacebook);
 
     if (img) {
       try {
@@ -121,21 +116,6 @@ export default function AddArticle() {
         );
         const fileVideo = await res.json();
         formData.append('videoUrl', fileVideo.secure_url);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    if (authorImgFile) {
-      try {
-        const res = await fetch(
-          'https://api.cloudinary.com/v1_1/dux0sb99g/upload',
-          {
-            method: 'POST',
-            body: formAuthorImgFile,
-          },
-        );
-        const fileImgFile = await res.json();
-        formData.append('authorImg', fileImgFile.secure_url);
       } catch (err) {
         console.error(err);
       }
@@ -190,17 +170,17 @@ export default function AddArticle() {
           }}
         />
         <div className="my-10" />
-        <h2 className="text-2xl font-semibold">
+        {/* <h2 className="text-2xl font-semibold">
           Autor
-        </h2>
-        <Textarea
-          variant="bordered"
+        </h2> */}
+        <input
           labelPlacement="outside"
           placeholder="Autor"
           className="max-w-3xl"
           value={author}
           onValueChange={setAuthor}
           isRequired
+          type="hidden"
         />
         <div className="my-10" />
         <h2 className="text-2xl font-semibold">
@@ -307,7 +287,7 @@ export default function AddArticle() {
             setVideo(e.target.files[0]);
           }}
         />
-        <Divider className="my-12" />
+        {/* <Divider className="my-12" />
         <h1 className="text-3xl font-bold">
           Informacion lateral
         </h1>
@@ -316,57 +296,57 @@ export default function AddArticle() {
         <h2 className="text-2xl font-semibold">
           Nombre del autor
         </h2>
-        <Textarea
-          variant="bordered"
+        <input
           labelPlacement="outside"
           placeholder="Miguel Salinas Vargas"
           className="max-w-3xl"
           value={authorName}
           onValueChange={setAuthorName}
+          type="hidden"
           isRequired
-        />
+        /> */}
 
-        <Divider className="my-12" />
+        {/* <Divider className="my-12" />
         <h2 className="text-2xl font-semibold">
           Titulo del autor
-        </h2>
-        <Textarea
-          variant="bordered"
+        </h2> */}
+        {/* <input
+          type="hidden"
           labelPlacement="outside"
           placeholder="Abogado"
           className="max-w-3xl"
           value={authorPosition}
           onValueChange={setAuthorPosition}
           isRequired
-        />
+        /> */}
 
-        <Divider className="my-12" />
+        {/* <Divider className="my-12" />
         <h2 className="text-2xl font-semibold">
           Link de facebook del autor
-        </h2>
-        <Textarea
-          variant="bordered"
+        </h2> */}
+        {/* <input
+          type="hidden"
           labelPlacement="outside"
           placeholder="https://www.facebook.com/migu.3110567"
           className="max-w-3xl"
           value={authorFacebook}
           onValueChange={setAuthorFacebook}
           isRequired
-        />
+        /> */}
 
-        <Divider className="my-12" />
+        {/* <Divider className="my-12" />
         <h2 className="text-2xl font-semibold">
           Imagen de perfil del autor
         </h2>
         <h3>
           *POR DEFECTO SE USARA LA IMAGEN DE PERFIL DE MIGUEL SALINAS VARGAS
-        </h3>
-        <input
+        </h3> */}
+        {/* <input
           type="file"
           onChange={(e) => {
             setAuthorImgFile(e.target.files[0]);
           }}
-        />
+        /> */}
 
         <div className="my-10" />
 
@@ -379,9 +359,6 @@ export default function AddArticle() {
           seccion={seccion}
           title={title}
           titleBody={titleBody}
-          autorFacebook={authorFacebook}
-          autorName={authorName}
-          autorPosition={authorPosition}
         />
 
         <div className="my-10" />

@@ -45,12 +45,10 @@ export async function POST(req) {
     link: form.get('link'),
     videoUrl: form.get('videoUrl'),
     authorImg: '/gold.svg',
-    authorName: form.get('authorName'),
-    authorPosition: form.get('authorPosition'),
-    authorFacebook: form.get('authorFacebook'),
+    authorName: 'Miguel Salinas Vargas',
+    authorPosition: 'Abogado',
+    authorFacebook: 'https://www.facebook.com/migu.3110567',
   });
-  if (form.get('imgSrc')) article.imgSrc = form.get('imgSrc');
-  if (form.get('authorImg')) article.authorImg = form.get('authorImg');
 
   try {
     article.save();
@@ -108,10 +106,11 @@ export async function PUT(req) {
   article.link = form.get('link');
 
   if (form.get('videoUrl')) article.videoUrl = form.get('videoUrl');
-  if (form.get('authorImg')) article.authorImg = form.get('authorImg');
-  article.authorName = form.get('authorName');
-  article.authorPosition = form.get('authorPosition');
-  article.authorFacebook = form.get('authorFacebook');
+
+  article.authorImg = '/gold.svg';
+  article.authorName = 'Miguel Salinas Vargas';
+  article.authorPosition = 'Abogado';
+  article.authorFacebook = 'https://www.facebook.com/migu.3110567';
 
   try {
     await article.save();
