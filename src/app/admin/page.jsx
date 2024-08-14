@@ -90,14 +90,14 @@ export default function Admin() {
                 <ButtonLink color="warning" path={`/admin/edit/${art._id.toString()}`}>
                   Editar
                 </ButtonLink>
-                <Button color="danger" onPress={() => deleteArticle(art._id.toString())}>
+                <Button color="danger" onClick={() => deleteArticle(art._id.toString())}>
                   Borrar
                 </Button>
               </div>
             </div>
           ))}
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-16 justify-around w-full max-w-7xl">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-16 justify-around w-full max-w-7xl mt-16">
           {jurisprudencia.map((art) => (
             <div key={art._id.toString()} className="flex flex-col gap-4 items-start">
               <span>
@@ -116,10 +116,10 @@ export default function Admin() {
                 pdfSrc={art.pdfSrc}
               />
               <div className="flex justify-end items-center gap-4">
-                <ButtonLink color="warning" path={`/admin/edit/${art._id.toString()}`}>
+                <ButtonLink path={`/admin/edit/${art._id.toString()}`}>
                   Editar
                 </ButtonLink>
-                <Button color="danger" onPress={() => deleteArticle(art._id.toString())}>
+                <Button onClick={() => deleteArticle(art._id.toString())}>
                   Borrar
                 </Button>
               </div>
@@ -128,7 +128,7 @@ export default function Admin() {
         </div>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <Button onPress={() => signOut()}>
+        <Button onClick={() => signOut()}>
           Cerrar sesion
         </Button>
       </div>
