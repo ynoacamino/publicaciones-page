@@ -436,7 +436,7 @@ export default function EditArticle({ params }) {
         <div className="my-10" />
 
         <div className="w-full flex justify-end items-center my-10">
-          <Button type="submit" isLoading={loading}>
+          <Button type="submit" disabled={loading}>
             Guardar
           </Button>
         </div>

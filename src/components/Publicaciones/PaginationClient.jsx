@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { PaginationItem } from '@nextui-org/react';
+
 import {
   Pagination,
   PaginationContent,
@@ -9,6 +9,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationItem,
 } from '@/components/ui/pagination';
 
 export default function PaginationClient({ pages, params }) {
