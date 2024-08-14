@@ -141,12 +141,10 @@ export default function AddArticle() {
           Titulo
         </h2>
         <Textarea
-          variant="bordered"
-          labelPlacement="outside"
           placeholder="Titulo"
           className="max-w-3xl"
           value={title}
-          onValueChange={setTitle}
+          onChange={(e) => setTitle(e.target.value)}
           isRequired
         />
         <div className="my-10" />
@@ -225,7 +223,7 @@ export default function AddArticle() {
           placeholder="Preview"
           className="max-w-3xl"
           value={preview}
-          onValueChange={setPreview}
+          onChange={(e) => setPreview(e.target.value)}
           isRequired
         />
         <div className="my-10" />
@@ -238,7 +236,7 @@ export default function AddArticle() {
           placeholder="Titulo del contenido"
           className="max-w-3xl"
           value={titleBody}
-          onValueChange={setTitleBody}
+          onChange={(e) => setTitleBody(e.target.value)}
           isRequired
         />
         <div className="my-10" />
@@ -262,7 +260,7 @@ export default function AddArticle() {
           placeholder="Fecha"
           className="max-w-3xl"
           value={date}
-          onValueChange={setDate}
+          onChange={(e) => setDate(e.target.value)}
           isRequired
         />
         <Divider className="my-12" />
@@ -275,7 +273,7 @@ export default function AddArticle() {
           placeholder="Fecha"
           className="max-w-3xl"
           value={link}
-          onValueChange={setLink}
+          onChange={(e) => setLink(e.target.value)}
         />
         <Divider className="my-12" />
         <h2 className="text-2xl font-semibold">
