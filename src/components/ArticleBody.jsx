@@ -20,22 +20,22 @@ export default function ArticleBody({
     {
       icon: facebookIcon,
       name: 'Facebook',
-      url: `https://www.facebook.com/sharer/sharer.php?u=https://miguelsalinasjuridico.com/publicaciones/${seccion.toLowerCase()}/${path}/&src=sdkpreparse`,
+      url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://miguelsalinasjuridico.com/publicaciones/${seccion.toLowerCase()}/${path}/`)}&src=sdkpreparse`,
     },
     {
       icon: whatsappIcon,
       name: 'Whatsapp',
-      url: `https://wa.me/?text=https://miguelsalinasjuridico.com/publicaciones/${seccion.toLowerCase()}/${path}/`,
+      url: `https://wa.me/?text=${encodeURIComponent(`https://miguelsalinasjuridico.com/publicaciones/${seccion.toLowerCase()}/${path}/`)}`,
     },
     {
       icon: telegramIcon,
       name: 'Telegram',
-      url: `https://t.me/share/url?url=https://miguelsalinasjuridico.com/publicaciones/${seccion.toLowerCase()}/${path}/`,
+      url: `https://t.me/share/url?url=${encodeURIComponent(`https://miguelsalinasjuridico.com/publicaciones/${seccion.toLowerCase()}/${path}/`)}`,
     },
     {
       icon: xIcon,
       name: 'X',
-      url: `https://twitter.com/intent/tweet?text=https://miguelsalinasjuridico.com/publicaciones/${seccion.toLowerCase()}/${path}/`,
+      url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`https://miguelsalinasjuridico.com/publicaciones/${seccion.toLowerCase()}/${path}/`)}`,
     },
   ];
 
