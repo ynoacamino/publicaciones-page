@@ -14,7 +14,7 @@ export default function About() {
         teniendo como referencia el análisis de la jurisprudencia nacional
       </p>
       <img
-        src="/logo.svg"
+        src="/logo.png"
         alt="logo"
         width="200"
         height="200"

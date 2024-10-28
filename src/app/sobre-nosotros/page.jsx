@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import bg from '@/app/assets/bg.jpg';
 
 export const metadata = {
   title: 'Sobre nosotros',
@@ -9,7 +8,7 @@ export default function SobreNosotros() {
   return (
     <div className="w-full flex relative overflow-hidden justify-center min-h-[66vh]">
       <Image
-        src={bg}
+        src="/bg.jpeg"
         alt="empresa"
         width={1080}
         height={1920}
@@ -21,7 +20,7 @@ export default function SobreNosotros() {
             Comprometidos con el desarrollo del derecho, en busca de la especialización
           </p>
           <Image
-            src={bg}
+            src="/bg.jpeg"
             alt="empresa"
             width={500}
             height={500}

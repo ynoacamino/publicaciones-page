@@ -44,7 +44,7 @@ export async function POST(req) {
     pdfSrc: form.get('pdfSrc'),
     link: form.get('link'),
     videoUrl: form.get('videoUrl'),
-    authorImg: '/gold.svg',
+    authorImg: '/logo.svg',
     authorName: 'Miguel Salinas Vargas',
     authorPosition: 'Abogado',
     authorFacebook: 'https://www.facebook.com/migu.3110567',
@@ -107,7 +107,7 @@ export async function PUT(req) {
 
   if (form.get('videoUrl')) article.videoUrl = form.get('videoUrl');
 
-  article.authorImg = '/gold.svg';
+  article.authorImg = '/logo.svg';
   article.authorName = 'Miguel Salinas Vargas';
   article.authorPosition = 'Abogado';
   article.authorFacebook = 'https://www.facebook.com/migu.3110567';

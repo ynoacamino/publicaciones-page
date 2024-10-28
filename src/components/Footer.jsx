@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import goldLogo from '@/app/assets/gold.svg';
 
 const paths = [
   {
@@ -35,7 +34,7 @@ export default function Footer() {
         DÍA A DÍA, PREPAREMONOS.
       </div>
       <Image
-        src={goldLogo}
+        src="/logo.png"
         alt="logo"
         width={120}
         height={120}

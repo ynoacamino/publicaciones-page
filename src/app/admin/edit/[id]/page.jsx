@@ -425,7 +425,7 @@ export default function EditArticle({ params }) {
         <ArticleBody
           link={link}
           body={bodyTxt}
-          imgSrc="/bg.jpg"
+          imgSrc="/bg.jpeg"
           pdfSrc="/"
           preview={preview}
           seccion={seccion}
