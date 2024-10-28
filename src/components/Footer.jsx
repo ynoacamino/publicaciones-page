@@ -27,7 +27,7 @@ const paths = [
 export default function Footer() {
   return (
     <footer
-      className="w-full flex flex-col gap-8 items-center justify-start py-16 px-6 border-t-2 border-t-zinc-500/30"
+      className="relative w-full flex flex-col gap-8 items-center justify-start py-16 px-6 border-t-2 border-t-zinc-500/30"
     >
       <div className="text-3xl uppercase font-bold text-center w-full max-w-lg">
         EL DERECHO SE TRANSFORMA
@@ -49,6 +49,7 @@ export default function Footer() {
           ))
         }
       </nav>
+      <Link href="/api/auth/signin" className="absolute bottom-0 right-0 w-8 h-8 bg-zinc-200 rounded-md hover:bg-zinc-300 transition-all" />
     </footer>
   );
 }
