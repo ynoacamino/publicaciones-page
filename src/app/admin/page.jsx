@@ -66,7 +66,7 @@ export default function Admin() {
         </Button>
       </Link>
       <Divider />
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center w-full">
         <h2 className="text-3xl my-5 text-center">
           Editar o eliminar una publicacion
         </h2>
