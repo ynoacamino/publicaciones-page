@@ -28,7 +28,7 @@ export const metadata = {
   },
   icons: {
     icon: '/favicon.ico',
-    shortcut: '/logo.svg',
+    shortcut: '/logo.png',
   },
   openGraph: {
     images: ['https://res.cloudinary.com/dazt6g3o1/image/upload/v1723512351/nau2wsii0ljzyc23ykds.png'],

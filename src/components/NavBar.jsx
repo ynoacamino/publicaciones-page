@@ -13,7 +13,7 @@ export default function NavBar() {
   return (
     <header className="flex w-full justify-between px-4 shadow-md sticky top-0 bg-one z-20 backdrop-blur-lg h-[70px] bg-background" id="header">
       <Link href="/" className="flex items-center justify-center">
-        <img src="/logo.svg" alt="Home" className="w-14 h-14" />
+        <img src="/logo.png" alt="Home" className="w-14 h-14" />
       </Link>
       <nav id="navBarH" className="lg:flex items-center justify-center gap-4 text-lg hidden py-5">
         <SearchModal />
