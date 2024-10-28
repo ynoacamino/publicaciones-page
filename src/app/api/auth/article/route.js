@@ -32,7 +32,7 @@ export async function POST(req) {
   }
 
   const article = new Article({
-    imgSrc: 'https://res.cloudinary.com/dux0sb99g/image/upload/v1698768957/whwq8givatdsdt9gylew.png',
+    imgSrc: 'https://res.cloudinary.com/dux0sb99g/image/upload/v1730084784/images/oqux7ogo4eybknrdqkwr.jpg',
     title: form.get('title'),
     author: form.get('author'),
     seccion: form.get('seccion'),
@@ -49,6 +49,10 @@ export async function POST(req) {
     authorPosition: 'Abogado',
     authorFacebook: 'https://www.facebook.com/migu.3110567',
   });
+
+  if (form.get('imgSrc')) {
+    article.imgSrc = form.get('imgSrc');
+  }
 
   try {
     article.save();
