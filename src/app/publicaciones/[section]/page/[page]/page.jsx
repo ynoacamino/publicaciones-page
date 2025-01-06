@@ -15,7 +15,6 @@ const getData = async (pageNumber, section) => {
       .skip((Number(pageNumber) - 1) * 6)
       .limit(6);
 
-    console.log(articles);
     return articles;
   } catch (err) {
     console.error(err);
