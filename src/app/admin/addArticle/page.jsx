@@ -1,7 +1,6 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -15,15 +14,15 @@ import { Button } from '@/components/ui/button';
 import Divider from '@/components/ui/divider';
 import { Input } from '@/components/ui/input';
 import ArticleBody from '@/components/ArticleBody';
+import { getSections } from '@/lib/querys';
 
 const Jodit = dynamic(() => import('../../../components/Jodit'), { ssr: false });
 
 export default function AddArticle() {
-  const { status } = useSession();
   const router = useRouter();
 
   const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('CMSALINASV');
+  const [author] = useState('CMSALINASV');
   const [img, setImg] = useState(null);
   const [preview, setPreview] = useState('');
   const [titleBody, setTitleBody] = useState('');
@@ -42,9 +41,11 @@ export default function AddArticle() {
 
   const [loading, setLoading] = useState(false);
 
+  const [sections, setSections] = useState([]);
+
   useEffect(() => {
-    if (status === 'unauthenticated') router.push('/');
-  }, [status, router]);
+    getSections().then((data) => setSections(data));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -131,6 +132,7 @@ export default function AddArticle() {
       toast.error('Error al subir los datos');
     }
   };
+
   return (
     <div className="w-full flex justify-center py-20">
       <form className="w-11/12 lg:w-6/12" onSubmit={handleSubmit}>
@@ -145,7 +147,7 @@ export default function AddArticle() {
           className="max-w-3xl"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          isRequired
+          required
         />
         <div className="my-10" />
         <h2 className="text-2xl font-semibold">
@@ -172,12 +174,10 @@ export default function AddArticle() {
           Autor
         </h2> */}
         <input
-          labelPlacement="outside"
           placeholder="Autor"
           className="max-w-3xl"
           value={author}
-          onValueChange={setAuthor}
-          isRequired
+          required
           type="hidden"
         />
         <div className="my-10" />
@@ -190,18 +190,19 @@ export default function AddArticle() {
           onValueChange={setSeccion}
           value={seccion}
           disabled={seccionText.length > 0}
-          isRequired
+          required
         >
           <SelectTrigger>
             <SelectValue placeholder="Seccion" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="jurisprudencia">
-              Jurisprudencia
-            </SelectItem>
-            <SelectItem value="boletin">
-              Boletines
-            </SelectItem>
+            {
+              sections.map((section) => (
+                <SelectItem key={section.name} value={section.name}>
+                  {section.name}
+                </SelectItem>
+              ))
+            }
           </SelectContent>
         </Select>
         <span>
@@ -219,12 +220,11 @@ export default function AddArticle() {
         </h2>
         <Textarea
           variant="bordered"
-          labelPlacement="outside"
           placeholder="Preview"
           className="max-w-3xl"
           value={preview}
           onChange={(e) => setPreview(e.target.value)}
-          isRequired
+          required
         />
         <div className="my-10" />
         <h2 className="text-2xl font-semibold">
@@ -232,12 +232,11 @@ export default function AddArticle() {
         </h2>
         <Textarea
           variant="bordered"
-          labelPlacement="outside"
           placeholder="Titulo del contenido"
           className="max-w-3xl"
           value={titleBody}
           onChange={(e) => setTitleBody(e.target.value)}
-          isRequired
+          required
         />
         <div className="my-10" />
         <h2 className="text-2xl font-semibold">
@@ -256,12 +255,11 @@ export default function AddArticle() {
         </h2>
         <Textarea
           variant="bordered"
-          labelPlacement="outside"
           placeholder="Fecha"
           className="max-w-3xl"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          isRequired
+          required
         />
         <Divider className="my-12" />
         <h2 className="text-2xl font-semibold">
@@ -269,7 +267,6 @@ export default function AddArticle() {
         </h2>
         <Textarea
           variant="bordered"
-          labelPlacement="outside"
           placeholder="Fecha"
           className="max-w-3xl"
           value={link}
@@ -295,13 +292,12 @@ export default function AddArticle() {
           Nombre del autor
         </h2>
         <input
-          labelPlacement="outside"
           placeholder="Miguel Salinas Vargas"
           className="max-w-3xl"
           value={authorName}
           onValueChange={setAuthorName}
           type="hidden"
-          isRequired
+          required
         /> */}
 
         {/* <Divider className="my-12" />
@@ -310,12 +306,11 @@ export default function AddArticle() {
         </h2> */}
         {/* <input
           type="hidden"
-          labelPlacement="outside"
           placeholder="Abogado"
           className="max-w-3xl"
           value={authorPosition}
           onValueChange={setAuthorPosition}
-          isRequired
+          required
         /> */}
 
         {/* <Divider className="my-12" />
@@ -324,12 +319,11 @@ export default function AddArticle() {
         </h2> */}
         {/* <input
           type="hidden"
-          labelPlacement="outside"
           placeholder="https://www.facebook.com/migu.3110567"
           className="max-w-3xl"
           value={authorFacebook}
           onValueChange={setAuthorFacebook}
-          isRequired
+          required
         /> */}
 
         {/* <Divider className="my-12" />

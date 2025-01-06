@@ -18,6 +18,7 @@ import { Textarea } from '@/components/ui/textarea';
 import Jodit from '@/components/Jodit';
 import { Input } from '@/components/ui/input';
 import ArticleBody from '@/components/ArticleBody';
+import { getSections } from '@/lib/querys';
 
 export default function EditArticle({ params }) {
   const [title, setTitle] = useState('');
@@ -48,7 +49,10 @@ export default function EditArticle({ params }) {
 
   const router = useRouter();
 
+  const [sections, setSections] = useState([]);
+
   useEffect(() => {
+    getSections().then((data) => setSections(data));
     const getData = async () => {
       let art;
       try {
@@ -229,18 +233,6 @@ export default function EditArticle({ params }) {
           }}
         />
         <div className="my-10" />
-        <h2 className="text-2xl font-semibold">
-          Autor
-        </h2>
-        <Textarea
-          variant="bordered"
-          labelPlacement="outside"
-          placeholder="Autor"
-          className="max-w-3xl"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-          isRequired
-        />
         <div className="my-10" />
         <h2 className="text-2xl font-semibold">
           Seccion
@@ -257,12 +249,13 @@ export default function EditArticle({ params }) {
             <SelectValue placeholder="Seccion" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="jurisprudencia">
-              Jurisprudencia
-            </SelectItem>
-            <SelectItem value="boletin">
-              Boletines
-            </SelectItem>
+            {
+              sections.map((section) => (
+                <SelectItem key={section.name} value={section.name}>
+                  {section.name}
+                </SelectItem>
+              ))
+            }
           </SelectContent>
         </Select>
         <span>

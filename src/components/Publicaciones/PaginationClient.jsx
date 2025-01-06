@@ -22,7 +22,21 @@ export default function PaginationClient({ pages, params }) {
             <PaginationPrevious href={`${path.slice(0, path)}${Number(params.page) - 1}`} />
           </PaginationItem>
           {
-            Array
+            pages <= 3 && Array
+              .from({ length: Number(pages) })
+              .map((_, i) => (
+                <PaginationItem key={crypto.randomUUID()}>
+                  <PaginationLink
+                    href={`${path.slice(0, path)}${i + 1}`}
+                    isActive={i === Number(params.page) - 1}
+                  >
+                    {i + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))
+          }
+          {
+            pages > 3 && Array
               .from({ length: Number(3) })
               .map((_, i) => {
                 if (Number(params.page) <= 3) return i;

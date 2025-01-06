@@ -4,13 +4,18 @@ import dbConnect from '@/db/dbConnect';
 import Article from '@/db/models/Article';
 import { upperFirst } from '@/lib/utils';
 
+export const revalidate = 0;
+
 const getData = async (pageNumber, section) => {
   try {
     dbConnect();
+
     const articles = await Article.find({ seccion: new RegExp(section, 'i') })
       .sort({ createdAt: -1 })
       .skip((Number(pageNumber) - 1) * 6)
       .limit(6);
+
+    console.log(articles);
     return articles;
   } catch (err) {
     console.error(err);
@@ -19,6 +24,7 @@ const getData = async (pageNumber, section) => {
 };
 
 export default async function Jurisprudencia({ params }) {
+  params.section = decodeURIComponent(params.section);
   const data = await getData(params.page, params.section);
   return (
     <>
