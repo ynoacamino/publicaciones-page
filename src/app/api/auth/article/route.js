@@ -88,6 +88,10 @@ export async function PUT(req) {
 
   const sectionInput = form.get('seccion');
 
+  if (sectionInput === '') {
+    return NextResponse.error();
+  }
+
   const section = await Section.findOne({ name: sectionInput });
 
   if (!section) {
