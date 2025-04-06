@@ -51,6 +51,11 @@ export default function AddArticle() {
     e.preventDefault();
     setLoading(true);
 
+    if (seccionText.length === 0 || seccion === '') {
+      toast.error('La seccion no puede estar vacia');
+      return;
+    }
+
     const formImg = new FormData();
     formImg.append('file', img);
     formImg.append('upload_preset', 'images');

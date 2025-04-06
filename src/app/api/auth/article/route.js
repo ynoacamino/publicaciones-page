@@ -17,6 +17,10 @@ export async function POST(req) {
 
   const sectionInput = form.get('seccion');
 
+  if (!sectionInput || sectionInput === '') {
+    return NextResponse.error();
+  }
+
   const section = await Section.findOne({ name: sectionInput });
 
   if (!section) {
@@ -32,7 +36,8 @@ export async function POST(req) {
   }
 
   const article = new Article({
-    imgSrc: 'https://res.cloudinary.com/dux0sb99g/image/upload/v1730084784/images/oqux7ogo4eybknrdqkwr.jpg',
+    imgSrc:
+      'https://res.cloudinary.com/dux0sb99g/image/upload/v1730084784/images/oqux7ogo4eybknrdqkwr.jpg',
     title: form.get('title'),
     author: form.get('author'),
     seccion: form.get('seccion'),
