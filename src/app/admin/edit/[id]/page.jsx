@@ -52,8 +52,16 @@ export default function EditArticle({ params }) {
   const [sections, setSections] = useState([]);
 
   useEffect(() => {
-    getSections().then((data) => setSections(data));
+    console.log(sections);
+  }, [sections]);
+
+  useEffect(() => {
+    console.log('sec2', seccion);
+  }, [seccion]);
+
+  useEffect(() => {
     const getData = async () => {
+      getSections().then((data) => setSections(data));
       let art;
       try {
         art = await axios.get('/api/auth/idArticle', {
@@ -69,6 +77,7 @@ export default function EditArticle({ params }) {
           setTitle(art.data.article.title);
           setAuthor(art.data.article.author);
           setSeccion(art.data.article.seccion);
+          console.log('sec', art.data.article.seccion);
           setPreview(art.data.article.preview);
           setTitleBody(art.data?.article?.titleBody);
           setBodyTxt(art.data.article.body);
@@ -84,8 +93,9 @@ export default function EditArticle({ params }) {
         }
       }
     };
-    getData();
-    setLoadingGet(false);
+    getData().finally(() => {
+      setLoadingGet(false);
+    });
   }, [params.id]);
 
   const handleSubmit = async (e) => {
@@ -194,12 +204,11 @@ export default function EditArticle({ params }) {
         </h2>
         <Textarea
           variant="bordered"
-          labelPlacement="outside"
           placeholder="Titulo"
           className="max-w-3xl"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          isRequired
+          required
         />
         <div className="my-10" />
         <h2 className="text-2xl font-semibold">
@@ -241,9 +250,8 @@ export default function EditArticle({ params }) {
           label="Select"
           className="max-w-xs"
           onValueChange={setSeccion}
-          value={seccion}
+          defaultValue={seccion}
           disabled={seccionText.length > 0}
-          isRequired
         >
           <SelectTrigger>
             <SelectValue placeholder="Seccion" />
@@ -273,12 +281,11 @@ export default function EditArticle({ params }) {
         </h2>
         <Textarea
           variant="bordered"
-          labelPlacement="outside"
           placeholder="Preview"
           className="max-w-3xl"
           value={preview}
           onChange={(e) => setPreview(e.target.value)}
-          isRequired
+          required
         />
         <div className="my-10" />
         <h2 className="text-2xl font-semibold">
@@ -286,12 +293,11 @@ export default function EditArticle({ params }) {
         </h2>
         <Textarea
           variant="bordered"
-          labelPlacement="outside"
           placeholder="Titulo del contenido"
           className="max-w-3xl"
           value={titleBody}
           onChange={(e) => setTitleBody(e.target.value)}
-          isRequired
+          required
         />
         <div className="my-10" />
         <h2 className="text-2xl font-semibold">
@@ -310,12 +316,11 @@ export default function EditArticle({ params }) {
         </h2>
         <Textarea
           variant="bordered"
-          labelPlacement="outside"
           placeholder="Fecha"
           className="max-w-3xl"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          isRequired
+          required
         />
         <div className="my-12" />
         <h2 className="text-2xl font-semibold">
@@ -323,7 +328,6 @@ export default function EditArticle({ params }) {
         </h2>
         <Textarea
           variant="bordered"
-          labelPlacement="outside"
           placeholder="Fecha"
           className="max-w-3xl"
           value={link}
