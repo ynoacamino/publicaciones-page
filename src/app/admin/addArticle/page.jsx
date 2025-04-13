@@ -51,7 +51,8 @@ export default function AddArticle() {
     e.preventDefault();
     setLoading(true);
 
-    if (seccionText.length === 0 || seccion === '') {
+    if (seccionText.length === 0 && seccion === '') {
+      console.log({ seccionText, seccion });
       toast.error('La seccion no puede estar vacia');
       return;
     }
@@ -198,7 +199,7 @@ export default function AddArticle() {
           required
         >
           <SelectTrigger>
-            <SelectValue placeholder="Seccion" />
+            <SelectValue placeholder="Elige una seccion" />
           </SelectTrigger>
           <SelectContent>
             {

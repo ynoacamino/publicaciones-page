@@ -254,7 +254,7 @@ export default function EditArticle({ params }) {
           disabled={seccionText.length > 0}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Seccion" />
+            <SelectValue placeholder="Elige una seccion" />
           </SelectTrigger>
           <SelectContent>
             {
