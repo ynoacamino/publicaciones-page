@@ -1,0 +1,16 @@
+{
+  "name": "migrate-script",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "pocketbase": "^0.25.2"
+  }
+}
