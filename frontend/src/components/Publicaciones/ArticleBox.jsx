@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { format } from '@formkit/tempo';
 import { Button } from '@/components/ui/button';
 import archivoPdf from '@/app/assets/archivo-pdf.svg';
 import ShareButton from '../ui/shareButton';
@@ -35,7 +36,7 @@ export default function ArticleBox({
       <p className="text-sm my-2 flex items-center justify-between w-full">
         <span />
         <span>
-          {date}
+          {format(date, 'long', 'es')}
         </span>
       </p>
       <footer className="flex gap-4 justify-end items-center w-full">

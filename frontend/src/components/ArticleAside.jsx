@@ -1,23 +1,9 @@
 import Link from 'next/link';
 import { upperFirst } from '@/lib/utils';
-import dbConnect from '@/db/dbConnect';
-import Article from '@/db/models/Article';
-
-const getData = async () => {
-  await dbConnect();
-
-  const articles = await Article.find().sort({ createdAt: -1 }).limit(6);
-
-  return articles.map((article) => ({
-    seccion: article.seccion,
-    title: article.title,
-    path: article.path,
-    imgSrc: article.imgSrc,
-  }));
-};
+import api from '@/lib/api';
 
 export default async function ArticleAside() {
-  const data = await getData();
+  const data = await api.getLastPublicaciones(6);
 
   return (
     <aside className="w-full flex flex-col gap-16 justify-start items-start ">

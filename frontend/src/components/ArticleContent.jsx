@@ -10,7 +10,7 @@ export default function ArticleContent({
   link,
   titleBody,
   body,
-  pdfSrc,
+  pdfs,
   videoUrl,
   autorName,
   autorImg,
@@ -54,7 +54,7 @@ export default function ArticleContent({
           autorName={autorName}
           autorPosition={autorPosition}
           body={body}
-          pdfSrc={pdfSrc}
+          pdfs={pdfs}
           path={path}
           seccion={seccion}
           titleBody={titleBody}

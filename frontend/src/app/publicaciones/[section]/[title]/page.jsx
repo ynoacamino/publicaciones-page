@@ -1,20 +1,8 @@
-import dbConnect from '@/db/dbConnect';
-import Article from '@/db/models/Article';
 import ArticleContent from '@/components/ArticleContent';
-
-const getData = async (path) => {
-  await dbConnect();
-  let article;
-  try {
-    article = await Article.findOne({ path });
-  } catch (err) {
-    console.error(err.message);
-  }
-  return article;
-};
+import api from '@/lib/api';
 
 export async function generateMetadata({ params }) {
-  const data = await getData(params.title);
+  const data = await api.getPublication(params.title);
   return {
     title: data.title,
     description: data.preview,
@@ -27,13 +15,13 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Title({ params }) {
-  const data = await getData(params.title);
+  const data = await api.getPublication(params.title);
   return (
     <ArticleContent
       body={data.body}
       imgSrc={data.imgSrc}
       link={data.link}
-      pdfSrc={data.pdfSrc}
+      pdfs={data.pdfs}
       preview={data.preview}
       seccion={data.seccion}
       title={data.title}

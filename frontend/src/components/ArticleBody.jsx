@@ -12,7 +12,7 @@ import xIcon from '@/app/assets/x.png';
 export default function ArticleBody({
   titleBody,
   body,
-  pdfSrc,
+  pdfs,
   path,
   seccion,
 }) {
@@ -46,24 +46,34 @@ export default function ArticleBody({
       </h2>
       <div className="joditBox articleJoditBox" dangerouslySetInnerHTML={{ __html: body }} />
       <footer className="flex flex-col gap-2 font-bold ">
-        <span>
-          Para revisar la resolución completa:
-        </span>
-        {pdfSrc && (
-        <div className="w-full flex justify-start items-center text-lg">
-          <Link href={pdfSrc} target="_blank">
-            <Button className="flex gap-3" variant="destructive">
-              <Image
-                src={archivoPdf}
-                alt="pdf"
-                width={25}
-                height={25}
-                className="invert"
-              />
-              PDF
-            </Button>
-          </Link>
-        </div>
+        {pdfs.length > 0 && (
+          <>
+            <span>
+              Para revisar la resolución completa:
+            </span>
+            <div className="w-full flex justify-start items-center text-lg">
+              {
+                pdfs.map((pdf) => (
+                  <Link
+                    href={pdf}
+                    target="_blank"
+                    key={pdf}
+                  >
+                    <Button className="flex gap-3" variant="destructive">
+                      <Image
+                        src={archivoPdf}
+                        alt="pdf"
+                        width={25}
+                        height={25}
+                        className="invert"
+                      />
+                      PDF
+                    </Button>
+                  </Link>
+                ))
+              }
+            </div>
+          </>
         )}
         <span>
           Comparte este articulo en:

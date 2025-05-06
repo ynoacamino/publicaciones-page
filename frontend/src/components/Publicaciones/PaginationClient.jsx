@@ -18,9 +18,13 @@ export default function PaginationClient({ pages, params }) {
     <div className="w-full flex justify-center items-center my-4">
       <Pagination>
         <PaginationContent>
-          <PaginationItem isDisabled={Number(params.page) <= 1}>
-            <PaginationPrevious href={`${path.slice(0, path)}${Number(params.page) - 1}`} />
-          </PaginationItem>
+          {
+            Number(params.page) <= 1 ? null : (
+              <PaginationItem>
+                <PaginationPrevious href={`${path.slice(0, path)}${Number(params.page) - 1}`} />
+              </PaginationItem>
+            )
+          }
           {
             pages <= 3 && Array
               .from({ length: Number(pages) })
@@ -39,7 +43,7 @@ export default function PaginationClient({ pages, params }) {
             pages > 3 && Array
               .from({ length: Number(3) })
               .map((_, i) => {
-                if (Number(params.page) <= 3) return i;
+                if (Number(params.page) <= 2) return i;
                 if (Number(params.page) >= Number(pages) - 1) return Number(pages) - 3 + i;
                 return Number(params.page) - 2 + i;
               })
@@ -57,9 +61,13 @@ export default function PaginationClient({ pages, params }) {
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
-          <PaginationItem isDisabled={Number(params.page) >= Number(pages)}>
-            <PaginationNext href={`${path.slice(0, path)}${Number(params.page) + 1}`} />
-          </PaginationItem>
+          {
+            Number(params.page) >= Number(pages) ? null : (
+              <PaginationItem>
+                <PaginationNext href={`${path.slice(0, path)}${Number(params.page) + 1}`} />
+              </PaginationItem>
+            )
+          }
         </PaginationContent>
       </Pagination>
     </div>

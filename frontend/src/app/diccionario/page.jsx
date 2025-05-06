@@ -1,17 +1,8 @@
-import Diccionario from '@/db/models/Diccionario';
-import dbConnect from '@/db/dbConnect';
 import Letter from '@/components/pages/diccionario/Letter';
 import SearchWordModal from '@/components/pages/diccionario/SearchWordModal';
+import api from '@/lib/api';
 
 export const revalidate = 0;
-
-const getData = async () => {
-  await dbConnect();
-
-  const diccionarios = await Diccionario.find();
-
-  return diccionarios.map((d) => ({ word: d.word, description: d.description, id: d._id }));
-};
 
 export default async function DiccionarioPage() {
   const classifyAndShuffleWords = (diccionaio) => {
@@ -41,7 +32,7 @@ export default async function DiccionarioPage() {
     return result;
   };
 
-  const query = await getData();
+  const query = await api.getFullGlosarios();
 
   const data = classifyAndShuffleWords(query.sort((a, b) => a.word.localeCompare(b.word)));
 

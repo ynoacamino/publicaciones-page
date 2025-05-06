@@ -1,6 +1,5 @@
 import './globals.css';
 import 'react-toastify/dist/ReactToastify.css';
-import NextAuth from '@/components/providers/NextAuth';
 import Footer from '../components/Footer';
 import NavBar from '../components/NavBar';
 import { cn } from '@/lib/utils';
@@ -39,17 +38,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={cn('bg-background')}>
-        <NextAuth>
-          <ProgressBarProvider>
-            <div className="w-full flex flex-col justify-between h-full bg-background min-h-screen relative">
-              <NavBar />
-              <main className="w-full flex flex-col justify-start items-start flex-1">
-                {children}
-              </main>
-              <Footer />
-            </div>
-          </ProgressBarProvider>
-        </NextAuth>
+        <ProgressBarProvider>
+          <div className="w-full flex flex-col justify-between h-full bg-background min-h-screen relative">
+            <NavBar />
+            <main className="w-full flex flex-col justify-start items-start flex-1">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </ProgressBarProvider>
       </body>
     </html>
   );

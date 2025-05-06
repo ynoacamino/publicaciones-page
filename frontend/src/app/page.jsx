@@ -4,13 +4,15 @@ import RedBox from '../components/Inicio/RedBox';
 import Publicaciones from '../components/Inicio/Publicaciones';
 import About from '@/components/Inicio/About';
 
-export default function Home({ searchParams }) {
+export const revalidate = 0;
+
+export default function Home() {
   return (
     <>
       <Inicio />
       <RedBox />
       <About />
-      <Publicaciones searchParams={searchParams} />
+      <Publicaciones />
       <Especialidades />
     </>
   );

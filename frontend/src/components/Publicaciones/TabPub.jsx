@@ -37,7 +37,7 @@ export default function PublicationsTabs({ sections }) {
                         author={art.author}
                         title={art.title}
                         imgSrc={art.imgSrc}
-                        id={art._id.toString()}
+                        id={art.id}
                         seccion={art.seccion}
                         path={art.path}
                         pdfSrc={art.pdfSrc}

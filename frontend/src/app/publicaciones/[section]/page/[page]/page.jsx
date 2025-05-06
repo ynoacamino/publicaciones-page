@@ -1,30 +1,13 @@
 import ArticleBox from '@/components/Publicaciones/ArticleBox';
 import Carousel from '@/components/ui/carousel';
-import dbConnect from '@/db/dbConnect';
-import Article from '@/db/models/Article';
+import api from '@/lib/api';
 import { upperFirst } from '@/lib/utils';
 
 export const revalidate = 0;
 
-const getData = async (pageNumber, section) => {
-  try {
-    dbConnect();
-
-    const articles = await Article.find({ seccion: new RegExp(section, 'i') })
-      .sort({ createdAt: -1 })
-      .skip((Number(pageNumber) - 1) * 6)
-      .limit(6);
-
-    return articles;
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
-};
-
 export default async function Jurisprudencia({ params }) {
-  params.section = decodeURIComponent(params.section);
-  const data = await getData(params.page, params.section);
+  const decodeSection = decodeURIComponent(params.section);
+  const data = await api.getPaginationSections(Number(params.page), decodeSection);
   return (
     <>
       <Carousel articles={data} />
@@ -42,7 +25,7 @@ export default async function Jurisprudencia({ params }) {
               author={art.author}
               title={art.title}
               imgSrc={art.imgSrc}
-              id={art._id.toString()}
+              id={art.id}
               seccion={art.seccion}
               path={art.path}
               pdfSrc={art.pdfSrc}

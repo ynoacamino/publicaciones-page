@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { createAutocomplete } from '@algolia/autocomplete-core';
 import Link from 'next/link';
+import api from '@/lib/api';
 
 function AutocompleteItem({
   title, imgSrc, seccion, path,
@@ -33,14 +34,14 @@ export default function SearchBar() {
       {
         sourceId: 'offers-next-api',
         getItems: ({ query }) => {
-          if (query) return fetch(`/api/auth/article/search?q=${query}`).then((res) => res.json());
-          return [];
+          if (!query) return [];
+
+          return api.searchPublications(query);
         },
       },
     ],
   }), []);
 
-  // const formRef = useRef(null);
   const inputRef = useRef(null);
   const panelRef = useRef(null);
 
@@ -72,13 +73,14 @@ export default function SearchBar() {
             >
               {autocompleteState.collections.map((collection) => {
                 const { items } = collection;
+
                 return (
-                  <section key={crypto.randomUUID()} className="">
+                  <section key="searchBar" className="">
                     {
                       items.length > 0 && (
                         <ul {...autocomplete.getListProps} className="flex flex-col">
                           {
-                            items[0].results.map((item) => (
+                            items.map((item) => (
                               <AutocompleteItem
                                 key={item.title}
                                 title={item.title}
